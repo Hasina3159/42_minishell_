@@ -1,32 +1,34 @@
-NAME			=	minishell
+NAME        = minishell
 
-CC				=	cc
-CFLAGS			=	-Wall -Wextra -Werror
-RM				=	rm -rf
+CC          = cc
+CFLAGS      = -Wall -Wextra -Werror
+RM          = rm -rf
+MKDIR_P     = mkdir -p
 
-SRCS_PATH		=	./philo
-SRCS 			=	$(shell find . -name "*.c" | grep ./srcs/ | tr '\n' ' ')
-OBJS			=	$(SRCS:.c=.o)
+SRCS_PATH   = ./srcs
+OBJS_PATH   = ./objs
 
+SRCS        = $(shell find $(SRCS_PATH) -name "*.c")
+OBJS        = $(patsubst $(SRCS_PATH)/%.c,$(OBJS_PATH)/%.o,$(SRCS))
 
-$(SRCS_PATH)/%.o:		%.c
-					$(CC) $(CFLAGS) -c $< -o $@
+$(OBJS_PATH)/%.o: $(SRCS_PATH)/%.c
+	$(MKDIR_P) $(dir $@)
+	$(CC) $(CFLAGS) -c $< -o $@
 
-$(NAME):			$(OBJS)
-					make -C libft
-					$(CC) $(CFLAGS) $(SRCS) -o $(NAME) -g
+$(NAME): $(OBJS)
+	make -C libft
+	$(CC) $(CFLAGS) $(OBJS) -o $(NAME) -L./libft -lft -lreadline
 
-all:				$(NAME)
-
-bonus:				$(BONUS)
+all: $(NAME)
 
 clean:
-					$(RM) $(OBJS) $(OBJS_BONUS)
-					make -C libft clean
+	$(RM) $(OBJS)
+	make -C libft clean
 
-fclean:				clean
-					$(RM) $(NAME) $(BONUS)
+fclean: clean
+	$(RM) $(NAME)
+	make -C libft fclean
 
-re:					fclean all
+re: fclean all
 
-.PHONY:				all clean fclean re
+.PHONY: all clean fclean re

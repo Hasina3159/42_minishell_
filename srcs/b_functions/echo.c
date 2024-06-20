@@ -21,7 +21,7 @@ int	ft_echo(char **args)
 	}
 	while (i < len)
 	{
-		printf(args[i]);
+		printf("%s", args[i]);
 		i++;
 	}
 	if (line)

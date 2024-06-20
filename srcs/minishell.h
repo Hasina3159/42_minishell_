@@ -8,6 +8,8 @@
 # include <signal.h>
 # include <unistd.h>
 # include <fcntl.h>
+#include <readline/readline.h>
+#include <readline/history.h>
 
 # define ERROR 0
 # define SUCCESS 1
