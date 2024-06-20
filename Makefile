@@ -18,9 +18,6 @@ $(NAME):			$(OBJS)
 
 all:				$(NAME)
 
-$(BONUS):
-	$(CC) $(CFLAGS) $(SRCS_BONUS) -o $(NAME) -g
-
 bonus:				$(BONUS)
 
 clean:
