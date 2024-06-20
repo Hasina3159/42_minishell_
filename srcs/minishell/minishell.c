@@ -2,22 +2,27 @@
 
 int	main(void)
 {
-	char *input;
-	char cwd[1024];
+	int		argc;
+	char	**argv;
+	char	*input;
+	//char	**pwd;
 
+	//pwd = ft_split("pwd", ' ');
 	while (1)
 	{
-		if (getcwd(cwd, sizeof(cwd)) != NULL)
-		{
-			printf("%s", cwd);
-			input = readline("> ");
-			printf("%s\n", input);
-		}
-		else
-		{
-			printf("Current direcory read Error!\n");
-			return (0);
-		}
+		//ft_pwd(1, pwd);
+		input = readline("> ");
+		printf("%s\n", input);
+		argv = ft_split(input, ' ');
+		argc = ft_count_args(argv);
+		if (!ft_strncmp(argv[0], "echo", ft_strlen("echo")))
+			ft_echo(argc, argv);
+		if (!ft_strncmp(argv[0], "cd", ft_strlen("cd")))
+			ft_cd(argc, argv);
+		if (!ft_strncmp(argv[0], "pwd", ft_strlen("pwd")))
+			ft_pwd(argc, argv);
+		free(input);
+		continue;
 	}
 	return (0);
 }

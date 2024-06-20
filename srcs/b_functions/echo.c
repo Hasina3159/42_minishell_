@@ -1,27 +1,25 @@
 # include "../minishell.h"
 
-int	ft_echo(char **args)
+int	ft_echo(int argc, char **argv)
 {
 	int	i;
 	int line;
-	int	len;
 
 	line = 1;
-	len = ft_count_args(args);
-	if (len < 1)
+	if (argc < 1)
 	{
 		printf("\n");
 		return (SUCCESS);
 	}
 	i = 1;
-	if (ft_strncmp("-n", args[1], ft_strlen(args[1])))
+	if (!ft_strncmp("-n", argv[1], ft_strlen(argv[1])))
 	{
 		line = 0;
 		i++;
 	}
-	while (i < len)
+	while (i < argc)
 	{
-		printf("%s", args[i]);
+		printf("%s", argv[i]);
 		i++;
 	}
 	if (line)
