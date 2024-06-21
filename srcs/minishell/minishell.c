@@ -21,6 +21,7 @@ int	main(void)
 			ft_cd(argc, argv);
 		if (!ft_strncmp(argv[0], "pwd", ft_strlen("pwd")))
 			ft_pwd(argc, argv);
+		printf("COUNT : %d\n", ft_count_words(input));
 		free(input);
 		continue;
 	}
