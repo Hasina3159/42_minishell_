@@ -9,6 +9,7 @@ void	ft_init_t_all(t_all *all, char *cmd)
 	all->cmd = cmd;
 	all->token_count = 0;
 }
+
 void	ft_add_token(t_all *all, int type, char *value)
 {
 	all->tokens[all->token_count].type = type;
@@ -63,12 +64,12 @@ void	ft_sep_operation(t_all *all)
 	}
 	all->current_token[all->token_index++] = all->cmd[all->i];
 	if (all->cmd[all->i + 1] && ft_is_sep(all->cmd[all->i]) && all->cmd[all->i
-		+ 1] == all->cmd[all->i])
+			+ 1] == all->cmd[all->i])
 	{
-		all->i = all-> i + 1;
+		all->i = all->i + 1;
 		all->current_token[all->token_index++] = all->cmd[all->i];
 	}
 	all->current_token[all->token_index] = 0;
-		ft_add_token(all, T_OPERATOR, all->current_token);
+	ft_add_token(all, T_OPERATOR, all->current_token);
 	all->token_index = 0;
 }
