@@ -13,13 +13,6 @@ int	ft_is_quotes(char c)
 		return (1);
 	return (0);
 }
-int	ft_not_in_str(char *s, int *i, int *is_in_a_str)
-{
-	*i = *i + 1;
-	if (ft_is_quotes(s[*i]))
-		*is_in_a_str = ft_abs(*is_in_a_str - 1);
-	return (*is_in_a_str);
-}
 
 void	ft_pass_separator(char const *s, int *i, int *count, int *is_in_a_str)
 {
