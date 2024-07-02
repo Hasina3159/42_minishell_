@@ -69,6 +69,7 @@ int	main(void)
 		}
 		ft_init_t_all(&all, cmd);
 		ft_tokenize(&all);
+		ft_set_other(&all);
 		ft_print_tokens(&all);
 	}
 	return (0);

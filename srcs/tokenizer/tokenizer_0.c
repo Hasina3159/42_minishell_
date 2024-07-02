@@ -27,7 +27,6 @@ int	ft_start_quotes(t_all *all)
 			ft_add_token(all, T_WORD, all->current_token);
 			all->token_index = 0;
 		}
-		all->current_token[all->token_index++] = all->cmd[all->i];
 		all->in_quotes = 1;
 		all->quote_char = all->cmd[all->i];
 		return (1);

@@ -15,10 +15,21 @@
 # define SUCCESS 1
 # define CMD_MAX 2048
 # define TOKENS_MAX 255
+# define T_COMMAND -1
 # define T_WORD 0
 # define T_STRING 1
 # define T_OPERATOR 2
-# define T_END 3
+# define T_PIPE 3
+# define T_IN 4
+# define T_OUT 5
+# define T_AND 6
+# define T_OR 7
+# define T_OUT_APPEND 8
+# define T_ 9
+# define T_P_OPEN 10
+# define T_P_CLOSE 11
+# define T_VAR 12
+# define T_END 13
 
 typedef struct s_token
 {
@@ -56,7 +67,8 @@ void				ft_add_token(t_all *all, int type, char *value);
 int					ft_start_quotes(t_all *all);
 int					ft_in_quotes_operation(t_all *all);
 void				ft_sep_operation(t_all *all);
-
+void				ft_set_operator(t_token *token);
+void				ft_set_other(t_all *all);
 void				ft_init_t_all(t_all *all, char *cmd);
 void				ft_add_token(t_all *all, int type, char *value);
 int					ft_is_sep(char c);
