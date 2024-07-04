@@ -25,17 +25,27 @@
 # define T_AND 6
 # define T_OR 7
 # define T_OUT_APPEND 8
-# define T_ 9
+# define T_HERE_DOC 9
 # define T_P_OPEN 10
 # define T_P_CLOSE 11
 # define T_VAR 12
-# define T_END 13
+# define T_HD 13
+# define T_FILE_IN 14
+# define T_FILE_OUT 15
+# define T_END 16
 
 typedef struct s_token
 {
 	int				type;
 	char			value[CMD_MAX];
 }					t_token;
+
+typedef struct s_env
+{
+	char			*key;
+	char			*value;
+	struct s_env	*next;
+}					t_env;
 
 typedef struct s_all
 {
@@ -48,13 +58,8 @@ typedef struct s_all
 	char			*value;
 	t_token			tokens[TOKENS_MAX];
 	int				token_count;
+	t_env			*env;
 }					t_all;
-typedef struct s_env
-{
-	char			*key;
-	char			*value;
-	struct s_env	*next;
-}					t_env;
 
 //	b_functions
 int					ft_echo(int argc, char **argv);
@@ -74,6 +79,9 @@ void				ft_add_token(t_all *all, int type, char *value);
 int					ft_is_sep(char c);
 void				ft_tokenize(t_all *all);
 void				ft_print_tokens(t_all *all);
+char				*ft_show_token(t_token *token);
+void				ft_set_command(t_all *all);
+
 //	minishell
 
 //	parser
@@ -85,5 +93,7 @@ int					ft_strip_quotes(char **str);
 int					ft_isspace(char c);
 int					ft_is_sep(char c);
 int					ft_is_operator(char c);
+int					ft_count_occurences(char *text, char *sub);
+char				*ft_str_repl(char *text, char *from, char *to);
 
 #endif

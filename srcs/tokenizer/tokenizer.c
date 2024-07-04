@@ -42,18 +42,26 @@ void	ft_print_tokens(t_all *all)
 	i = 0;
 	while (i < all->token_count)
 	{
-		printf("t_token %d: Type: %d, Value: '%s'\n", i, all->tokens[i].type,
-			all->tokens[i].value);
+		printf("t_token %d: Value: %s, Type: '%s', ind : %d\n", i, all->tokens[i].value,
+			ft_show_token(&all->tokens[i]), all->tokens[i].type);
 		i++;
 	}
 }
 
-int	main(void)
+int	main(int argc, char **argv)
 {
-	char	*cmd;
-	t_all	all;
+	//char	*cmd;
+	//t_all	all;
+	char	*final;
+	char	*text = ft_strdup(argv[1]);
 
-	while (1)
+	printf("ARGC : %d\n", argc);
+	if (argc != 4)
+		return (0);
+	final = ft_str_repl(text, argv[2], argv[3]);
+	printf("FINAL : %s\n", final);
+	printf("TEXT : %s\n", final);
+	/*while (1)
 	{
 		printf("Entrez une commande: ");
 		cmd = readline("Entrez une commande : ");
@@ -69,8 +77,9 @@ int	main(void)
 		}
 		ft_init_t_all(&all, cmd);
 		ft_tokenize(&all);
+		ft_set_command(&all);
 		ft_set_other(&all);
 		ft_print_tokens(&all);
-	}
+	}*/
 	return (0);
 }

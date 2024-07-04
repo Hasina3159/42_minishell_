@@ -5,6 +5,11 @@ void	ft_set_operator(t_token *token)
 	int	len;
 
 	len = ft_strlen(token->value);
+	if (len == 0)
+	{
+		token->type = T_END;
+		return ;
+	}
 	if (!ft_strncmp(token->value, "|", len))
 		token->type = T_PIPE;
 	else if (!ft_strncmp(token->value, "||", len))
@@ -21,9 +26,57 @@ void	ft_set_operator(t_token *token)
 		token->type = T_OUT;
 	else if (!ft_strncmp(token->value, ">>", len))
 		token->type = T_OUT_APPEND;
+	else if (!ft_strncmp(token->value, "<<", len))
+		token->type = T_HD;
 }
 
-void	ft_set_other(t_all *all)
+char	*ft_show_token(t_token *token)
+{
+	int	len;
+
+	len = ft_strlen(token->value);
+	if (len == 0)
+		return "END";
+	if (!ft_strncmp(token->value, "|", len))
+		return "PIPE";
+	else if (!ft_strncmp(token->value, "||", len))
+		return "OR";
+	else if (!ft_strncmp(token->value, "&&", len))
+		return "AND";
+	else if (!ft_strncmp(token->value, "(", len))
+		return "P_OPEN";
+	else if (!ft_strncmp(token->value, ")", len))
+		return "P_CLOSE";
+	else if (!ft_strncmp(token->value, "<", len))
+		return "RED_IN";
+	else if (!ft_strncmp(token->value, ">", len))
+		return "RED_OUT";
+	else if (!ft_strncmp(token->value, ">>", len))
+		return "RED_APPEND";
+	else if (!ft_strncmp(token->value, "<<", len))
+		return "HERE_DOC";
+	else if (token->type == T_COMMAND)
+		return "COMMAND";
+	else if (token->type == T_WORD)
+		return "ARG";
+	else if (token->type == T_STRING)
+		return "STRING";
+	else if (token->type == T_FILE_OUT)
+		return "FILE_OUT";
+	else if (token->type == T_FILE_IN)
+		return "FILE_IN";
+	else
+		return "END";
+}
+
+int	ft_is_t_op(int type)
+{
+	if (type != T_WORD && type != T_COMMAND && type != T_STRING)
+		return (1);
+	return (0);
+}
+
+void	ft_set_command(t_all *all)
 {
 	int		i;
 	t_token	*token;
@@ -32,18 +85,55 @@ void	ft_set_other(t_all *all)
 	while (i < all->token_count)
 	{
 		token = &all->tokens[i];
-		if (i != 0)
-			printf("> [%d] - [%d]\n ", token->type, all->tokens[i - 1].type);
-		if ((i == 0 && token->type != T_OPERATOR) || (i != 0 && i < all->token_count - 1
-				&& all->tokens[i - 1].type == T_OPERATOR))
+		if ((i == 0 && !ft_is_t_op(token->type)) || (i != 0 && i < all->token_count - 1
+				&& ft_is_t_op(all->tokens[i - 1].type)  && !ft_is_t_op(token->type)))
 			token->type = T_COMMAND;
 		i++;
 	}
+}
+
+void	ft_set_other(t_all *all)
+{
+	int		i;
+	t_token	*token;
+	t_token	*prec;
+	int		len;
+
 	i = 0;
-	while (i > all->token_count)
+	while (i < all->token_count)
 	{
+		token = &all->tokens[i];
+		len = ft_strlen(token->value);
+		if (len == 0)
+			break ;
+		prec = NULL;
+		if (i != 0)
+			prec = &all->tokens[i - 1];
+		if (prec && !ft_is_t_op(token->type))
+		{
+			if (!ft_strncmp(prec->value, ">", ft_strlen(prec->value)) || !ft_strncmp(prec->value, ">>", ft_strlen(prec->value)))
+			{
+				token->type = T_FILE_OUT;
+				i++;
+				continue ;
+			}
+		}
+		if (len && prec && !ft_is_t_op(prec->type) && !ft_strncmp(token->value, "<", ft_strlen(token->value)))
+		{
+			printf("\nprec : %s, token : %s\n", prec->value, token->value);
+			prec->type = T_FILE_IN;
+			i++;
+		}
+		i++;
+	}
+	i = 0;
+	while (i < all->token_count)
+	{
+		token = &all->tokens[i];
 		ft_set_operator(token);
 		i++;
 	}
 }
-// echo "$VAR1 $VAR2" | grep -E "hello|world" > output.txt && (cat output.txt | grep "hello" && echo "Found hello" >> output.txt) || echo "Failed to find hello" >> output.txt
+
+
+// echo"$VAR1 $VAR2"|grep -E"hello|world">output.txt&&(cat output.txt|grep"hello"&&echo"Found hello">>output.txt)||echo "Failed to find hello">>output.txt
