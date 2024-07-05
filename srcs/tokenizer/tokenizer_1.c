@@ -59,8 +59,10 @@ char	*ft_show_token(t_token *token)
 		return "COMMAND";
 	else if (token->type == T_WORD)
 		return "ARG";
-	else if (token->type == T_STRING)
-		return "STRING";
+	else if (token->type == T_STRING_S)
+		return "STRING_S";
+	else if (token->type == T_STRING_D)
+		return "STRING_D";
 	else if (token->type == T_FILE_OUT)
 		return "FILE_OUT";
 	else if (token->type == T_FILE_IN)
@@ -71,7 +73,7 @@ char	*ft_show_token(t_token *token)
 
 int	ft_is_t_op(int type)
 {
-	if (type != T_WORD && type != T_COMMAND && type != T_STRING)
+	if (type != T_WORD && type != T_COMMAND && type != T_STRING_S && type != T_STRING_D)
 		return (1);
 	return (0);
 }

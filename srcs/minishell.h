@@ -17,7 +17,8 @@
 # define TOKENS_MAX 255
 # define T_COMMAND -1
 # define T_WORD 0
-# define T_STRING 1
+# define T_STRING_S 1
+# define T_STRING_D 17
 # define T_OPERATOR 2
 # define T_PIPE 3
 # define T_IN 4
@@ -81,6 +82,10 @@ void				ft_tokenize(t_all *all);
 void				ft_print_tokens(t_all *all);
 char				*ft_show_token(t_token *token);
 void				ft_set_command(t_all *all);
+char				**ft_get_all_var(char *s);
+void				ft_show_all_var(char **var);
+int					ft_replace_all_vars(t_all *all);
+int 				ft_replace_var(t_all *all, t_token *token);
 
 //	minishell
 
@@ -94,6 +99,10 @@ int					ft_isspace(char c);
 int					ft_is_sep(char c);
 int					ft_is_operator(char c);
 int					ft_count_occurences(char *text, char *sub);
-char				*ft_str_repl(char *text, char *from, char *to);
+int					ft_str_repl(char *text, char *from, char *to);
+char				*ft_getvarvalue(t_all *all, char *var);
+int					ft_setvarvalue(t_all *all, char *key, char *value);
+int					ft_is_varchar(char c);
+char				*ft_strndup(const char *s, int len);
 
 #endif

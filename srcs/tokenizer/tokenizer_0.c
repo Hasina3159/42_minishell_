@@ -29,6 +29,7 @@ int	ft_start_quotes(t_all *all)
 		}
 		all->in_quotes = 1;
 		all->quote_char = all->cmd[all->i];
+		all->i++;
 		return (1);
 	}
 	return (0);
@@ -40,9 +41,12 @@ int	ft_in_quotes_operation(t_all *all)
 	{
 		if (all->cmd[all->i] == all->quote_char)
 		{
-			all->current_token[all->token_index++] = all->cmd[all->i];
-			all->current_token[all->token_index] = 0;
-			ft_add_token(all, T_STRING, all->current_token);
+			//all->current_token[all->token_index++] = all->cmd[all->i];
+			all->current_token[all->token_index++] = 0;
+			if (all->quote_char == '\'')
+				ft_add_token(all, T_STRING_S, all->current_token);
+			else
+				ft_add_token(all, T_STRING_D, all->current_token);
 			all->token_index = 0;
 			all->in_quotes = 0;
 		}

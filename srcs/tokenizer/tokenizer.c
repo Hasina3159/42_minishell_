@@ -48,20 +48,20 @@ void	ft_print_tokens(t_all *all)
 	}
 }
 
-int	main(int argc, char **argv)
+int	main(/*int argc, char **argv*/)
 {
-	//char	*cmd;
-	//t_all	all;
-	char	*final;
-	char	*text = ft_strdup(argv[1]);
+	char	*cmd;
+	t_all	all;
+	//char	*final;
+	//char	*text = ft_strdup(argv[1]);
 
-	printf("ARGC : %d\n", argc);
+	/*printf("ARGC : %d\n", argc);
 	if (argc != 4)
 		return (0);
 	final = ft_str_repl(text, argv[2], argv[3]);
 	printf("FINAL : %s\n", final);
-	printf("TEXT : %s\n", final);
-	/*while (1)
+	printf("TEXT : %s\n", final);*/
+	while (1)
 	{
 		printf("Entrez une commande: ");
 		cmd = readline("Entrez une commande : ");
@@ -79,7 +79,8 @@ int	main(int argc, char **argv)
 		ft_tokenize(&all);
 		ft_set_command(&all);
 		ft_set_other(&all);
+		ft_replace_all_vars(&all);
 		ft_print_tokens(&all);
-	}*/
+	}
 	return (0);
 }

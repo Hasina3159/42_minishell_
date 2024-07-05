@@ -47,11 +47,12 @@ static void	ft_loop(char *final, char *to, size_t *j, size_t *k)
 
 static void	ft_free_and_assign(char **text, char **final)
 {
-	free(*text);
+	ft_strlcpy(*text, *final, ft_strlen(*final) + 1);
+	free(*final);
 	*text = *final;
 }
 
-char	*ft_str_repl(char *text, char *from, char *to)
+int	ft_str_repl(char *text, char *from, char *to)
 {
 	char	*final;
 	size_t	i;
@@ -60,7 +61,7 @@ char	*ft_str_repl(char *text, char *from, char *to)
 
 	final = NULL;
 	if (!ft_init(text, from, to, &final))
-		return (NULL);
+		return (0);
 	i = 0;
 	k = 0;
 	while (i < ft_strlen(text))
@@ -77,5 +78,5 @@ char	*ft_str_repl(char *text, char *from, char *to)
 		k++;
 	}
 	ft_free_and_assign(&text, &final);
-	return (final);
+	return (1);
 }
