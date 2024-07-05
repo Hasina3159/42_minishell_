@@ -15,7 +15,6 @@ int ft_replace_var(t_all *all, t_token *token)
 	while (vars[i])
 	{
 		value = ft_getvarvalue(all, &vars[i][1]);
-		printf(">.... vars[%d] : %s, value : %s, text : %s\n", i, &vars[i][1], value, token->value);
 		if (!ft_str_repl(token->value, vars[i], value))
 			return (0);
 		i++;
