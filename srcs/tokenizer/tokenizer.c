@@ -10,7 +10,7 @@ void	ft_end_token(t_all *all)
 	ft_add_token(all, T_END, "");
 }
 
-void	ft_tokenize(t_all *all)
+void	ft_create_token(t_all *all)
 {
 	while (all->i < ft_strlen(all->cmd))
 	{
@@ -48,14 +48,22 @@ void	ft_print_tokens(t_all *all)
 	}
 }
 
-int	main(/*int argc, char **argv*/)
+void	ft_tokenize(t_all *all, char *cmd)
 {
-	char	*cmd;
-	t_all	all;
-	//char	*final;
-	//char	*text = ft_strdup(argv[1]);
+	ft_init_t_all(all, cmd);
+	ft_create_token(all);
+	ft_set_command(all);
+	ft_set_other(all);
+	ft_finalize_token(all);
+	ft_replace_all_vars(all);
+}
 
-	/*printf("ARGC : %d\n", argc);
+int main(void)
+{
+	char *cmd;
+	t_all all;
+
+	/* printf("ARGC : %d\n", argc);
 	if (argc != 4)
 		return (0);
 	final = ft_str_repl(text, argv[2], argv[3]);
@@ -65,22 +73,27 @@ int	main(/*int argc, char **argv*/)
 	{
 		printf("Entrez une commande: ");
 		cmd = readline("Entrez une commande : ");
-		if (ft_strlen(cmd) > CMD_MAX)
-		{
-			perror("Too long!");
-			return (1);
-		}
 		if (cmd == NULL)
 		{
 			perror("Erreur de lecture!");
 			return (1);
 		}
-		ft_init_t_all(&all, cmd);
-		ft_tokenize(&all);
-		ft_set_command(&all);
-		ft_set_other(&all);
-		ft_replace_all_vars(&all);
+		if (strlen(cmd) > CMD_MAX)
+		{
+			perror("Too long!");
+			free(cmd);
+			return (1);
+		}
+		ft_tokenize(&all, cmd);
+		printf("\n");
+		printf("match : %d", ft_match(all.tokens[1].value, all.tokens[0].value, 10));
+		printf("\n");
 		ft_print_tokens(&all);
+		ft_show_sanitized_command(&all);
+		ft_show_token(all.tokens);
+
+		free(cmd);
 	}
 	return (0);
 }
+

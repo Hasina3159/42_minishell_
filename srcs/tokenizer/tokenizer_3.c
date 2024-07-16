@@ -1,6 +1,6 @@
 #include "../minishell.h"
 
-int ft_replace_var(t_all *all, t_token *token)
+int	ft_replace_var(t_all *all, t_token *token)
 {
 	char	**vars;
 	char	*value;
@@ -10,7 +10,6 @@ int ft_replace_var(t_all *all, t_token *token)
 	if (vars == NULL)
 		return (0);
 	ft_show_all_var(vars);
-
 	i = 0;
 	while (vars[i])
 	{
@@ -45,4 +44,26 @@ int	ft_replace_all_vars(t_all *all)
 		i++;
 	}
 	return (1);
+}
+
+void	ft_finalize_token(t_all *all)
+{
+	t_token	*tokens;
+	t_token	*now;
+	t_token	*prec;
+	int		i;
+
+	i = 0;
+	tokens = all->tokens;
+	while (i < all->token_count)
+	{
+		if (i != 0)
+			prec = &tokens[i - 1];
+		else
+			prec = NULL;
+		now = &tokens[i];
+		if (prec && prec->type == T_FILE_OUT && now->type == T_WORD)
+			now->type = T_COMMAND;
+		i++;
+	}
 }

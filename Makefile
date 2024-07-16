@@ -17,7 +17,7 @@ $(OBJS_PATH)/%.o: $(SRCS_PATH)/%.c
 
 $(NAME): $(OBJS)
 	make -C libft
-	$(CC) $(CFLAGS) $(OBJS) -o $(NAME) -L./libft -lft -lreadline -g
+	$(CC) $(CFLAGS) $(OBJS) -o $(NAME) -L./libft -lft -lreadline
 
 all: $(NAME)
 

@@ -14,7 +14,7 @@
 # define ERROR 0
 # define SUCCESS 1
 # define CMD_MAX 2048
-# define TOKENS_MAX 255
+# define TOKENS_MAX 1024
 # define T_COMMAND -1
 # define T_WORD 0
 # define T_STRING_S 1
@@ -38,7 +38,7 @@
 typedef struct s_token
 {
 	int				type;
-	char			value[CMD_MAX];
+	char			value[TOKENS_MAX];
 }					t_token;
 
 typedef struct s_env
@@ -78,14 +78,18 @@ void				ft_set_other(t_all *all);
 void				ft_init_t_all(t_all *all, char *cmd);
 void				ft_add_token(t_all *all, int type, char *value);
 int					ft_is_sep(char c);
-void				ft_tokenize(t_all *all);
+void				ft_create_token(t_all *all);
 void				ft_print_tokens(t_all *all);
 char				*ft_show_token(t_token *token);
 void				ft_set_command(t_all *all);
 char				**ft_get_all_var(char *s);
 void				ft_show_all_var(char **var);
 int					ft_replace_all_vars(t_all *all);
-int 				ft_replace_var(t_all *all, t_token *token);
+int					ft_replace_var(t_all *all, t_token *token);
+void				ft_finalize_token(t_all *all);
+void				ft_tokenize(t_all *all, char *cmd);
+int					ft_match_one(char *s, char next, int *count);
+int					ft_match(char *s, char *w, int n);
 
 //	minishell
 
@@ -104,5 +108,6 @@ char				*ft_getvarvalue(t_all *all, char *var);
 int					ft_setvarvalue(t_all *all, char *key, char *value);
 int					ft_is_varchar(char c);
 char				*ft_strndup(const char *s, int len);
+void				ft_show_sanitized_command(t_all *all);
 
 #endif
