@@ -9,6 +9,7 @@
 # include <signal.h>
 # include <stdio.h>
 # include <stdlib.h>
+# include <sys/stat.h>
 # include <unistd.h>
 
 # define ERROR 0
@@ -34,7 +35,9 @@
 # define T_FILE_IN 14
 # define T_FILE_OUT 15
 # define T_END 16
-
+# define FILE_DIR 0
+# define FILE_FILE 42
+# define FILE_ALL 2048
 typedef struct s_token
 {
 	int				type;
@@ -61,6 +64,13 @@ typedef struct s_all
 	int				token_count;
 	t_env			*env;
 }					t_all;
+
+typedef struct s_dir
+{
+	char			*name;
+	int				type;
+	struct s_dir	*next;
+}					t_dir;
 
 //	b_functions
 int					ft_echo(int argc, char **argv);
@@ -90,6 +100,11 @@ void				ft_finalize_token(t_all *all);
 void				ft_tokenize(t_all *all, char *cmd);
 int					ft_match_one(char *s, char next, int *count);
 int					ft_match(char *s, char *w, int n);
+void				ft_dirmatch(char *path, char *w, int n);
+int					ft_count_dir(char *path);
+t_dir				**ft_copy_dir(char *path, int type);
+t_dir				**ft_aaa(t_dir **dirs);
+t_dir				**ft_get_all_dirs(t_dir **dirs, int i, t_dir *tmp);
 
 //	minishell
 
@@ -109,5 +124,14 @@ int					ft_setvarvalue(t_all *all, char *key, char *value);
 int					ft_is_varchar(char c);
 char				*ft_strndup(const char *s, int len);
 void				ft_show_sanitized_command(t_all *all);
+char				*better_strjoin(char *s1, char const *s2);
+int					ft_count_char(char *s, char c);
+void				ft_opendir(char *path, DIR **dir);
+void				ft_closedir(DIR **dir);
+int					ft_isdir(char *path);
+t_dir				*ft_create_dir(char *name, int type);
+void				ft_add_dir(t_dir **lst, t_dir *elem);
+void				ft_show_all_dirs(t_dir **dirs);
+t_dir				**ft_init_dirs(void);
 
 #endif

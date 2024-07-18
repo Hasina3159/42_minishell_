@@ -1,21 +1,5 @@
 # include "../minishell.h"
 
-int ft_count_char(char *s, char c)
-{
-	size_t i;
-	int count;
-
-	i = 0;
-	count = 0;
-	while (i < ft_strlen(s))
-	{
-		if (s[i] == c)
-			count++;
-		i++;
-	}
-	return (count);
-}
-
 int    ft_strip_quotes(char **str)
 {
 	int 	len;

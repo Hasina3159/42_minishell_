@@ -62,7 +62,8 @@ int main(void)
 {
 	char *cmd;
 	t_all all;
-
+	t_dir	**dirs;
+	//int		i;
 	/* printf("ARGC : %d\n", argc);
 	if (argc != 4)
 		return (0);
@@ -86,12 +87,23 @@ int main(void)
 		}
 		ft_tokenize(&all, cmd);
 		printf("\n");
-		printf("match : %d", ft_match(all.tokens[1].value, all.tokens[0].value, 10));
+		printf("match : %d", ft_match(all.tokens[1].value, all.tokens[0].value, 1));
 		printf("\n");
+		dirs = ft_init_dirs();
+		ft_aaa(dirs);
+		ft_show_all_dirs(dirs);
+		/*dirs = ft_copy_dir(".");
+		i = 0;
+		while (dirs[i])
+		{
+			printf("\n> DIR : %s\n", dirs[i]);
+			i++;
+		}*/
+
 		ft_print_tokens(&all);
 		ft_show_sanitized_command(&all);
 		ft_show_token(all.tokens);
-
+		ft_count_dir(".");
 		free(cmd);
 	}
 	return (0);
