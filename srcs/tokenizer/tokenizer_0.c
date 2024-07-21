@@ -13,7 +13,7 @@ void	ft_init_t_all(t_all *all, char *cmd)
 void	ft_add_token(t_all *all, int type, char *value)
 {
 	all->tokens[all->token_count].type = type;
-	ft_strlcpy(all->tokens[all->token_count].value, value, CMD_MAX);
+	all->tokens[all->token_count].value = ft_strdup(value);
 	all->token_count = all->token_count + 1;
 }
 

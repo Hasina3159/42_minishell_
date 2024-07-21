@@ -42,34 +42,54 @@ void	ft_print_tokens(t_all *all)
 	i = 0;
 	while (i < all->token_count)
 	{
-		printf("t_token %d: Value: %s, Type: '%s', ind : %d\n", i, all->tokens[i].value,
-			ft_show_token(&all->tokens[i]), all->tokens[i].type);
+		printf("t_token %d: Value: %s, Type: '%s', ind : %d\n", i,
+			all->tokens[i].value, ft_show_token(&all->tokens[i]),
+			all->tokens[i].type);
 		i++;
 	}
 }
 
+void	ft_replace_all_wildcards(t_all *all)
+{
+	char	*wildcard;
+	t_dir	**dirs;
+	int	i;
+
+	i = 0;
+	dirs = ft_init_dirs();
+	while (i < all->token_count)
+	{
+		if (ft_count_char(all->tokens[i].value, '*'))
+		{
+			ft_copy_dir(dirs, ft_strlen(getcwd(NULL, 0)) + 1);
+			wildcard = ft_get_wildcard(dirs, all->tokens[i].value);
+			free(all->tokens[i].value);
+			all->tokens[i].value = wildcard;
+		}
+		i++;
+	}
+	free(dirs);
+}
+
 void	ft_tokenize(t_all *all, char *cmd)
 {
+
 	ft_init_t_all(all, cmd);
 	ft_create_token(all);
 	ft_set_command(all);
 	ft_set_other(all);
 	ft_finalize_token(all);
 	ft_replace_all_vars(all);
+	ft_replace_all_wildcards(all);
 }
 
-int main(void)
+int	main(void)
 {
-	char *cmd;
-	t_all all;
+	char	*cmd;
+	t_all	all;
 	t_dir	**dirs;
-	//int		i;
-	/* printf("ARGC : %d\n", argc);
-	if (argc != 4)
-		return (0);
-	final = ft_str_repl(text, argv[2], argv[3]);
-	printf("FINAL : %s\n", final);
-	printf("TEXT : %s\n", final);*/
+	char	*wildcard;
+
 	while (1)
 	{
 		printf("Entrez une commande: ");
@@ -87,25 +107,22 @@ int main(void)
 		}
 		ft_tokenize(&all, cmd);
 		printf("\n");
-		printf("match : %d", ft_match(all.tokens[1].value, all.tokens[0].value, 1));
+		printf("match : %d", ft_match(all.tokens[1].value,
+				all.tokens[0].value));
 		printf("\n");
 		dirs = ft_init_dirs();
-		ft_aaa(dirs);
-		ft_show_all_dirs(dirs);
-		/*dirs = ft_copy_dir(".");
-		i = 0;
-		while (dirs[i])
-		{
-			printf("\n> DIR : %s\n", dirs[i]);
-			i++;
-		}*/
-
+		ft_copy_dir(dirs, ft_strlen(getcwd(NULL, 0)) + 1);
+		printf("\n>>> ETO\n\n");
 		ft_print_tokens(&all);
+		printf("\n>>> ETO2\n\n");
 		ft_show_sanitized_command(&all);
-		ft_show_token(all.tokens);
-		ft_count_dir(".");
+		wildcard = ft_get_wildcard(dirs, "test");
+		printf("\n>>> ETO3\n\n");
+		printf("\n>>> ETO4\n\n");
+		printf("\n>>>>>>>>>>>>> FINAL : %s\n\n", all.tokens[0].value);
+		printf("\n>>>>>>>>>>>>> WILDCARD : [%s]\n\n", wildcard);
+		ft_show_match(dirs);
 		free(cmd);
 	}
 	return (0);
 }
-

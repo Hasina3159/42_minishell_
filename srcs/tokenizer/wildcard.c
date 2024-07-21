@@ -1,14 +1,13 @@
 #include "../minishell.h"
 
-int	ft_match_one(char *s, char next, int *count)
+int	ft_match_one(char *s, char next)
 {
 	int	i;
 
 	i = 0;
-	*count = *count + 1;
 	while (s[i])
 	{
-		if (s[i] == next)
+		if (s[i] == next || s[i] == '/')
 			return (i);
 		i++;
 	}
@@ -17,35 +16,39 @@ int	ft_match_one(char *s, char next, int *count)
 	return (-1);
 }
 
-int	ft_match(char *s, char *w, int n)
+int	ft_match(char *s, char *w)
 {
 	int	i;
 	int	j;
-	int	count;
 	int	ok;
+	int	w_count;
 
+	w_count = ft_count_char(w, '/');
+	if (ft_count_char(s, '/') != w_count)
+		return (0);
 	i = 0;
 	j = 0;
-	count = 0;
 	ok = 0;
 	while (w[i])
 	{
-		ok = 0;
-		if (count >= n)
-			return (1);
+		ok = -2;
+		if (w[i] == '*' && w[i + 1] && w[i + 1] == '*')
+		{
+			i++;
+			continue ;
+		}
 		if ((w[i] != '*' && w[i] != s[j]))
 			return (0);
-		if (w[i] == '*' && count != n - 1)
-			ok = ft_match_one(&s[j], w[i + 1], &count);
-		else if (w[i] == '*' && count == n - 1)
-			ok = ft_match_one(&s[j], 0, &count);
+		if (w[i] == '*')
+			ok = ft_match_one(&s[j], w[i + 1]);
 		if (ok == -1)
 			return (0);
-		else if (ok != 0)
+		else if (ok != -2)
 			j = j + ok - 1;
 		j++;
 		i++;
 	}
+
 	return (1);
 }
 
@@ -73,22 +76,20 @@ int	ft_count_dir(char *path)
 	return (count);
 }
 
-t_dir	**ft_copy_dir(char *path, int type)
+t_dir	**ft_copy_dir(t_dir **dirs, int len_cwd)
 {
 	DIR				*dir;
 	struct dirent	*entry;
 	char			cwd[TOKENS_MAX];
 	char			*tmp;
-	t_dir			**dirs;
-	t_dir			*new;
 
 	if (getcwd(cwd, TOKENS_MAX) == NULL)
 		return (NULL);
-	dirs = ft_init_dirs();
-	ft_opendir(path, &dir);
+	ft_opendir(".", &dir);
 	entry = readdir(dir);
 	while (entry != NULL)
 	{
+		usleep(5000);
 		if (entry->d_name[0] == '.')
 		{
 			entry = readdir(dir);
@@ -98,24 +99,23 @@ t_dir	**ft_copy_dir(char *path, int type)
 		tmp = better_strjoin(tmp, entry->d_name);
 		if (ft_isdir(tmp) == -1)
 			continue ;
-		else if (ft_isdir(tmp) == 1 && (type == FILE_DIR || type == FILE_ALL))
+		else if (ft_isdir(tmp) == 1)
 		{
-			new = ft_create_dir(entry->d_name, FILE_DIR);
-			ft_add_dir(dirs, new);
+			ft_add_dir(dirs, ft_create_dir(ft_strdup(&tmp[len_cwd]), FILE_DIR));
+			chdir(entry->d_name);
+			ft_copy_dir(dirs, len_cwd);
+			chdir("..");
 		}
-		else if (ft_isdir(tmp) == 0 && (type == FILE_FILE || type == FILE_ALL))
-		{
-			new = ft_create_dir(entry->d_name, FILE_FILE);
-			ft_add_dir(dirs, new);
-		}
+		else if (ft_isdir(tmp) == 0)
+			ft_add_dir(dirs, ft_create_dir(ft_strdup(&tmp[len_cwd]), FILE_FILE));
 		entry = readdir(dir);
+		free(tmp);
 	}
-	free(tmp);
 	ft_closedir(&dir);
 	return (dirs);
 }
 
-t_dir	**ft_aaa(t_dir **dirs)
+/*t_dir	**ft_aaa(t_dir **dirs)
 {
 	t_dir	**tmp_dirs;
 
@@ -131,13 +131,13 @@ t_dir	**ft_get_all_dirs(t_dir **dirs, int i, t_dir *tmpa)
 	t_dir	**tmp_file;
 	t_dir	*tmp1;
 	char	*copy;
-	char	*copy2;
 
 	sleep(1);
 	copy = ft_strdup(tmpa->name);
-	copy2 = ft_strdup(tmpa->next->name);
 	printf("2-------> tmpa avant ft_copy_dir: %s\n", copy);
 	tmp_dir = ft_copy_dir(".", FILE_DIR);
+	tmp_file = ft_copy_dir(".", FILE_FILE);
+	ft_show_all_dirs(tmp_file);
 	printf("4-------> tmpa après ft_copy_dir: %s\n", copy);
 
 	if (tmpa)
@@ -153,13 +153,11 @@ t_dir	**ft_get_all_dirs(t_dir **dirs, int i, t_dir *tmpa)
 		printf("5-------> tmpa avant ft_copy_dir: %s\n", tmpa->name);
 		ft_get_all_dirs(dirs, i + 1, tmpa->next);
 	}
-	tmp_file = ft_copy_dir(".", FILE_FILE);
-	ft_show_all_dirs(tmp_file);
 	return (dirs);
 }
 
 
-/*void	ft_dirmatch(char *path, char *w, int n)
+void	ft_dirmatch(char *path, char *w, int n)
 {
 	char			*next_path;
 	char			**dirs;
@@ -195,5 +193,9 @@ t_dir	**ft_get_all_dirs(t_dir **dirs, int i, t_dir *tmpa)
 		}
 		i++;
 	}
-}*/
-	
+}
+
+abcdef
+012345
+
+i <-> 6 - i - 1*/

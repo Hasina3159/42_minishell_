@@ -41,7 +41,7 @@
 typedef struct s_token
 {
 	int				type;
-	char			value[TOKENS_MAX];
+	char			*value;
 }					t_token;
 
 typedef struct s_env
@@ -98,11 +98,11 @@ int					ft_replace_all_vars(t_all *all);
 int					ft_replace_var(t_all *all, t_token *token);
 void				ft_finalize_token(t_all *all);
 void				ft_tokenize(t_all *all, char *cmd);
-int					ft_match_one(char *s, char next, int *count);
-int					ft_match(char *s, char *w, int n);
+int					ft_match_one(char *s, char next);
+int					ft_match(char *s, char *w);
 void				ft_dirmatch(char *path, char *w, int n);
 int					ft_count_dir(char *path);
-t_dir				**ft_copy_dir(char *path, int type);
+t_dir				**ft_copy_dir(t_dir **dirs, int len_cwd);
 t_dir				**ft_aaa(t_dir **dirs);
 t_dir				**ft_get_all_dirs(t_dir **dirs, int i, t_dir *tmp);
 
@@ -133,5 +133,8 @@ t_dir				*ft_create_dir(char *name, int type);
 void				ft_add_dir(t_dir **lst, t_dir *elem);
 void				ft_show_all_dirs(t_dir **dirs);
 t_dir				**ft_init_dirs(void);
-
+void				ft_replace_str(char **src, char *to);
+void				ft_show_match(t_dir **dirs);
+int					ft_count_wildcards(char *w);
+char				*ft_get_wildcard(t_dir **dirs, char *w);
 #endif

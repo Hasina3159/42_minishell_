@@ -5,7 +5,7 @@ int	ft_replace_var(t_all *all, t_token *token)
 	char	**vars;
 	char	*value;
 	int		i;
-
+	(void) all;
 	vars = ft_get_all_var(token->value);
 	if (vars == NULL)
 		return (0);
@@ -14,6 +14,7 @@ int	ft_replace_var(t_all *all, t_token *token)
 	while (vars[i])
 	{
 		value = ft_getvarvalue(all, &vars[i][1]);
+		printf("VARS : %s\n", vars[i]);
 		if (!ft_str_repl(token->value, vars[i], value))
 			return (0);
 		i++;
