@@ -76,11 +76,11 @@ void	ft_tokenize(t_all *all, char *cmd)
 
 	ft_init_t_all(all, cmd);
 	ft_create_token(all);
+	ft_replace_all_vars(all);
+	ft_replace_all_wildcards(all);
 	ft_set_command(all);
 	ft_set_other(all);
 	ft_finalize_token(all);
-	ft_replace_all_vars(all);
-	ft_replace_all_wildcards(all);
 }
 
 int	main(void)
@@ -122,6 +122,8 @@ int	main(void)
 		printf("\n>>>>>>>>>>>>> FINAL : %s\n\n", all.tokens[0].value);
 		printf("\n>>>>>>>>>>>>> WILDCARD : [%s]\n\n", wildcard);
 		ft_show_match(dirs);
+		ft_print_tokens(&all);
+
 		free(cmd);
 	}
 	return (0);
