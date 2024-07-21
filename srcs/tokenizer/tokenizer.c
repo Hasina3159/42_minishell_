@@ -59,7 +59,7 @@ void	ft_replace_all_wildcards(t_all *all)
 	dirs = ft_init_dirs();
 	while (i < all->token_count)
 	{
-		if (ft_count_char(all->tokens[i].value, '*'))
+		if (ft_count_char(all->tokens[i].value, '*') && all->tokens[i].type != T_STRING_S)
 		{
 			ft_copy_dir(dirs, ft_strlen(getcwd(NULL, 0)) + 1);
 			wildcard = ft_get_wildcard(dirs, all->tokens[i].value);
