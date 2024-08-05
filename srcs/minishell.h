@@ -40,6 +40,7 @@
 # define FILE_DIR 0
 # define FILE_FILE 42
 # define FILE_ALL 2048
+
 typedef struct s_token
 {
 	int				type;
@@ -65,6 +66,7 @@ typedef struct s_all
 	t_token			tokens[TOKENS_MAX];
 	int				token_count;
 	t_env			*env;
+	int				exit_status;
 }					t_all;
 
 typedef struct s_dir
@@ -81,8 +83,10 @@ int					ft_pwd(int argc, char **argv);
 
 //	exec
 char				**ft_tokens_to_char(t_all *all, int *i);
-int					ft_execute(t_all *all, int *i);
-
+int					ft_execute(t_all *all, int *i, const char *in,
+						const char *out);
+int					ft_execute_all(t_all *all, int *i);
+int					get_token_precedence(t_token *token);
 
 // tokenizer
 void				ft_init_t_all(t_all *all, char *cmd);

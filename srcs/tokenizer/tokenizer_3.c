@@ -63,7 +63,7 @@ void	ft_finalize_token(t_all *all)
 		else
 			prec = NULL;
 		now = &tokens[i];
-		if (prec && prec->type == T_FILE_OUT && now->type == T_WORD)
+		if (prec && (prec->type == T_FILE_OUT || prec->type == T_FILE_IN) && now->type == T_WORD)
 			now->type = T_COMMAND;
 		i++;
 	}
