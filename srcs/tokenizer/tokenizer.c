@@ -89,10 +89,10 @@ int	main(void)
 	t_all	all;
 	t_dir	**dirs;
 	char	*wildcard;
+	int		i;
 
 	while (1)
 	{
-		printf("Entrez une commande: ");
 		cmd = readline("Entrez une commande : ");
 		if (cmd == NULL)
 		{
@@ -107,22 +107,22 @@ int	main(void)
 		}
 		ft_tokenize(&all, cmd);
 		printf("\n");
-		printf("match : %d", ft_match(all.tokens[1].value,
-				all.tokens[0].value));
+		//printf("match : %d", ft_match(all.tokens[1].value,
+		//		all.tokens[0].value));
 		printf("\n");
 		dirs = ft_init_dirs();
 		ft_copy_dir(dirs, ft_strlen(getcwd(NULL, 0)) + 1);
-		printf("\n>>> ETO\n\n");
 		ft_print_tokens(&all);
-		printf("\n>>> ETO2\n\n");
 		ft_show_sanitized_command(&all);
 		wildcard = ft_get_wildcard(dirs, "test");
-		printf("\n>>> ETO3\n\n");
-		printf("\n>>> ETO4\n\n");
 		printf("\n>>>>>>>>>>>>> FINAL : %s\n\n", all.tokens[0].value);
 		printf("\n>>>>>>>>>>>>> WILDCARD : [%s]\n\n", wildcard);
-		ft_show_match(dirs);
+		//ft_show_match(dirs);
 		ft_print_tokens(&all);
+		i = 0;
+	printf("----------------000 \n");
+		ft_execute(&all, &i);
+	printf("----------------111 \n");
 
 		free(cmd);
 	}

@@ -35,13 +35,11 @@ char	*ft_extract_var(char *s)
 	len = 1;
 	while (s[len] && ft_is_varchar(s[len]))
 		len++;
-	printf("\n> Len : %d\n", len);
 	if (len == 0)
 		return (NULL);
 	final = ft_strndup(s, len);
 	if (final == NULL)
 		return (NULL);
-	printf("\n2> Len : %d\n", len);
 	return (final);
 }
 

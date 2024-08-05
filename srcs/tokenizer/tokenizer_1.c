@@ -67,6 +67,8 @@ char	*ft_show_token(t_token *token)
 		return "FILE_OUT";
 	else if (token->type == T_FILE_IN)
 		return "FILE_IN";
+	else if (token->type == T_HD_ENDER)
+		return "T_HD_ENDER";
 	else
 		return "END";
 }
@@ -119,12 +121,18 @@ void	ft_set_other(t_all *all)
 				i++;
 				continue ;
 			}
-		}
-		if (len && prec && !ft_is_t_op(prec->type) && !ft_strncmp(token->value, "<", ft_strlen(token->value)))
-		{
-			printf("\nprec : %s, token : %s\n", prec->value, token->value);
-			prec->type = T_FILE_IN;
-			i++;
+			else if (!ft_strncmp(prec->value, "<", ft_strlen(prec->value)))
+			{
+				token->type = T_FILE_IN;
+				i++;
+				continue ;
+			}
+			else if (!ft_strncmp(prec->value, "<<", ft_strlen(prec->value)))
+			{
+				token->type = T_HD_ENDER;
+				i++;
+				continue ;
+			}
 		}
 		i++;
 	}

@@ -10,6 +10,7 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <sys/stat.h>
+# include <sys/wait.h>
 # include <unistd.h>
 
 # define ERROR 0
@@ -35,6 +36,7 @@
 # define T_FILE_IN 14
 # define T_FILE_OUT 15
 # define T_END 16
+# define T_HD_ENDER 17
 # define FILE_DIR 0
 # define FILE_FILE 42
 # define FILE_ALL 2048
@@ -77,6 +79,11 @@ int					ft_echo(int argc, char **argv);
 int					ft_cd(int argc, char **argv);
 int					ft_pwd(int argc, char **argv);
 
+//	exec
+char				**ft_tokens_to_char(t_all *all, int *i);
+int					ft_execute(t_all *all, int *i);
+
+
 // tokenizer
 void				ft_init_t_all(t_all *all, char *cmd);
 void				ft_add_token(t_all *all, int type, char *value);
@@ -105,6 +112,7 @@ int					ft_count_dir(char *path);
 t_dir				**ft_copy_dir(t_dir **dirs, int len_cwd);
 t_dir				**ft_aaa(t_dir **dirs);
 t_dir				**ft_get_all_dirs(t_dir **dirs, int i, t_dir *tmp);
+int					ft_is_t_op(int type);
 
 //	minishell
 
