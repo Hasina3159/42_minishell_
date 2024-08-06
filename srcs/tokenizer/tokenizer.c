@@ -88,7 +88,7 @@ int	main(void)
 	char	*cmd;
 	t_all	all;
 	t_dir	**dirs;
-	char	*wildcard;
+	//char	*wildcard;
 	int		i;
 
 	while (1)
@@ -112,13 +112,13 @@ int	main(void)
 		printf("\n");
 		dirs = ft_init_dirs();
 		ft_copy_dir(dirs, ft_strlen(getcwd(NULL, 0)) + 1);
-		ft_print_tokens(&all);
-		ft_show_sanitized_command(&all);
-		wildcard = ft_get_wildcard(dirs, "test");
-		printf("\n>>>>>>>>>>>>> FINAL : %s\n\n", all.tokens[0].value);
-		printf("\n>>>>>>>>>>>>> WILDCARD : [%s]\n\n", wildcard);
+		//ft_print_tokens(&all);
+		//ft_show_sanitized_command(&all);
+		//wildcard = ft_get_wildcard(dirs, "test");
+		//printf("\n>>>>>>>>>>>>> FINAL : %s\n\n", all.tokens[0].value);
+		//printf("\n>>>>>>>>>>>>> WILDCARD : [%s]\n\n", wildcard);
 		//ft_show_match(dirs);
-		ft_print_tokens(&all);
+		//ft_print_tokens(&all);
 		i = 0;
 	printf("----------------000 \n");
 		ft_execute_all(&all, &i);

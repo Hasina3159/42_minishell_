@@ -67,6 +67,10 @@ typedef struct s_all
 	int				token_count;
 	t_env			*env;
 	int				exit_status;
+	int				child_pid;
+	int				fd[2];
+	int				tmp;
+	int				has_pipe;
 }					t_all;
 
 typedef struct s_dir
@@ -87,6 +91,8 @@ int					ft_execute(t_all *all, int *i, const char *in,
 						const char *out);
 int					ft_execute_all(t_all *all, int *i);
 int					get_token_precedence(t_token *token);
+int					ft_has_pipe_after(t_all *all, int *i);
+//int					ft_has_pipe_before(t_all *all, int *i);
 
 // tokenizer
 void				ft_init_t_all(t_all *all, char *cmd);
