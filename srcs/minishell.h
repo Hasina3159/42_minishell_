@@ -87,12 +87,11 @@ int					ft_pwd(int argc, char **argv);
 
 //	exec
 char				**ft_tokens_to_char(t_all *all, int *i);
-int					ft_execute(t_all *all, int *i, const char *in,
-						const char *out);
+int	ft_execute(t_all *all, int *i, const char *in, const char *out);
 int					ft_execute_all(t_all *all, int *i);
 int					get_token_precedence(t_token *token);
 int					ft_has_pipe_after(t_all *all, int *i);
-//int					ft_has_pipe_before(t_all *all, int *i);
+// int					ft_has_pipe_before(t_all *all, int *i);
 
 // tokenizer
 void				ft_init_t_all(t_all *all, char *cmd);

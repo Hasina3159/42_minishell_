@@ -71,6 +71,133 @@ void	ft_replace_all_wildcards(t_all *all)
 	free(dirs);
 }
 
+void	ft_move_token_0(t_all *all)
+{
+	t_token	tmp;
+	t_token	tmp1;
+	int		i;
+	int		j;
+
+	i = 0;
+	while (i < all->token_count - 1)
+	{
+		//printf("----------------------------- MOVE --------------------------\n");
+		if (all->tokens[i].type == T_FILE_OUT)
+		{
+			i++;
+			//printf("LAST : %s\n", all->tokens[i].value);
+			tmp.type = all->tokens[i].type;
+			tmp.value = all->tokens[i].value;
+			all->tokens[i].type = T_PIPE;
+			all->tokens[i].value = ft_strdup("|");
+			j = i + 1;
+			all->token_count = all->token_count + 1;
+			while (j < all->token_count)
+			{
+				tmp1.type = all->tokens[j].type;
+				tmp1.value = all->tokens[j].value;
+				all->tokens[j].type = tmp.type;
+				all->tokens[j].value = tmp.value;
+				tmp.type = tmp1.type;
+				tmp.value = tmp1.value;
+				j++;
+			}
+		}
+		i++;
+	}
+}
+
+void	ft_move_token(t_all *all)
+{
+	t_token	tmp;
+	t_token	tmp1;
+	int		i;
+	int		j;
+
+	i = 0;
+	while (i < all->token_count - 1)
+	{
+		//printf("----------------------------- MOVE --------------------------\n");
+		if (all->tokens[i].type == T_FILE_OUT)
+		{
+			//printf("LAST : %s\n", all->tokens[i].value);
+			all->tokens[i].type = T_WORD;
+			tmp.type = all->tokens[i].type;
+			tmp.value = all->tokens[i].value;
+			all->tokens[i].type = T_COMMAND;
+			all->tokens[i].value = ft_strdup("tee");
+			j = i + 1;
+			all->token_count = all->token_count + 1;
+			while (j < all->token_count)
+			{
+				tmp1.type = all->tokens[j].type;
+				tmp1.value = all->tokens[j].value;
+				all->tokens[j].type = tmp.type;
+				all->tokens[j].value = tmp.value;
+				tmp.type = tmp1.type;
+				tmp.value = tmp1.value;
+				j++;
+			}
+		}
+		i++;
+	}
+}
+
+void	ft_move_token_2(t_all *all)
+{
+	t_token	tmp;
+	t_token	tmp1;
+	int		i;
+	int		j;
+
+	i = 0;
+	while (i < all->token_count - 1)
+	{
+		if (i > 0)
+			//printf("i : %d, value : %s, value-1 : %s, cmp : %d, tee : %d\n", i, all->tokens[i].value, all->tokens[i - 1].value, ft_strncmp(all->tokens[i - 1].value, ">>", 2), ft_strncmp(all->tokens[i].value, "tee", 4));
+		if (i > 0 && !ft_strncmp(all->tokens[i].value, "tee", 4) && !ft_strncmp(all->tokens[i - 1].value, ">>", 2))
+		{
+			//printf("=================================================================\n");
+			i++;
+			all->tokens[i].type = T_WORD;
+			tmp.type = all->tokens[i].type;
+			tmp.value = all->tokens[i].value;
+			all->tokens[i].type = T_WORD;
+			all->tokens[i].value = ft_strdup("-a");
+			j = i + 1;
+			all->token_count = all->token_count + 1;
+			while (j < all->token_count)
+			{
+				tmp1.type = all->tokens[j].type;
+				tmp1.value = all->tokens[j].value;
+				all->tokens[j].type = tmp.type;
+				all->tokens[j].value = tmp.value;
+				tmp.type = tmp1.type;
+				tmp.value = tmp1.value;
+				j++;
+			}
+		}
+		i++;
+	}
+}
+
+void	ft_redir_to_pipe(t_all *all)
+{
+	int	i;
+
+	i = 0;
+	while (i < all->token_count)
+	{
+		if (all->tokens[i].type == T_OUT || (all->tokens[i].type == T_OUT_APPEND))
+		{
+			free(all->tokens[i].value);
+			all->tokens[i].value = ft_strdup("|");
+			all->tokens[i].type = T_PIPE;
+		}
+		i++;
+	}
+}
+
 void	ft_tokenize(t_all *all, char *cmd)
 {
 
@@ -81,6 +208,11 @@ void	ft_tokenize(t_all *all, char *cmd)
 	ft_set_command(all);
 	ft_set_other(all);
 	ft_finalize_token(all);
+	//ft_move_token_0(all);
+	ft_move_token(all);
+	ft_move_token_2(all);
+	ft_redir_to_pipe(all);
+
 }
 
 int	main(void)
