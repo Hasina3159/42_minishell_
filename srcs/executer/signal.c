@@ -16,11 +16,3 @@ void	ft_ctrl_c(int sig)
 	}
 }
 
-void	ft_ctrl_slash(int sig)
-{
-	if (sig == SIGINT)
-	{
-		rl_replace_line("", 0);
-		rl_redisplay();
-	}
-}

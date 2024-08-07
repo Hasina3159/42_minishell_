@@ -47,9 +47,13 @@ static void	ft_loop(char *final, char *to, size_t *j, size_t *k)
 
 static void	ft_free_and_assign(char **text, char **final)
 {
-	ft_strlcpy(*text, *final, ft_strlen(*final) + 1);
-	free(*final);
+	printf("1 text : %s, final : %s\n", *text, *final);
+	//ft_strlcpy(*text, *final, ft_strlen(*final) + 1);
+	printf("2 ===============================\n");
+	free(*text);
+	printf("3 ===============================\n");
 	*text = *final;
+	printf("4 text : %s, final : %s\n", *text, *final);
 }
 
 int	ft_str_repl(char *text, char *from, char *to)
@@ -77,6 +81,39 @@ int	ft_str_repl(char *text, char *from, char *to)
 		i++;
 		k++;
 	}
+	printf("55 =============================== : %s\n", final);
 	ft_free_and_assign(&text, &final);
+	printf(">>> text : %s, final : %s\n", text, final);
 	return (1);
+}
+
+
+char	*ft_str_repl_copy(char *text, char *from, char *to)
+{
+	char	*final;
+	size_t	i;
+	size_t	j;
+	size_t	k;
+
+	final = NULL;
+	if (!ft_init(text, from, to, &final))
+		return (NULL);
+	i = 0;
+	k = 0;
+	while (i < ft_strlen(text))
+	{
+		if (!ft_strncmp(&text[i], from, ft_strlen(from)))
+		{
+			ft_loop(final, to, &j, &k);
+			i = i + ft_strlen(from);
+			continue ;
+		}
+		else
+			final[k] = text[i];
+		i++;
+		k++;
+	}
+	printf("55 =============================== : %s\n", final);
+	printf(">>> text : %s, final : %s\n", text, final);
+	return (final);
 }

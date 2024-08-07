@@ -5,6 +5,8 @@ int	ft_replace_var(t_all *all, t_token *token)
 	char	**vars;
 	char	*value;
 	int		i;
+	char	*tmp;
+
 	(void) all;
 	vars = ft_get_all_var(token->value);
 	if (vars == NULL)
@@ -14,11 +16,20 @@ int	ft_replace_var(t_all *all, t_token *token)
 	while (vars[i])
 	{
 		value = ft_getvarvalue(all, &vars[i][1]);
-		//printf("VARS : %s\n", vars[i]);
-		if (!ft_str_repl(token->value, vars[i], value))
+		printf("VARS : %s, value : %s\n", vars[i], value);
+		tmp = ft_strdup(token->value);
+		free(token->value);
+		token->value = ft_str_repl_copy(tmp, vars[i], value);
+		free(tmp);
+		if (token->value)
+		{
+			printf("66 ===============================\n");
 			return (0);
+		}
+		printf("77 >> %s\n", token->value);
 		i++;
 	}
+	printf("77 >> n");
 	i = 0;
 	while (vars[i])
 	{
@@ -26,6 +37,7 @@ int	ft_replace_var(t_all *all, t_token *token)
 			free(vars[i]);
 		i++;
 	}
+	printf("6 ===============================\n");
 	if (vars)
 		free(vars);
 	return (1);

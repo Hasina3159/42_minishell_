@@ -96,7 +96,6 @@ int					ft_execute_all(t_all *all, int *i);
 int					get_token_precedence(t_token *token);
 int					ft_has_pipe_after(t_all *all, int *i);
 void				ft_ctrl_c(int sig);
-void				ft_ctrl_slash(int sig);
 
 // int					ft_has_pipe_before(t_all *all, int *i);
 
@@ -162,4 +161,5 @@ void				ft_replace_str(char **src, char *to);
 void				ft_show_match(t_dir **dirs);
 int					ft_count_wildcards(char *w);
 char				*ft_get_wildcard(t_dir **dirs, char *w);
+char	*ft_str_repl_copy(char *text, char *from, char *to);
 #endif

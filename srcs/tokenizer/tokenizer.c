@@ -231,6 +231,7 @@ int	main(void)
 		if (cmd == NULL)
 		{
 			//perror("Erreur de lecture!");
+			printf("exit !\n");
 			return (1);
 		}
 		if (strlen(cmd) > CMD_MAX)
@@ -242,6 +243,7 @@ int	main(void)
 		if (ft_strlen(cmd))
 			add_history(cmd);
 
+		printf("VALUE : %s\n", ft_getvarvalue(&all, cmd));
 		ft_tokenize(&all, cmd);
 		printf("\n");
 		//printf("match : %d", ft_match(all.tokens[1].value,
