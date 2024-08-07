@@ -207,6 +207,7 @@ void	ft_tokenize(t_all *all, char *cmd)
 	ft_replace_all_wildcards(all);
 	ft_set_command(all);
 	ft_set_other(all);
+	ft_set_other_1(all);
 	ft_finalize_token(all);
 	//ft_move_token_0(all);
 	ft_move_token(all);
@@ -223,12 +224,13 @@ int	main(void)
 	//char	*wildcard;
 	int		i;
 
+	signal(SIGINT, ft_ctrl_c);
 	while (1)
 	{
 		cmd = readline("Entrez une commande : ");
 		if (cmd == NULL)
 		{
-			perror("Erreur de lecture!");
+			//perror("Erreur de lecture!");
 			return (1);
 		}
 		if (strlen(cmd) > CMD_MAX)
@@ -237,6 +239,9 @@ int	main(void)
 			free(cmd);
 			return (1);
 		}
+		if (ft_strlen(cmd))
+			add_history(cmd);
+
 		ft_tokenize(&all, cmd);
 		printf("\n");
 		//printf("match : %d", ft_match(all.tokens[1].value,

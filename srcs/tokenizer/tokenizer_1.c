@@ -145,5 +145,20 @@ void	ft_set_other(t_all *all)
 	}
 }
 
+void	ft_set_other_1(t_all *all)
+{
+	int		i;
+	t_token	*token;
+
+	i = 0;
+	while (i < all->token_count)
+	{
+		token = &all->tokens[i];
+		if (token->type == T_STRING_D || token->type == T_STRING_S)
+			token->type = T_WORD;
+		i++;
+	}
+}
+
 
 // echo"$VAR1 $VAR2"|grep -E"hello|world">output.txt&&(cat output.txt|grep"hello"&&echo"Found hello">>output.txt)||echo "Failed to find hello">>output.txt

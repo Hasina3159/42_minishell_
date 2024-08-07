@@ -15,8 +15,8 @@
 
 # define ERROR 0
 # define SUCCESS 1
-# define CMD_MAX 2048
-# define TOKENS_MAX 1024
+# define CMD_MAX 4092
+# define TOKENS_MAX 2048
 # define T_COMMAND -1
 # define T_WORD 0
 # define T_STRING_S 1
@@ -40,6 +40,7 @@
 # define FILE_DIR 0
 # define FILE_FILE 42
 # define FILE_ALL 2048
+# define HISTORY ".history"
 
 typedef struct s_token
 {
@@ -89,10 +90,14 @@ int					ft_pwd(int argc, char **argv);
 
 //	exec
 char				**ft_tokens_to_char(t_all *all, int *i);
-int	ft_execute(t_all *all, int *i, const char *in, const char *out);
+int					ft_execute(t_all *all, int *i, const char *in,
+						const char *out);
 int					ft_execute_all(t_all *all, int *i);
 int					get_token_precedence(t_token *token);
 int					ft_has_pipe_after(t_all *all, int *i);
+void				ft_ctrl_c(int sig);
+void				ft_ctrl_slash(int sig);
+
 // int					ft_has_pipe_before(t_all *all, int *i);
 
 // tokenizer
@@ -124,6 +129,7 @@ t_dir				**ft_copy_dir(t_dir **dirs, int len_cwd);
 t_dir				**ft_aaa(t_dir **dirs);
 t_dir				**ft_get_all_dirs(t_dir **dirs, int i, t_dir *tmp);
 int					ft_is_t_op(int type);
+void				ft_set_other_1(t_all *all);
 
 //	minishell
 
