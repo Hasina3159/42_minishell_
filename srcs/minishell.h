@@ -71,6 +71,8 @@ typedef struct s_all
 	int				fd[2];
 	int				tmp;
 	int				has_pipe;
+	char			*last_cmd;
+	int				x;
 }					t_all;
 
 typedef struct s_dir

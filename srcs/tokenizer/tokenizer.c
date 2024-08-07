@@ -252,10 +252,7 @@ int	main(void)
 		//ft_show_match(dirs);
 		//ft_print_tokens(&all);
 		i = 0;
-	printf("----------------000 \n");
 		ft_execute_all(&all, &i);
-	printf("----------------111 \n");
-
 		free(cmd);
 	}
 	return (0);
