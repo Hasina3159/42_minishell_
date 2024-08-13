@@ -1,59 +1,63 @@
-# include "../minishell.h"
+#include "../minishell.h"
 
-int    ft_strip_quotes(char **str)
+
+int	is_valid_arg(char *arg)
 {
-	int 	len;
-	char	*final;
-	char	*s;
+	int	i;
 
-	s = *str;
-	len = ft_strlen(s);
-	printf(">>>>> \" : %d\n", ft_count_char(s, '\"'));
-	printf(">>>>> ' : %d\n", ft_count_char(s, '\''));
-	printf("-- s : %s, s[0] : %c, s[fin] : %c, len : %d\n", s, s[0], s[len - 1], len);
-	if (ft_count_char(s, '\'') != 2 && ft_count_char(s, '\'') != 0)
+	i = 0;
+	if (!ft_isalpha(arg[i]) && arg[i] != '_')
 		return (0);
-	if (ft_count_char(s, '\"') != 2 && ft_count_char(s, '\"') != 0)
-		return (0);
-	if ((s[0] == '"' && s[len - 1] == '"') || (s[0] == '\'' && s[len - 1] == '\''))
+	++i;
+	while (arg[i] && arg[i] != '=')
 	{
-		final = ft_strdup(&s[1]);
-		final[len - 2] = 0;
-		printf(">>> FINAL : %s\n", final);
-		free(s);
-		*str = final;
+		if (!ft_isalnum(arg[i]) && arg[i] != '_')
+			return (0);
+		++i;
 	}
 	return (1);
 }
 
-/*char    *ft_get_variable(char *s)
+void	add_export_variable(t_all *all, char *arg)
 {
-	
-}*/
+	char	*key;
+	char	*value;
 
-int	ft_export(int argc, char **argv)
+	if (ft_strchr(arg, '=') != NULL)
+	{
+		key = ft_substr(arg, 0, ft_strchr(arg, '=') - arg);
+		value = ft_substr(arg, ft_strchr(arg, '=') - arg + 1, ft_strlen(arg));
+	}
+	else
+	{
+		key = ft_strdup(arg);
+		value = ft_strdup("");
+	}
+	printf("key : %s, value : %s\n", key, value);
+	ft_setvarvalue(all, key, value);
+	//free(key);
+	//free(value);
+}
+
+int	ft_export(t_all *all, char **av)
 {
 	int	i;
-	int line;
+	int	ac;
 
-	line = 1;
-	if (argc < 1 || argc > 2)
+	ac = ft_count_splitted(av);
+	if (ac < 2)
 	{
-		printf("\n");
-		return (SUCCESS);
+		ft_env(all);
+		return (0);
 	}
 	i = 1;
-	if (!ft_strncmp("-n", argv[1], ft_strlen(argv[1])))
+	while (av[i])
 	{
-		line = 0;
+		if (is_valid_arg(av[i]))
+			add_export_variable(all, av[i]);
+		else
+			printf("%s : %s is not a valid identifier", av[0], av[i]);
 		i++;
 	}
-	while (i < argc)
-	{
-		printf("%s", argv[i]);
-		i++;
-	}
-	if (line)
-		printf("\n");
-	return (SUCCESS);
+	return (0);
 }

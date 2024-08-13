@@ -3,6 +3,7 @@
 
 # include "../libft/libft.h"
 # include <dirent.h>
+# include <errno.h>
 # include <fcntl.h>
 # include <readline/history.h>
 # include <readline/readline.h>
@@ -85,13 +86,14 @@ typedef struct s_dir
 
 //	b_functions
 int					ft_echo(int argc, char **argv);
-int					ft_cd(int argc, char **argv);
+int					ft_cd(char **argv);
 int					ft_pwd(int argc, char **argv);
+int					ft_export(t_all *all, char **av);
+int					ft_env(t_all *all);
 
 //	exec
 char				**ft_tokens_to_char(t_all *all, int *i);
-int					ft_execute(t_all *all, int *i, const char *in,
-						const char *out);
+int					ft_execute(t_all *all, int *i, const char *in);
 int					ft_execute_all(t_all *all, int *i);
 int					get_token_precedence(t_token *token);
 int					ft_has_pipe_after(t_all *all, int *i);
@@ -137,7 +139,7 @@ void				ft_set_other_1(t_all *all);
 //	utils
 int					ft_count_args(char **args);
 int					ft_count_words(char const *s);
-int					ft_strip_quotes(char **str);
+// int					ft_strip_quotes(char **str);
 int					ft_isspace(char c);
 int					ft_is_sep(char c);
 int					ft_is_operator(char c);
@@ -161,5 +163,8 @@ void				ft_replace_str(char **src, char *to);
 void				ft_show_match(t_dir **dirs);
 int					ft_count_wildcards(char *w);
 char				*ft_get_wildcard(t_dir **dirs, char *w);
-char	*ft_str_repl_copy(char *text, char *from, char *to);
+char				*ft_str_repl_copy(char *text, char *from, char *to);
+int					ft_count_splitted(char **splitted);
+char				*ft_is_in_env(t_all *all, char *var);
+
 #endif

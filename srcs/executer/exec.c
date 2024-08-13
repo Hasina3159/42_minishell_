@@ -9,7 +9,8 @@ char	**ft_tokens_to_char(t_all *all, int *i)
 
 	len = 0;
 	old_i = *i;
-	while ((len + *i) < all->token_count && (all->tokens[len + *i].type == T_COMMAND || all->tokens[len + *i].type == T_WORD))
+	while ((len + *i) < all->token_count && (all->tokens[len
+			+ *i].type == T_COMMAND || all->tokens[len + *i].type == T_WORD))
 		len++;
 	token_str = (char **)ft_calloc(len + 2, sizeof(char *));
 	if (token_str == NULL)
@@ -68,11 +69,10 @@ int	ft_dup_stdout(const char *out)
 	return (1);
 }
 
-int	ft_child_exec_pipe(const char *in, const char *out, char **token_str, t_all *all)
+int	ft_child_exec_pipe(char **token_str, t_all *all)
 {
 	extern char	**environ;
 	char		*cmd_with_path;
-	int			i;
 
 	if (all->child_pid == 0)
 	{
@@ -95,27 +95,16 @@ int	ft_child_exec_pipe(const char *in, const char *out, char **token_str, t_all 
 			close(all->fd[1]);
 		}
 		close(all->fd[0]);
-		if (!ft_strncmp(token_str[0], "tee", 3) && !ft_has_pipe_after(all, &all->x))
-		{
+		if (!ft_strncmp(token_str[0], "tee", 3) && !ft_has_pipe_after(all,
+				&all->x))
 			ft_dup_stdout("test");
-			printf("=======================> OUT : %s, t[0] : %s\n", out, token_str[0]);
-			i = 0;
-			while (token_str[i])
-			{
-				printf("==> Token[%d] : %s\n", i, token_str[i]);
-				i++;
-			}
-		}
-		i = 0;
-		while (token_str[i])
-		{
-			printf("Token[%d] : %s\n", i, token_str[i]);
-			i++;
-		}
-		if (in)
-			token_str[i] = ft_strdup(in);
 		if (token_str[0])
 			execve(token_str[0], token_str, environ);
+		if (token_str[0] && !ft_strncmp(token_str[0], "cd", 3))
+		{
+			ft_cd(token_str);
+			exit(0);
+		}
 		cmd_with_path = ft_strjoin("/bin/", token_str[0]);
 		if (cmd_with_path)
 		{
@@ -140,9 +129,33 @@ int	ft_child_exec_pipe(const char *in, const char *out, char **token_str, t_all 
 	return (0);
 }
 
-int	ft_execute(t_all *all, int *i, const char *in, const char *out)
+int	ft_builtins(t_all *all, char **token_str)
+{
+	if (!token_str[0])
+		return (0);
+	if (!ft_strncmp(token_str[0], "cd", 3))
+	{
+		printf("CD\n");
+		ft_cd(token_str);
+		return (1);
+	}
+	else if (!ft_strncmp(token_str[0], "env", 4))
+	{
+		ft_env(all);
+		return (1);
+	}
+	else if (!ft_strncmp(token_str[0], "export", 7))
+	{
+		ft_export(all, token_str);
+		return (1);
+	}
+	return (0);
+}
+
+int	ft_execute(t_all *all, int *i, const char *in)
 {
 	char	**token_str;
+	int		x;
 
 	token_str = ft_tokens_to_char(all, i);
 	if (token_str == NULL)
@@ -152,6 +165,17 @@ int	ft_execute(t_all *all, int *i, const char *in, const char *out)
 		perror("Pipe Error!");
 		return (-1);
 	}
+	if (in)
+	{
+		x = 0;
+		while (token_str[x])
+			x++;
+		token_str[x] = ft_strdup(in);
+	}
+	for(int j = 0; token_str[j]; j++)
+		printf("T[%d] : %s\n", j, token_str[j]);
+	if (ft_builtins(all, token_str))
+		return (0);
 	all->child_pid = fork();
 	if (all->child_pid == -1)
 	{
@@ -160,7 +184,7 @@ int	ft_execute(t_all *all, int *i, const char *in, const char *out)
 	}
 	all->has_pipe = ft_has_pipe_after(all, i);
 	all->x = *i;
-	ft_child_exec_pipe(in, out, token_str, all);
+	ft_child_exec_pipe(token_str, all);
 	return (0);
 }
 
@@ -173,23 +197,20 @@ char	*ft_get_out(t_all *all, int *i)
 	j = *i;
 	has_pipe = 0;
 	has_tee = 0;
-	while (all->tokens[j].type == T_COMMAND || all->tokens[j].type == T_WORD || all->tokens[j].type == T_OUT)
+	while (all->tokens[j].type == T_COMMAND || all->tokens[j].type == T_WORD
+		|| all->tokens[j].type == T_OUT)
 		j++;
 	if (all->tokens[j].type == T_PIPE)
 		j++;
-	printf("TEE ? : %s\n", all->tokens[j].value);
 	if (!ft_strncmp(all->tokens[j].value, "tee", 4))
 		has_tee = 1;
-	while (all->tokens[j].type == T_COMMAND || all->tokens[j].type == T_WORD || all->tokens[j].type == T_OUT)
+	while (all->tokens[j].type == T_COMMAND || all->tokens[j].type == T_WORD
+		|| all->tokens[j].type == T_OUT)
 		j++;
 	if (all->tokens[j].type == T_PIPE)
 		has_pipe = 1;
-	printf("TEE : %d, PIPE : %d\n", has_tee, has_pipe);
 	if (has_tee && !has_pipe)
-	{
-		printf(">>> TEE : %d, PIPE : %d\n", has_tee, has_pipe);
 		return (all->tokens[j].value);
-	}
 	return (NULL);
 }
 
@@ -198,7 +219,8 @@ int	ft_has_pipe_after(t_all *all, int *i)
 	int	j;
 
 	j = *i;
-	while (all->tokens[j].type == T_COMMAND || all->tokens[j].type == T_FILE_OUT || all->tokens[j].type == T_OUT)
+	while (all->tokens[j].type == T_COMMAND || all->tokens[j].type == T_FILE_OUT
+		|| all->tokens[j].type == T_OUT)
 		j++;
 	if (all->tokens[j].type == T_PIPE)
 		return (1);
@@ -210,25 +232,19 @@ int	ft_execute_all(t_all *all, int *i)
 	t_token	*tokens;
 	int		len;
 	char	*in;
-	char	*out;
 
 	ft_print_tokens(all);
 	len = all->token_count;
 	tokens = all->tokens;
 	in = NULL;
-	out = NULL;
 	while (*i < len)
 	{
 		if (tokens[*i].type == T_FILE_IN)
-		{
 			in = tokens[*i].value;
-		}
 		else if (tokens[*i].type == T_COMMAND)
 		{
-			out = ft_get_out(all, i);
-			ft_execute(all, i, in, out);
+			ft_execute(all, i, in);
 			in = NULL;
-			out = NULL;
 		}
 		*i = *i + 1;
 	}

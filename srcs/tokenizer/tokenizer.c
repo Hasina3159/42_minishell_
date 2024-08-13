@@ -56,6 +56,7 @@ void	ft_replace_all_wildcards(t_all *all)
 	int	i;
 
 	i = 0;
+	printf("==> WILDCARDS\n");
 	dirs = ft_init_dirs();
 	while (i < all->token_count)
 	{
@@ -204,7 +205,7 @@ void	ft_tokenize(t_all *all, char *cmd)
 	ft_init_t_all(all, cmd);
 	ft_create_token(all);
 	ft_replace_all_vars(all);
-	ft_replace_all_wildcards(all);
+	//ft_replace_all_wildcards(all);
 	ft_set_command(all);
 	ft_set_other(all);
 	ft_set_other_1(all);
@@ -220,7 +221,7 @@ int	main(void)
 {
 	char	*cmd;
 	t_all	all;
-	t_dir	**dirs;
+	//t_dir	**dirs;
 	//char	*wildcard;
 	int		i;
 
@@ -249,8 +250,8 @@ int	main(void)
 		//printf("match : %d", ft_match(all.tokens[1].value,
 		//		all.tokens[0].value));
 		printf("\n");
-		dirs = ft_init_dirs();
-		ft_copy_dir(dirs, ft_strlen(getcwd(NULL, 0)) + 1);
+		//dirs = ft_init_dirs();
+		//ft_copy_dir(dirs, ft_strlen(getcwd(NULL, 0)) + 1);
 		//ft_print_tokens(&all);
 		//ft_show_sanitized_command(&all);
 		//wildcard = ft_get_wildcard(dirs, "test");

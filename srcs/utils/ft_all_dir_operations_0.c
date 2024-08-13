@@ -23,6 +23,7 @@ int	ft_isdir(char *path)
 {
 	struct stat	statbuf;
 
+	printf("STATS\n");
 	if (stat(path, &statbuf) == -1)
 	{
 		perror("stat");

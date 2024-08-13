@@ -1,7 +1,0 @@
-{
-    "files.associations": {
-        "algorithm": "c",
-        "ctype.h": "c",
-        "minishell.h": "c"
-    }
-}

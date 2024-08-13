@@ -1,28 +1,64 @@
 # include "../minishell.h"
 
+char	*join_arg(char **av, int i)
+{
+	char	*tmp;
+	char	*out;
+
+	out = NULL;
+	while (av[i])
+	{
+		if (!out)
+			out = ft_strjoin(av[i], " ");
+		else
+		{
+			tmp = ft_strjoin(out, av[i]);
+			free(out);
+			out = ft_strjoin(tmp, " ");
+			free(tmp);
+		}
+		i++;
+	}
+	return (out);
+}
+
+int	check_flag(int ac, char **av, int *nl)
+{
+	if (ac > 1)
+	{
+		if (!ft_strncmp("-n", av[1], ft_strlen("-n")))
+		{
+			*nl = 0;
+			return (2);
+		}
+		else
+		{
+			*nl = 1;
+			return (1);
+		}
+	}
+	return (1);
+}
+
 int	ft_echo(int argc, char **argv)
 {
-	int	i;
-	int line;
+	int		nl;
+	int		i;
+	char	*to_print;
 
-	line = 1;
-	if (argc < 1)
+	if (argc == 1)
 	{
 		printf("\n");
 		return (SUCCESS);
 	}
-	i = 1;
-	if (!ft_strncmp("-n", argv[1], ft_strlen(argv[1])))
+	i = check_flag(argc, argv, &nl);
+	to_print = join_arg(argv, i);
+	if (to_print != NULL)
 	{
-		line = 0;
-		i++;
+		printf("%s", to_print);
+		free(to_print);
 	}
-	while (i < argc)
-	{
-		printf("%s", argv[i]);
-		i++;
-	}
-	if (line)
+	if (nl)
 		printf("\n");
 	return (SUCCESS);
 }
