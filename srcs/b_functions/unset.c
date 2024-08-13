@@ -1,15 +1,15 @@
 #include "../minishell.h"
 
 
-int	ft_unset(char **av, t_env **env)
+int	ft_unset(t_all *all, char **av)
 {
-	int	i;
+	int		argc;
 
-	i = 1;
-	while (av[i])
+	argc = ft_count_splitted(av);
+	if (argc != 2)
 	{
-		del_from_env(av[i], env);
-		i++;
+		printf("Arguments count ERROR!\n");
+		return (ERROR);
 	}
-	return (SUCCESS);
+	return (ft_setvarvalue(all, av[1], ""));
 }

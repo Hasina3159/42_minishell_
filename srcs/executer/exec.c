@@ -149,6 +149,16 @@ int	ft_builtins(t_all *all, char **token_str)
 		ft_export(all, token_str);
 		return (1);
 	}
+	else if (!ft_strncmp(token_str[0], "unset", 6))
+	{
+		ft_unset(all, token_str);
+		return (1);
+	}
+	else if (!ft_strncmp(token_str[0], "exit", 5))
+	{
+		ft_exit(all, token_str);
+		return (1);
+	}
 	return (0);
 }
 

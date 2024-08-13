@@ -23,15 +23,17 @@ int	ft_setvarvalue(t_all *all, char *key, char *value)
 		all->env = ft_create_env(key, value);
 		return (0);
 	}
-	while (tmp && tmp->next)
+	while (tmp)
 	{
 		if (!ft_strncmp(tmp->key, key, ft_strlen(key)))
 		{
+			free(tmp->value);
 			tmp->value = value;
 			return (0);
 		}
 		tmp = tmp->next;
 	}
+	tmp = tmp->next;
 	new = (t_env *)malloc(sizeof(t_env));
 	if (new == NULL)
 		return (0);
