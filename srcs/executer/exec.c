@@ -25,55 +25,66 @@ char	**ft_tokens_to_char(t_all *all, int *i)
 	return (token_str);
 }
 
-int	ft_dup_stdin(const char *in)
+int	ft_is_builtins(char *av)
 {
-	int	fd_in;
-
-	if (in == NULL)
-		return (0);
-	fd_in = open(in, O_RDONLY);
-	if (fd_in == -1)
-	{
-		perror("open input");
-		return (0);
-	}
-	if (dup2(fd_in, STDIN_FILENO) == -1)
-	{
-		perror("dup2 input");
-		close(fd_in);
-		return (0);
-	}
-	close(fd_in);
-	return (1);
+	if (!ft_strncmp(av, "cd", 3) || !ft_strncmp(av, "env", 4) || !ft_strncmp(av,
+			"echo", 5) || !ft_strncmp(av, "export", 7) || !ft_strncmp(av,
+			"unset", 6) || !ft_strncmp(av, "exit", 5))
+		return (1);
+	return (0);
 }
 
-int	ft_dup_stdout(const char *out)
+int	ft_builtins(t_all *all, char **token_str)
 {
-	int	fd_out;
-
-	if (out == NULL)
+	if (!token_str[0])
 		return (0);
-	fd_out = open("/dev/null", O_WRONLY | O_CREAT | O_TRUNC, 0644);
-	if (fd_out == -1)
+	if (all->child_pid == 0)
 	{
-		perror("open output");
-		return (0);
+		if (!ft_strncmp(token_str[0], "cd", 3))
+		{
+			ft_cd(token_str);
+			return (1);
+		}
+		else if (!ft_strncmp(token_str[0], "env", 4))
+		{
+			ft_env(all);
+			return (1);
+		}
+		else if (!ft_strncmp(token_str[0], "export", 7))
+		{
+			ft_export(all, token_str);
+			return (1);
+		}
+		else if (!ft_strncmp(token_str[0], "unset", 6))
+		{
+			ft_unset(all, token_str);
+			return (1);
+		}
+		else if (!ft_strncmp(token_str[0], "exit", 5))
+		{
+			ft_exit(all, token_str);
+			return (1);
+		}
 	}
-	if (dup2(fd_out, STDOUT_FILENO) == -1)
-	{
-		perror("dup2 output");
-		close(fd_out);
-		return (0);
-	}
-	close(fd_out);
-	return (1);
+	return (0);
 }
 
-int	ft_child_exec_pipe(char **token_str, t_all *all)
+int	ft_find_previous_command_index(t_token *tokens, int current_index)
 {
-	extern char	**environ;
-	char		*cmd_with_path;
+	int	i;
 
+	i = current_index - 1;
+	while (i >= 0)
+	{
+		if (tokens[i].type == T_COMMAND)
+			return (i);
+		i--;
+	}
+	return (-1);
+}
+
+void	ft_pipe(t_all *all)
+{
 	if (all->child_pid == 0)
 	{
 		if (all->tmp != -1)
@@ -95,16 +106,30 @@ int	ft_child_exec_pipe(char **token_str, t_all *all)
 			close(all->fd[1]);
 		}
 		close(all->fd[0]);
-		if (!ft_strncmp(token_str[0], "tee", 3) && !ft_has_pipe_after(all,
-				&all->x))
-			ft_dup_stdout("test");
+	}
+}
+
+int	ft_child_exec_pipe(char **token_str, t_all *all, int *i)
+{
+	extern char	**environ;
+	char		*cmd_with_path;
+	char		**previous_token_str;
+	int			prev_index;
+
+	if (all->child_pid == 0)
+	{
+		prev_index = ft_find_previous_command_index(all->tokens, *i);
+		ft_pipe(all);
+		if (prev_index != -1)
+		{
+			if (ft_is_builtins(all->tokens[prev_index].value))
+			{
+				previous_token_str = ft_tokens_to_char(all, &prev_index);
+				ft_builtins(all, previous_token_str);
+			}
+		}
 		if (token_str[0])
 			execve(token_str[0], token_str, environ);
-		if (token_str[0] && !ft_strncmp(token_str[0], "cd", 3))
-		{
-			ft_cd(token_str);
-			exit(0);
-		}
 		cmd_with_path = ft_strjoin("/bin/", token_str[0]);
 		if (cmd_with_path)
 		{
@@ -118,46 +143,8 @@ int	ft_child_exec_pipe(char **token_str, t_all *all)
 			free(cmd_with_path);
 		}
 		printf("%s: Command not found!\n", token_str[0]);
+		all->exit_status = 1;
 		exit(1);
-	}
-	else
-	{
-		waitpid(all->child_pid, NULL, 0);
-		close(all->fd[1]);
-		all->tmp = all->fd[0];
-	}
-	return (0);
-}
-
-int	ft_builtins(t_all *all, char **token_str)
-{
-	if (!token_str[0])
-		return (0);
-	if (!ft_strncmp(token_str[0], "cd", 3))
-	{
-		printf("CD\n");
-		ft_cd(token_str);
-		return (1);
-	}
-	else if (!ft_strncmp(token_str[0], "env", 4))
-	{
-		ft_env(all);
-		return (1);
-	}
-	else if (!ft_strncmp(token_str[0], "export", 7))
-	{
-		ft_export(all, token_str);
-		return (1);
-	}
-	else if (!ft_strncmp(token_str[0], "unset", 6))
-	{
-		ft_unset(all, token_str);
-		return (1);
-	}
-	else if (!ft_strncmp(token_str[0], "exit", 5))
-	{
-		ft_exit(all, token_str);
-		return (1);
 	}
 	return (0);
 }
@@ -182,19 +169,25 @@ int	ft_execute(t_all *all, int *i, const char *in)
 			x++;
 		token_str[x] = ft_strdup(in);
 	}
-	for(int j = 0; token_str[j]; j++)
-		printf("T[%d] : %s\n", j, token_str[j]);
-	if (ft_builtins(all, token_str))
-		return (0);
+	all->has_pipe = ft_has_pipe_after(all, i);
 	all->child_pid = fork();
 	if (all->child_pid == -1)
 	{
 		perror("Fork Error!");
 		return (-1);
 	}
-	all->has_pipe = ft_has_pipe_after(all, i);
-	all->x = *i;
-	ft_child_exec_pipe(token_str, all);
+	else if (all->child_pid == 0)
+	{
+		all->x = *i;
+		ft_child_exec_pipe(token_str, all, i);
+	}
+	else
+	{
+		waitpid(all->child_pid, NULL, 0);
+		if (all->has_pipe)
+			all->tmp = all->fd[0];
+		close(all->fd[1]);
+	}
 	return (0);
 }
 
@@ -237,6 +230,20 @@ int	ft_has_pipe_after(t_all *all, int *i)
 	return (0);
 }
 
+int	ft_has_op_before(t_all *all, int *i, int type)
+{
+	int	j;
+
+	j = *i;
+	while (j > 0 && (all->tokens[j].type == T_FILE_IN
+			|| all->tokens[j].type == T_IN || all->tokens[j].type == T_COMMAND
+			|| all->tokens[j].type == T_WORD))
+		j--;
+	if (all->tokens[j].type == type)
+		return (1);
+	return (0);
+}
+
 int	ft_execute_all(t_all *all, int *i)
 {
 	t_token	*tokens;
@@ -250,9 +257,21 @@ int	ft_execute_all(t_all *all, int *i)
 	while (*i < len)
 	{
 		if (tokens[*i].type == T_FILE_IN)
+		{
 			in = tokens[*i].value;
+		}
 		else if (tokens[*i].type == T_COMMAND)
 		{
+			if (all->exit_status && *i > 1 && (ft_has_op_before(all, i, T_AND)))
+			{
+				printf("EXIT AND : %d\n", all->exit_status);
+				return (0);
+			}
+			else if (!all->exit_status && *i > 1 && (ft_has_op_before(all, i,
+						T_OR)))
+				return (0);
+			else if (all->exit_status)
+				return (1);
 			ft_execute(all, i, in);
 			in = NULL;
 		}

@@ -226,6 +226,7 @@ int	main(void)
 	int		i;
 
 	signal(SIGINT, ft_ctrl_c);
+	all.tmp = -1;
 	while (1)
 	{
 		cmd = readline("Entrez une commande : ");
