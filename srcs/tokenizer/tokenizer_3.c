@@ -1,4 +1,4 @@
-#include "../minishell.h"
+#include "../../include/minishell.h"
 
 int	ft_replace_var(t_all *all, t_token *token)
 {

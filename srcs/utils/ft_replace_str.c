@@ -1,4 +1,4 @@
-#include "../minishell.h"
+#include "../../include/minishell.h"
 
 void	ft_replace_str(char **src, char *to)
 {

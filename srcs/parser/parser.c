@@ -1,6 +1,6 @@
-# include "../minishell.h"
+// # include "../minishell.h"
 
-char    *ft_compute_atom(char *s)
-{
-    return (s);
-}
+// char    *ft_compute_atom(char *s)
+// {
+//     return (s);
+// }

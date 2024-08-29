@@ -1,30 +1,54 @@
-#include "../minishell.h"
+#include "../../include/minishell.h"
 
-/*int	main(void)
+int	read_line(char **input, t_all all)
 {
-	int		argc;
-	char	**argv;
-	char	*input;
-	//char	**pwd;
+	if(isatty(STDIN_FILENO))
+	{
+		if (all.exit_status)
+			*input = readline(BAD);
+		else
+			*input = readline(GOOD);
+		if (*input == NULL)
+			return (0);
+		else if ((*input)[0] == '\0')
+			return (0);
+		else
+			add_history(*input);
+	}
+	else
+	{
+		*input = NULL;
+		return (1);
+	}
+	return (1);
+}
 
-	//pwd = ft_split("pwd", ' ');
+int	main(void)
+{
+	char	*cmd;
+	int		i;
+	t_all	all;
+
+	signal(SIGINT, ft_ctrl_c);
+	all.tmp = -1;
+	all.exit_status = 0;
 	while (1)
 	{
-		//ft_pwd(1, pwd);
-		input = readline("> ");
-		argv = ft_split(input, ' ');
-		argc = ft_count_args(argv);
-		if (!ft_strncmp(argv[0], "echo", ft_strlen("echo")))
-			ft_echo(argc, argv);
-		if (!ft_strncmp(argv[0], "cd", ft_strlen("cd")))
-			ft_cd(argc, argv);
-		if (!ft_strncmp(argv[0], "pwd", ft_strlen("pwd")))
-			ft_pwd(argc, argv);
-		printf("COUNT : %d\n", ft_count_words(input));
-		printf("STRIP : %d\n", ft_strip_quotes(&argv[0]));
-		printf("ARGV[0] : %s\n", argv[0]);
-		free(input);
-		continue;
+		if (!read_line(&cmd, all))
+			continue ;
+		if (cmd == NULL)
+		{
+			printf("exit !\n");
+			return (1);
+		}
+		ft_tokenize(&all, cmd);
+		i = 0;
+		if (!input_error(&all))
+		{
+			ft_expander(&all);
+			ft_execute_all(&all, &i);
+		}
+		free(cmd);
 	}
 	return (0);
-}*/
+}

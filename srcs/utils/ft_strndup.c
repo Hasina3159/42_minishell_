@@ -1,4 +1,4 @@
-#include "../minishell.h"
+#include "../../include/minishell.h"
 
 char	*ft_strndup(const char *s, int len)
 {

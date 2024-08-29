@@ -1,4 +1,4 @@
-#include "../minishell.h"
+#include "../../include/minishell.h"
 
 int	ft_is_var(char *s)
 {
@@ -84,5 +84,5 @@ void	ft_show_all_var(char **var)
 }
 /*void	ft_set_var_value(t_all *all)
 {
-	
+
 }*/

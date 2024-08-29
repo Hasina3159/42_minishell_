@@ -1,4 +1,4 @@
-#include "../minishell.h"
+#include "../../include/minishell.h"
 
 void	ft_opendir(char *path, DIR **dir)
 {
@@ -38,7 +38,7 @@ t_dir	*ft_create_dir(char *name, int type)
 {
 	t_dir	*dir;
 
-	dir = (t_dir *)malloc(sizeof(dir));
+	dir = (t_dir *)malloc(sizeof(t_dir));
 	if (dir == NULL)
 		return (NULL);
 	dir->name = name;

@@ -1,4 +1,4 @@
-#include "../minishell.h"
+#include "../../include/minishell.h"
 
 void	ft_init_t_all(t_all *all, char *cmd)
 {

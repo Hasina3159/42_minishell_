@@ -1,4 +1,4 @@
-#include "../minishell.h"
+#include "../../include/minishell.h"
 
 int	ft_pwd(int argc, char **argv)
 {
@@ -13,5 +13,20 @@ int	ft_pwd(int argc, char **argv)
 		return (0);
 	}
 	printf("%s\n", path);
-	return (1);
+	return (0);
 }
+/*
+int	ft_pwd(t_all *all)
+{
+	t_env	*env;
+
+	env = all->env;
+	while (env)
+	{
+		if (!ft_strncmp(env->key, "PWD", 4))
+			break ;
+		env = env->next;
+	}
+	printf("%s\n", env->value);
+	return (0);
+}*/

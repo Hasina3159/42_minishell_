@@ -1,4 +1,4 @@
-#include "../minishell.h"
+#include "../../include/minishell.h"
 
 char	*ft_getvarvalue(t_all *all, char *var)
 {

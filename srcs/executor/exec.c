@@ -1,4 +1,4 @@
-#include "../minishell.h"
+#include "../../include/minishell.h"
 
 char	**ft_tokens_to_char(t_all *all, int *i)
 {
@@ -42,22 +42,22 @@ int	ft_builtins(t_all *all, char **token_str)
 	{
 		if (!ft_strncmp(token_str[0], "cd", 3))
 		{
-			ft_cd(token_str);
+			all->exit_status = ft_cd(token_str);
 			return (1);
 		}
 		else if (!ft_strncmp(token_str[0], "env", 4))
 		{
-			ft_env(all);
+			all->exit_status = ft_env(all);
 			return (1);
 		}
 		else if (!ft_strncmp(token_str[0], "export", 7))
 		{
-			ft_export(all, token_str);
+			all->exit_status = ft_export(all, token_str);
 			return (1);
 		}
 		else if (!ft_strncmp(token_str[0], "unset", 6))
 		{
-			ft_unset(all, token_str);
+			all->exit_status = ft_unset(all, token_str);
 			return (1);
 		}
 		else if (!ft_strncmp(token_str[0], "exit", 5))
@@ -109,7 +109,80 @@ void	ft_pipe(t_all *all)
 	}
 }
 
+int	is_built(char **av)
+{
+	if (!ft_strncmp(av[0], "echo", 5))
+		return (1);
+	else if (!ft_strncmp(av[0], "pwd", 4))
+		return (2);
+	else if (!ft_strncmp(av[0], "env", 4))
+		return (3);
+	else if (!ft_strncmp(av[0], "cd", 3))
+		return (4);
+	else if (!ft_strncmp(av[0], "export", 7))
+		return (5);
+	else if (!ft_strncmp(av[0], "unset", 6))
+		return (6);
+	else if (!ft_strncmp(av[0], "exit", 5))
+		return (7);
+	return (0);
+}
+
+void	use_built(t_all *all, int ch, char **cmd)
+{
+	int	ac;
+
+	ac = ft_count_splitted(cmd);
+	if (ch == 1)
+		exit(ft_echo(ac, cmd));
+		// all->exit_status = ft_echo(ac, cmd);
+	else if (ch == 2)
+		exit(ft_pwd(ac, cmd));
+		// all->exit_status = ft_pwd(ac, cmd);
+	else if (ch == 3)
+		exit(ft_env(all));
+		// all->exit_status = ft_env(all);
+	else if (ch == 4)
+		// exit(ft_cd(cmd));
+		all->exit_status = ft_cd(cmd);
+	else if (ch == 5)
+		// exit(ft_export(all, cmd));
+		all->exit_status = ft_export(all, cmd);
+	else if (ch == 6)
+		// exit(ft_unset(all, cmd));
+		all->exit_status = ft_unset(all, cmd);
+	else if (ch == 7)
+		ft_exit(all, cmd);
+}
+
 int	ft_child_exec_pipe(char **token_str, t_all *all, int *i)
+{
+	extern char	**environ;
+	char		**previous_token_str;
+	int			prev_index;
+	int			ch;
+
+	if (all->child_pid == 0)
+	{
+		prev_index = ft_find_previous_command_index(all->tokens, *i);
+		ft_pipe(all);
+		if (prev_index != -1)
+		{
+			if (ft_is_builtins(all->tokens[prev_index].value))
+			{
+				previous_token_str = ft_tokens_to_char(all, &prev_index);
+				ft_builtins(all, previous_token_str);
+			}
+		}
+		ch = is_built(token_str);
+		if (ch)
+			use_built(all, ch, token_str);
+		execve_cmd(token_str, environ);
+	}
+	return (0);
+}
+
+/*int	ft_child_exec_pipe(char **token_str, t_all *all, int *i)
 {
 	extern char	**environ;
 	char		*cmd_with_path;
@@ -147,9 +220,68 @@ int	ft_child_exec_pipe(char **token_str, t_all *all, int *i)
 		exit(1);
 	}
 	return (0);
+}*/
+
+void	check_cmd(t_all *all, char **cmd, int *i)
+{
+	int		ch;
+
+	ch = is_built(cmd);
+	if (ch >= 4)
+		use_built(all, ch, cmd);
+	else
+	{
+		all->child_pid = fork();
+		if (all->child_pid == -1)
+		{
+			perror("fork");
+			exit(1);
+		}
+		else if (all->child_pid == 0)
+		{
+			all->x = *i;
+			ft_child_exec_pipe(cmd, all, i);
+		}
+		else
+		{
+			if (all->has_pipe)
+				all->tmp = all->fd[0];
+			close(all->fd[1]);
+		}
+	}
 }
 
 int	ft_execute(t_all *all, int *i, const char *in)
+{
+	char	**token_str;
+	int		x;
+
+	token_str = ft_tokens_to_char(all, i);
+	if (token_str == NULL)
+		return (1);
+	if (pipe(all->fd) == -1)
+	{
+		perror("Pipe Error!");
+		return (-1);
+	}
+	if (in)
+	{
+		x = 0;
+		while (token_str[x])
+			x++;
+		token_str[x] = ft_strdup(in);
+	}
+	all->has_pipe = ft_has_pipe_after(all, i);
+	check_cmd(all, token_str, i);
+	if (all->has_pipe == 0)
+	{
+		waitpid(all->child_pid, &all->statloc, 0);
+		all->exit_status = WEXITSTATUS(all->statloc);
+	}
+	return (0);
+}
+
+/*int	ft_execute(t_all *all, int *i, const char *in)
 {
 	char	**token_str;
 	int		x;
@@ -189,7 +321,7 @@ int	ft_execute(t_all *all, int *i, const char *in)
 		close(all->fd[1]);
 	}
 	return (0);
-}
+}*/
 
 char	*ft_get_out(t_all *all, int *i)
 {
@@ -244,22 +376,19 @@ int	ft_has_op_before(t_all *all, int *i, int type)
 	return (0);
 }
 
-int	ft_execute_all(t_all *all, int *i)
+/*int	ft_execute_all(t_all *all, int *i)
 {
 	t_token	*tokens;
 	int		len;
 	char	*in;
 
-	ft_print_tokens(all);
 	len = all->token_count;
 	tokens = all->tokens;
 	in = NULL;
 	while (*i < len)
 	{
 		if (tokens[*i].type == T_FILE_IN)
-		{
 			in = tokens[*i].value;
-		}
 		else if (tokens[*i].type == T_COMMAND)
 		{
 			if (all->exit_status && *i > 1 && (ft_has_op_before(all, i, T_AND)))
@@ -273,6 +402,44 @@ int	ft_execute_all(t_all *all, int *i)
 			else if (all->exit_status)
 				return (1);
 			ft_execute(all, i, in);
+			in = NULL;
+		}
+		*i = *i + 1;
+	}
+	return (1);
+}*/
+
+int	exec_cmd(t_all *all, int *i, char *in)
+{
+	if (all->exit_status && *i > 1 && (ft_has_op_before(all, i, T_AND)))
+	{
+		printf("EXIT AND : %d\n", all->exit_status);
+		return (0);
+	}
+	else if (!all->exit_status && *i > 1 && (ft_has_op_before(all, i,
+				T_OR)))
+		return (0);
+	ft_execute(all, i, in);
+	return (2);
+}
+
+int	ft_execute_all(t_all *all, int *i)
+{
+	t_token	*tokens;
+	int		len;
+	char	*in;
+
+	len = all->token_count;
+	tokens = all->tokens;
+	in = NULL;
+	while (*i < len)
+	{
+		if (tokens[*i].type == T_FILE_IN)
+			in = tokens[*i].value;
+		else if (tokens[*i].type == T_COMMAND)
+		{
+			if (exec_cmd(all, i, in) == 0)
+				break ;
 			in = NULL;
 		}
 		*i = *i + 1;

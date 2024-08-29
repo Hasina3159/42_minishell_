@@ -1,4 +1,4 @@
-#include "../minishell.h"
+#include "../../include/minishell.h"
 
 void    ft_show_sanitized_command(t_all *all)
 {

@@ -1,4 +1,4 @@
-# include "../minishell.h"
+#include "../../include/minishell.h"
 
 char	*join_arg(char **av, int i)
 {

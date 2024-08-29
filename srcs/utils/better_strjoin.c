@@ -1,4 +1,4 @@
-#include "../minishell.h"
+#include "../../include/minishell.h"
 
 char	*better_strjoin(char *s1, char const *s2)
 {
