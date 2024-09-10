@@ -29,8 +29,25 @@
 
 // readline
 // int	read_line(char **input, t_ex exe);
-// void				free_cmd(t_ex ex);
 int	input_error(t_all *all);
 int	ft_expander(t_all *all);
+// ? init
+void	init_shell(t_all *all);
+// ? exit
+void	del_token(t_all *all);
+int		free_all(t_all *all);
+// ? test
+void	free_split(char **cmd);
+// ? executor
+int	use_built(t_all *all, int ch, char **cmd);
+// ? utils/clean.c
+int	clean_child(t_all *all);
+// int	clean_child_b(t_all *all);
+int	clean_child_b(t_all *all, char **token_str);
+void	del_env(t_env **env);
+int	close_fd(void);
+// ? test_2.c
+char	**create_envp(t_all *all);
+char	*get_path(char *cmd, char **env);
 
 #endif

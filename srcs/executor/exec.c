@@ -25,50 +25,6 @@ char	**ft_tokens_to_char(t_all *all, int *i)
 	return (token_str);
 }
 
-int	ft_is_builtins(char *av)
-{
-	if (!ft_strncmp(av, "cd", 3) || !ft_strncmp(av, "env", 4) || !ft_strncmp(av,
-			"echo", 5) || !ft_strncmp(av, "export", 7) || !ft_strncmp(av,
-			"unset", 6) || !ft_strncmp(av, "exit", 5))
-		return (1);
-	return (0);
-}
-
-int	ft_builtins(t_all *all, char **token_str)
-{
-	if (!token_str[0])
-		return (0);
-	if (all->child_pid == 0)
-	{
-		if (!ft_strncmp(token_str[0], "cd", 3))
-		{
-			all->exit_status = ft_cd(token_str);
-			return (1);
-		}
-		else if (!ft_strncmp(token_str[0], "env", 4))
-		{
-			all->exit_status = ft_env(all);
-			return (1);
-		}
-		else if (!ft_strncmp(token_str[0], "export", 7))
-		{
-			all->exit_status = ft_export(all, token_str);
-			return (1);
-		}
-		else if (!ft_strncmp(token_str[0], "unset", 6))
-		{
-			all->exit_status = ft_unset(all, token_str);
-			return (1);
-		}
-		else if (!ft_strncmp(token_str[0], "exit", 5))
-		{
-			ft_exit(all, token_str);
-			return (1);
-		}
-	}
-	return (0);
-}
-
 int	ft_find_previous_command_index(t_token *tokens, int current_index)
 {
 	int	i;
@@ -83,7 +39,14 @@ int	ft_find_previous_command_index(t_token *tokens, int current_index)
 	return (-1);
 }
 
-void	ft_pipe(t_all *all)
+int	is_last_cmd(t_all *all, int current_index)
+{
+	if (current_index != all->token_count - 1)
+		return (0);
+	return (1);
+}
+
+/*void	ft_pipe(t_all *all)
 {
 	if (all->child_pid == 0)
 	{
@@ -107,6 +70,34 @@ void	ft_pipe(t_all *all)
 		}
 		close(all->fd[0]);
 	}
+}*/
+void	ft_pipe(t_all *all)
+{
+	if (all->tmp != -1)
+	{
+		if (dup2(all->tmp, STDIN_FILENO) == -1)
+		{
+			perror("dup2 tmp to stdin");
+			exit(1);
+		}
+		close(all->tmp);
+		close(all->fd[0]);
+	}
+	if (all->has_pipe)
+	{
+		if (dup2(all->fd[1], STDOUT_FILENO) == -1)
+		{
+			perror("dup2 fd[1] to stdout");
+			exit(1);
+		}
+		close(all->fd[1]);
+		close(all->fd[0]);
+	}
+	if (!all->has_pipe)
+	{
+		close(all->fd[0]);
+		close(all->fd[1]);
+	}
 }
 
 int	is_built(char **av)
@@ -128,107 +119,60 @@ int	is_built(char **av)
 	return (0);
 }
 
-void	use_built(t_all *all, int ch, char **cmd)
+int	use_built(t_all *all, int ch, char **cmd)
 {
 	int	ac;
 
 	ac = ft_count_splitted(cmd);
 	if (ch == 1)
-		exit(ft_echo(ac, cmd));
-		// all->exit_status = ft_echo(ac, cmd);
+		return (ft_echo(ac, cmd));
 	else if (ch == 2)
-		exit(ft_pwd(ac, cmd));
-		// all->exit_status = ft_pwd(ac, cmd);
+		return (ft_pwd(all));
 	else if (ch == 3)
-		exit(ft_env(all));
-		// all->exit_status = ft_env(all);
+		return (ft_env(all));
 	else if (ch == 4)
-		// exit(ft_cd(cmd));
-		all->exit_status = ft_cd(cmd);
+		return (ft_cd(cmd, all));
 	else if (ch == 5)
-		// exit(ft_export(all, cmd));
-		all->exit_status = ft_export(all, cmd);
+		return (ft_export(all, cmd));
 	else if (ch == 6)
-		// exit(ft_unset(all, cmd));
-		all->exit_status = ft_unset(all, cmd);
+		return (ft_unset(all, cmd));
 	else if (ch == 7)
-		ft_exit(all, cmd);
+		return (ft_exit(all, cmd));
+	return (126);
 }
 
 int	ft_child_exec_pipe(char **token_str, t_all *all, int *i)
 {
-	extern char	**environ;
-	char		**previous_token_str;
-	int			prev_index;
+	char		**envp;
 	int			ch;
+	int			exit_s;
+	(void)i;
 
 	if (all->child_pid == 0)
 	{
-		prev_index = ft_find_previous_command_index(all->tokens, *i);
+		envp = create_envp(all);
 		ft_pipe(all);
-		if (prev_index != -1)
-		{
-			if (ft_is_builtins(all->tokens[prev_index].value))
-			{
-				previous_token_str = ft_tokens_to_char(all, &prev_index);
-				ft_builtins(all, previous_token_str);
-			}
-		}
 		ch = is_built(token_str);
 		if (ch)
-			use_built(all, ch, token_str);
-		execve_cmd(token_str, environ);
+		{
+			free_split(envp);
+			exit_s = use_built(all, ch, token_str);
+			clean_child_b(all, token_str);
+			exit(exit_s);
+		}
+		clean_child(all);
+		execve_cmd(token_str, envp);
 	}
 	return (0);
 }
-
-/*int	ft_child_exec_pipe(char **token_str, t_all *all, int *i)
-{
-	extern char	**environ;
-	char		*cmd_with_path;
-	char		**previous_token_str;
-	int			prev_index;
-
-	if (all->child_pid == 0)
-	{
-		prev_index = ft_find_previous_command_index(all->tokens, *i);
-		ft_pipe(all);
-		if (prev_index != -1)
-		{
-			if (ft_is_builtins(all->tokens[prev_index].value))
-			{
-				previous_token_str = ft_tokens_to_char(all, &prev_index);
-				ft_builtins(all, previous_token_str);
-			}
-		}
-		if (token_str[0])
-			execve(token_str[0], token_str, environ);
-		cmd_with_path = ft_strjoin("/bin/", token_str[0]);
-		if (cmd_with_path)
-		{
-			execve(cmd_with_path, token_str, environ);
-			free(cmd_with_path);
-		}
-		cmd_with_path = ft_strjoin("/usr/bin/", token_str[0]);
-		if (cmd_with_path)
-		{
-			execve(cmd_with_path, token_str, environ);
-			free(cmd_with_path);
-		}
-		printf("%s: Command not found!\n", token_str[0]);
-		all->exit_status = 1;
-		exit(1);
-	}
-	return (0);
-}*/
 
 void	check_cmd(t_all *all, char **cmd, int *i)
 {
 	int		ch;
 
 	ch = is_built(cmd);
-	if (ch >= 4)
-		use_built(all, ch, cmd);
+	if (ch && is_last_cmd(all, *i))
+		all->exit_status = use_built(all, ch, cmd);
 	else
 	{
 		all->child_pid = fork();
@@ -239,15 +183,25 @@ void	check_cmd(t_all *all, char **cmd, int *i)
 		}
 		else if (all->child_pid == 0)
 		{
-			all->x = *i;
+			all->sh++;
 			ft_child_exec_pipe(cmd, all, i);
 		}
 		else
 		{
 			if (all->has_pipe)
 				all->tmp = all->fd[0];
+			// ?
+			else
+			 	close(all->fd[0]);
+			// ?
 			close(all->fd[1]);
 		}
+		return ;
+	}
+	if (!all->has_pipe)
+	{
+		close(all->fd[0]);
+		close(all->fd[1]);
 	}
 }
 
@@ -257,6 +211,7 @@ int	ft_execute(t_all *all, int *i, const char *in)
 	int		x;
 
 	token_str = ft_tokens_to_char(all, i);
+	all->child_pid = -2;
 	if (token_str == NULL)
 		return (1);
 	if (pipe(all->fd) == -1)
@@ -273,55 +228,14 @@ int	ft_execute(t_all *all, int *i, const char *in)
 	}
 	all->has_pipe = ft_has_pipe_after(all, i);
 	check_cmd(all, token_str, i);
-	if (all->has_pipe == 0)
+	if (all->child_pid > 0)
 	{
 		waitpid(all->child_pid, &all->statloc, 0);
 		all->exit_status = WEXITSTATUS(all->statloc);
 	}
+	free_split(token_str);
 	return (0);
 }
-
-/*int	ft_execute(t_all *all, int *i, const char *in)
-{
-	char	**token_str;
-	int		x;
-
-	token_str = ft_tokens_to_char(all, i);
-	if (token_str == NULL)
-		return (1);
-	if (pipe(all->fd) == -1)
-	{
-		perror("Pipe Error!");
-		return (-1);
-	}
-	if (in)
-	{
-		x = 0;
-		while (token_str[x])
-			x++;
-		token_str[x] = ft_strdup(in);
-	}
-	all->has_pipe = ft_has_pipe_after(all, i);
-	all->child_pid = fork();
-	if (all->child_pid == -1)
-	{
-		perror("Fork Error!");
-		return (-1);
-	}
-	else if (all->child_pid == 0)
-	{
-		all->x = *i;
-		ft_child_exec_pipe(token_str, all, i);
-	}
-	else
-	{
-		waitpid(all->child_pid, NULL, 0);
-		if (all->has_pipe)
-			all->tmp = all->fd[0];
-		close(all->fd[1]);
-	}
-	return (0);
-}*/
 
 char	*ft_get_out(t_all *all, int *i)
 {
@@ -376,46 +290,10 @@ int	ft_has_op_before(t_all *all, int *i, int type)
 	return (0);
 }
 
-/*int	ft_execute_all(t_all *all, int *i)
-{
-	t_token	*tokens;
-	int		len;
-	char	*in;
-
-	len = all->token_count;
-	tokens = all->tokens;
-	in = NULL;
-	while (*i < len)
-	{
-		if (tokens[*i].type == T_FILE_IN)
-			in = tokens[*i].value;
-		else if (tokens[*i].type == T_COMMAND)
-		{
-			if (all->exit_status && *i > 1 && (ft_has_op_before(all, i, T_AND)))
-			{
-				printf("EXIT AND : %d\n", all->exit_status);
-				return (0);
-			}
-			else if (!all->exit_status && *i > 1 && (ft_has_op_before(all, i,
-						T_OR)))
-				return (0);
-			else if (all->exit_status)
-				return (1);
-			ft_execute(all, i, in);
-			in = NULL;
-		}
-		*i = *i + 1;
-	}
-	return (1);
-}*/
-
 int	exec_cmd(t_all *all, int *i, char *in)
 {
 	if (all->exit_status && *i > 1 && (ft_has_op_before(all, i, T_AND)))
-	{
-		printf("EXIT AND : %d\n", all->exit_status);
 		return (0);
-	}
 	else if (!all->exit_status && *i > 1 && (ft_has_op_before(all, i,
 				T_OR)))
 		return (0);

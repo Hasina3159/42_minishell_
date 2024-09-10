@@ -4,7 +4,7 @@ char	*ft_getvarvalue(t_all *all, char *var)
 {
 	t_env	*tmp;
 
-    //printf("[GETVARVALUE]\n");
+	//printf("[GETVARVALUE]\n");
 	tmp = all->env;
 	while (tmp)
 	{

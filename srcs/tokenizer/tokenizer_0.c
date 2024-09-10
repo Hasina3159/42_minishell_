@@ -1,12 +1,12 @@
 #include "../../include/minishell.h"
 
-void	ft_init_t_all(t_all *all, char *cmd)
+void	ft_init_t_all(t_all *all/*, char *cmd*/)
 {
 	all->i = 0;
 	all->in_quotes = 0;
 	all->token_index = 0;
 	all->quote_char = 0;
-	all->cmd = cmd;
+	// all->cmd = cmd;
 	all->token_count = 0;
 }
 

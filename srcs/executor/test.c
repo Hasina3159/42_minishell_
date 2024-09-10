@@ -13,7 +13,7 @@ void	free_split(char **cmd)
 	free(cmd);
 }
 
-char	*get_path(char *cmd)
+/*char	*get_path(char *cmd)
 {
 	char	*path;
 	char	*env;
@@ -40,9 +40,9 @@ char	*get_path(char *cmd)
 	}
 	free_split(env_path);
 	return (cmd);
-}
+}*/
 
-void	execve_cmd(char **cmd, char **envp)
+/*void	execve_cmd(char **cmd, char **envp)
 {
 	char	*path;
 	int		error;
@@ -62,6 +62,31 @@ void	execve_cmd(char **cmd, char **envp)
 		else
 			print_error(cmd[0], NULL, strerror(error));
 		free_split(cmd);
+		exit(126);
+	}
+}*/
+void	execve_cmd(char **cmd, char **envp)
+{
+	char	*path;
+	int		error;
+
+	path = get_path(cmd[0], envp);
+	if (access(path, F_OK))
+	{
+		print_error(cmd[0], NULL, "command not found");
+		free_split(cmd);
+		free_split(envp);
+		exit(CMD_NOT_FOUND);
+	}
+	if (execve(path, cmd, envp) < 0)
+	{
+		error = errno;
+		if (ft_isdir(path))
+			print_error(path, NULL, strerror(EISDIR));
+		else
+			print_error(cmd[0], NULL, strerror(error));
+		free_split(cmd);
+		free_split(envp);
 		exit(126);
 	}
 }

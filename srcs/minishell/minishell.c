@@ -1,10 +1,16 @@
 #include "../../include/minishell.h"
 
-int	read_line(char **input, t_all all)
+void	clean_after_cmd(t_all *all)
+{
+	del_token(all);
+	free(all->cmd);
+}
+
+int	read_line(char **input, t_all *all)
 {
 	if(isatty(STDIN_FILENO))
 	{
-		if (all.exit_status)
+		if (all->exit_status)
 			*input = readline(BAD);
 		else
 			*input = readline(GOOD);
@@ -25,30 +31,28 @@ int	read_line(char **input, t_all all)
 
 int	main(void)
 {
-	char	*cmd;
 	int		i;
 	t_all	all;
 
 	signal(SIGINT, ft_ctrl_c);
-	all.tmp = -1;
-	all.exit_status = 0;
+	init_shell(&all);
 	while (1)
 	{
-		if (!read_line(&cmd, all))
+		if (!read_line(&all.cmd, &all))
 			continue ;
-		if (cmd == NULL)
+		if (all.cmd == NULL)
 		{
 			printf("exit !\n");
 			return (1);
 		}
-		ft_tokenize(&all, cmd);
+		ft_tokenize(&all);
 		i = 0;
 		if (!input_error(&all))
 		{
 			ft_expander(&all);
 			ft_execute_all(&all, &i);
 		}
-		free(cmd);
+		clean_after_cmd(&all);
 	}
 	return (0);
 }

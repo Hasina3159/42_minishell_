@@ -11,12 +11,12 @@ int	ft_replace_var(t_all *all, t_token *token)
 	vars = ft_get_all_var(token->value);
 	if (vars == NULL)
 		return (0);
-	ft_show_all_var(vars);
+	// ft_show_all_var(vars);
 	i = 0;
 	while (vars[i])
 	{
 		value = ft_getvarvalue(all, &vars[i][1]);
-		printf("VARS : %s, value : %s\n", vars[i], value);
+		// printf("VARS : %s, value : %s\n", vars[i], value);
 		tmp = ft_strdup(token->value);
 		free(token->value);
 		token->value = ft_str_repl_copy(tmp, vars[i], value);

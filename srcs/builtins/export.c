@@ -1,5 +1,19 @@
 #include "../../include/minishell.h"
 
+void	print_exported(t_all *all)
+{
+	t_env	*tmp;
+
+	tmp = all->env;
+	while (tmp)
+	{
+		printf("declare -x %s", tmp->key);
+		if (tmp->value[0] != '\0')
+			printf("=\"%s\"", tmp->value);
+		printf("\n");
+		tmp = tmp->next;
+	}
+}
 
 int	is_valid_arg(char *arg)
 {
@@ -33,10 +47,7 @@ void	add_export_variable(t_all *all, char *arg)
 		key = ft_strdup(arg);
 		value = ft_strdup("");
 	}
-	printf("key : %s, value : %s\n", key, value);
 	ft_setvarvalue(all, key, value);
-	//free(key);
-	//free(value);
 }
 
 int	ft_export(t_all *all, char **av)
@@ -47,7 +58,7 @@ int	ft_export(t_all *all, char **av)
 	ac = ft_count_splitted(av);
 	if (ac < 2)
 	{
-		ft_env(all);
+		print_exported(all);
 		return (0);
 	}
 	i = 1;
@@ -56,7 +67,7 @@ int	ft_export(t_all *all, char **av)
 		if (is_valid_arg(av[i]))
 			add_export_variable(all, av[i]);
 		else
-			printf("%s : %s is not a valid identifier", av[0], av[i]);
+			print_error(av[0], av[i], "is not a valid identifier");
 		i++;
 	}
 	return (0);

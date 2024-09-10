@@ -1,47 +1,99 @@
 #include "../../include/minishell.h"
 
-int ft_update_pwd(void)
+void	update_pwd_env(t_all *all, char *oldpwd)
 {
-    char *new_pwd = getcwd(NULL, 0);
-    if (new_pwd == NULL)
-    {
-        perror("getcwd");
-        return -1;
-    }
+	char	*pwd;
 
-    if (setenv("PWD", new_pwd, 1) == -1)
-    {
-        perror("setenv");
-        free(new_pwd);
-        return -1;
-    }
-
-    free(new_pwd);
-    return 0;
+	pwd = getcwd(NULL, 0);
+	ft_setvarvalue(all, ft_strdup("PWD"), pwd);
+	ft_setvarvalue(all, ft_strdup("OLDPWD"), oldpwd);
 }
 
-int ft_cd(char **argv)
+int	expand_cd_arg(char **av, t_all *all)
 {
-    int argc = ft_count_splitted(argv);
-    char    *path;
+	t_env	*tmp;
 
-    if (argc == 2)
-    {
-        path = argv[1];
-    }
-    else if (argc == 1)
-    {
-        path = getenv("HOME");
-        if (path == NULL)
-        {
-            printf("cd: HOME not set\n");
-            return -1;
-        }
-    }
-    if (chdir(path) == -1)
+	tmp = all->env;
+	if (!ft_strncmp(av[1], "-", 2))
 	{
-		printf("cd : ERROR!\n");
+		if (!ft_search_key("OLDPWD", all))
+		{
+			print_error("cd", NULL, "OLDPWD not set");
+			return (1);
+		}
+		free(av[1]);
+		while (tmp)
+		{
+			if (!ft_strncmp(tmp->key, "OLDPWD", 6))
+				break ;
+			tmp = tmp->next;
+		}
+		av[1] = ft_strdup(tmp->value);
+		printf("%s\n", av[1]);
+	}
+	return (0);
+}
+
+static int	cd_case_one(t_all *all, char *oldpwd)
+{
+	if (ft_search_key("HOME", all))
+	{
+		chdir(ft_get_env("HOME", all));
+	}
+	else
+	{
+		print_error("cd", NULL, "HOME not set");
+		free(oldpwd);
+		return (1);
+	}
+
+	return (0);
+}
+
+static int	cd_case_two(char **av, t_all *all, char *oldpwd)
+{
+	int		error;
+
+	if (!expand_cd_arg(av, all))
+	{
+		if (chdir(av[1]) == -1)
+		{
+			error = errno;
+			print_error("cd", av[1], strerror(error));
+			free(oldpwd);
+			return (1);
+		}
+	}
+	else
+	{
+		free(oldpwd);
+		return (1);
+	}
+	return (0);
+}
+
+int	ft_cd(char **av, t_all *all)
+{
+	int 	ac;
+	char	*oldpwd;
+
+	ac = ft_count_splitted(av);
+	if (ac > 2)
+	{
+		print_error("cd", NULL, "too much argument");
 		return (ERROR);
 	}
-    return (ft_update_pwd());
+	oldpwd = getcwd(NULL, 0);
+	if (ac == 1)
+	{
+		if (cd_case_one(all, oldpwd))
+			return (ERROR);
+	}
+	else
+	{
+		if (cd_case_two(av, all, oldpwd))
+			return (ERROR);
+	}
+	update_pwd_env(all, oldpwd);
+	return (SUCCESS);
 }

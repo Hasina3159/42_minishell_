@@ -9,7 +9,6 @@ int					ft_is_operator(char c);
 int					ft_count_occurences(char *text, char *sub);
 int					ft_str_repl(char *text, char *from, char *to);
 char				*ft_getvarvalue(t_all *all, char *var);
-int					ft_setvarvalue(t_all *all, char *key, char *value);
 int					ft_is_varchar(char c);
 char				*ft_strndup(const char *s, int len);
 void				ft_show_sanitized_command(t_all *all);
@@ -30,5 +29,9 @@ char				*ft_str_repl_copy(char *text, char *from, char *to);
 int					ft_count_splitted(char **splitted);
 char				*ft_is_in_env(t_all *all, char *var);
 void				print_error(char *name, char *arg, char *error);
+// * env_utils.c
+int	ft_search_key(char *key, t_all *all);
+char	*ft_get_env(char *key, t_all *all);
+int	ft_setvarvalue(t_all *all, char *key, char *value);
 
 #endif

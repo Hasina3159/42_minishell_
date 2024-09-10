@@ -1,32 +1,17 @@
 #include "../../include/minishell.h"
 
-int	ft_pwd(int argc, char **argv)
-{
-	char path[1024];
-
-	if (getcwd(path, sizeof(path)) == NULL || ft_strncmp("pwd", argv[0],
-			ft_strlen("pwd")) || argc != 1)
-	{
-		printf("pwd : Too many arguments!, path : %s, argc : %d, argv[0] : %s, cmp : %d\n", path,
-			argc, argv[0], ft_strncmp("pwd", argv[0],
-			ft_strlen("pwd")));
-		return (0);
-	}
-	printf("%s\n", path);
-	return (0);
-}
-/*
 int	ft_pwd(t_all *all)
 {
-	t_env	*env;
+	char	pwd[TOKENS_MAX];
+	int		error;
 
-	env = all->env;
-	while (env)
+	(void)all;
+	if (getcwd(pwd, TOKENS_MAX) == NULL)
 	{
-		if (!ft_strncmp(env->key, "PWD", 4))
-			break ;
-		env = env->next;
+		error = errno;
+		print_error("cd", NULL, strerror(error));
+		return (ERROR);
 	}
-	printf("%s\n", env->value);
-	return (0);
-}*/
+	printf("%s\n", pwd);
+	return (SUCCESS);
+}

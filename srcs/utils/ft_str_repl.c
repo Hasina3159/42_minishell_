@@ -113,7 +113,7 @@ char	*ft_str_repl_copy(char *text, char *from, char *to)
 		i++;
 		k++;
 	}
-	printf("55 =============================== : %s\n", final);
-	printf(">>> text : %s, final : %s\n", text, final);
+	// printf("55 =============================== : %s\n", final);
+	// printf(">>> text : %s, final : %s\n", text, final);
 	return (final);
 }
