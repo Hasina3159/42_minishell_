@@ -84,14 +84,14 @@
 // 	i = 0;
 // 	while (token->value[i])
 // 	{
-// 		if (token->value[i] == '$')
+// 		if (token->value[i] == '$' && token->value[i + 1] != '\0')
 // 		{
 // 			if (token->value[i + 1] == '?')
 // 				ft_expander_exit_status(all, token, i);
 // 			else if (ft_isalpha(token->value[i + 1]) || token->value[i + 1] == '_')
 // 				ft_expander_env(all->env, token, i);
-// 			i = 0;
-// 			continue ;
+// 			// i = 0;
+// 			// continue ;
 // 		}
 // 		i++;
 // 	}
@@ -105,7 +105,7 @@
 // 	i = 0;
 // 	while (all->tokens[i].type != T_END)
 // 	{
-// 		if (all->tokens[i].type == T_WORD || all->tokens[i].type == T_COMMAND)
+// 		if (all->tokens[i].type != T_STRING_S)
 // 		{
 // 			ft_expander_word(all, &all->tokens[i]);
 // 		}

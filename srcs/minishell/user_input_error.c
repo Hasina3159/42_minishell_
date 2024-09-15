@@ -3,7 +3,22 @@
 int	test_hd(t_token *tokens, int i)
 {
 	if (tokens[i + 1].type == T_IN)
-		return (0);
+	{
+		if (tokens[i + 2].type == T_OUT)
+		{
+			print_error(NULL, NULL, "syntax error near unexpected token « > »");
+			return (1);
+		}
+		else if (tokens[i + 2].type == T_OUT_APPEND)
+		{
+			print_error(NULL, NULL, "syntax error near unexpected token « >> »");
+			return (1);
+		}
+		else
+		{
+			return (1);
+		}
+	}
 	else if (tokens[i + 1].type == T_HD)
 	{
 		if (tokens[i + 2].type == T_HD)
@@ -14,7 +29,7 @@ int	test_hd(t_token *tokens, int i)
 			print_error(NULL, NULL, "syntax error near unexpected token « < »");
 		return (1);
 	}
-	else if (tokens[i + 1].type != T_WORD && tokens[i + 1].type != T_COMMAND)
+	else if (tokens[i + 1].type != T_HD_ENDER)
 	{
 		print_error(NULL, NULL, "syntax error near unexpected token « newline »");
 		return (1);
@@ -29,7 +44,7 @@ int	test_out(t_token *tokens, int i)
 		print_error(NULL, NULL, "syntax error near unexpected token « | »");
 		return (1);
 	}
-	else if (tokens[i + 1].type != T_WORD && tokens[i + 1].type != T_COMMAND)
+	else if (tokens[i + 1].type != T_FILE_OUT)
 	{
 		if (!ft_strncmp(tokens[i + 1].value, "&&", 3))
 			print_error(NULL, NULL, "syntax error near unexpected token « & »");
@@ -81,7 +96,7 @@ int	test_in(t_token *tokens, int i)
 			return (1);
 		}
 	}
-	else if (tokens[i + 1].type != T_WORD)
+	else if (tokens[i + 1].type != T_FILE_IN)
 	{
 		print_error(NULL, NULL, "syntax error near unexpected token « newline »");
 		return (1);

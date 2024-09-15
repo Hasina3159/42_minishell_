@@ -59,7 +59,7 @@ void	ft_expander_env(t_env *env, t_token *token, int i)
 
 	tmp_env = env;
 	key = ft_substr(token->value, i + 1, get_key_sublen(i, token));
-		before = ft_substr(token->value, 0, i);
+	before = ft_substr(token->value, 0, i);
 	after = ft_substr(token->value, get_key_sublen(i, token), ft_strlen(token->value));
 	while (tmp_env)
 	{
@@ -77,38 +77,63 @@ void	ft_expander_env(t_env *env, t_token *token, int i)
 	free(after);
 }
 
-int	ft_expander_word(t_all *all, t_token *token)
+/*int	ft_expander_word(t_all *all, t_token *token)
 {
 	int	i;
 
 	i = 0;
 	while (token->value[i])
 	{
-		if (token->value[i] == '$')
+		if (token->value[i] == '$' && token->value[i + 1] != '\0')
 		{
 			if (token->value[i + 1] == '?')
 				ft_expander_exit_status(all, token, i);
 			else if (ft_isalpha(token->value[i + 1]) || token->value[i + 1] == '_')
 				ft_expander_env(all->env, token, i);
-			i = 0;
-			continue ;
+			return (1);
 		}
 		i++;
+	}
+	return (0);
+}*/
+int	ft_expander_word(t_all *all, t_token *token)
+{
+	int	i;
+	int	expanded;
+
+	i = 0;
+	expanded = 1;
+	while (expanded)
+	{
+		expanded = 0;
+		while (token->value[i])
+		{
+			if (token->value[i] == '$' && token->value[i + 1] != '\0')
+			{
+				if (token->value[i + 1] == '?')
+					ft_expander_exit_status(all, token, i);
+				else if (ft_isalpha(token->value[i + 1]) || token->value[i + 1] == '_')
+					ft_expander_env(all->env, token, i);
+				expanded = 1;
+			}
+			i++;
+		}
+		i = 0;
 	}
 	return (0);
 }
 
 int	ft_expander(t_all *all)
 {
-	int	i;
+	int		i;
 
 	i = 0;
 	while (all->tokens[i].type != T_END)
 	{
-		if (all->tokens[i].type == T_WORD || all->tokens[i].type == T_COMMAND)
-		{
+		if (all->tokens[i].type != T_STRING_S)
 			ft_expander_word(all, &all->tokens[i]);
-		}
+		// else if (all->tokens[i].type != T_STRING_S && all->tokens[i].type != T_STRING_D)
+		// 	ft_expand_tilde(&all->tokens[i]);
 		i++;
 	}
 	return (0);

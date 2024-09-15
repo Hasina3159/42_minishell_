@@ -56,7 +56,6 @@ void	ft_replace_all_wildcards(t_all *all)
 	int	i;
 
 	i = 0;
-	printf("==> WILDCARDS\n");
 	dirs = ft_init_dirs();
 	while (i < all->token_count)
 	{
@@ -82,11 +81,9 @@ void	ft_move_token_0(t_all *all)
 	i = 0;
 	while (i < all->token_count - 1)
 	{
-		//printf("----------------------------- MOVE --------------------------\n");
 		if (all->tokens[i].type == T_FILE_OUT)
 		{
 			i++;
-			//printf("LAST : %s\n", all->tokens[i].value);
 			tmp.type = all->tokens[i].type;
 			tmp.value = all->tokens[i].value;
 			all->tokens[i].type = T_PIPE;
@@ -118,15 +115,12 @@ void	ft_move_token(t_all *all)
 	i = 0;
 	while (i < all->token_count - 1)
 	{
-		//printf("----------------------------- MOVE --------------------------\n");
 		if (all->tokens[i].type == T_FILE_OUT)
 		{
-			//printf("LAST : %s\n", all->tokens[i].value);
 			all->tokens[i].type = T_WORD;
 			tmp.type = all->tokens[i].type;
 			tmp.value = all->tokens[i].value;
 			all->tokens[i].type = T_COMMAND;
-			// all->tokens[i].value = ft_strdup("tee");
 			all->tokens[i].value = ft_strdup("/usr/bin/tee");
 			j = i + 1;
 			all->token_count = all->token_count + 1;
@@ -155,10 +149,7 @@ void	ft_move_token_2(t_all *all)
 	i = 0;
 	while (i < all->token_count - 1)
 	{
-		// if (i > 0)
-			//printf("i : %d, value : %s, value-1 : %s, cmp : %d, tee : %d\n", i, all->tokens[i].value, all->tokens[i - 1].value, ft_strncmp(all->tokens[i - 1].value, ">>", 2), ft_strncmp(all->tokens[i].value, "tee", 4));
-		// if (i > 0 && !ft_strncmp(all->tokens[i].value, "tee", 4) && !ft_strncmp(all->tokens[i - 1].value, ">>", 2))
-		if (i > 0 && !ft_strncmp(all->tokens[i].value, "/usr/bin/tee", 12) && !ft_strncmp(all->tokens[i - 1].value, ">>", 2))
+		if (i > 0 && !ft_strncmp(all->tokens[i].value, "/usr/bin/tee", 13) && !ft_strncmp(all->tokens[i - 1].value, ">>", 2))
 		{
 			i++;
 			all->tokens[i].type = T_WORD;
@@ -200,22 +191,25 @@ void	ft_redir_to_pipe(t_all *all)
 	}
 }
 
-void	ft_tokenize(t_all *all)
+int	ft_tokenize(t_all *all)
 {
 
 	ft_init_t_all(all);
 	ft_create_token(all);
-	// ft_replace_all_vars(all);
+	ft_replace_all_vars(all);
 	//ft_replace_all_wildcards(all);
 	ft_set_command(all);
 	ft_set_other(all);
 	ft_set_other_1(all);
 	ft_finalize_token(all);
-	//ft_move_token_0(all);
-	// ft_move_token(all);
-	// ft_move_token_2(all);
-	// ft_redir_to_pipe(all);
-	// ft_print_tokens(all);
+	// if (input_error(all))
+	// 	return (1);
+	ft_move_token_0(all);
+	ft_move_token(all);
+	ft_move_token_2(all);
+	ft_redir_to_pipe(all);
+	ft_print_tokens(all);
+	return (0);
 }
 
 // int	main(void)

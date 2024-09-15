@@ -46,31 +46,6 @@ int	is_last_cmd(t_all *all, int current_index)
 	return (1);
 }
 
-/*void	ft_pipe(t_all *all)
-{
-	if (all->child_pid == 0)
-	{
-		if (all->tmp != -1)
-		{
-			if (dup2(all->tmp, STDIN_FILENO) == -1)
-			{
-				perror("dup2 tmp to stdin");
-				exit(1);
-			}
-			close(all->tmp);
-		}
-		if (all->has_pipe)
-		{
-			if (dup2(all->fd[1], STDOUT_FILENO) == -1)
-			{
-				perror("dup2 fd[1] to stdout");
-				exit(1);
-			}
-			close(all->fd[1]);
-		}
-		close(all->fd[0]);
-	}
-}*/
 void	ft_pipe(t_all *all)
 {
 	if (all->tmp != -1)
@@ -229,10 +204,7 @@ int	ft_execute(t_all *all, int *i, const char *in)
 	all->has_pipe = ft_has_pipe_after(all, i);
 	check_cmd(all, token_str, i);
 	if (all->child_pid > 0)
-	{
-		waitpid(all->child_pid, &all->statloc, 0);
-		all->exit_status = WEXITSTATUS(all->statloc);
-	}
+		get_exit_status(all);
 	free_split(token_str);
 	return (0);
 }
@@ -251,7 +223,7 @@ char	*ft_get_out(t_all *all, int *i)
 		j++;
 	if (all->tokens[j].type == T_PIPE)
 		j++;
-	if (!ft_strncmp(all->tokens[j].value, "tee", 4))
+	if (!ft_strncmp(all->tokens[j].value, "/usr/bin/tee", 13))
 		has_tee = 1;
 	while (all->tokens[j].type == T_COMMAND || all->tokens[j].type == T_WORD
 		|| all->tokens[j].type == T_OUT)
@@ -306,15 +278,20 @@ int	ft_execute_all(t_all *all, int *i)
 	t_token	*tokens;
 	int		len;
 	char	*in;
+	int		x;
 
 	len = all->token_count;
 	tokens = all->tokens;
 	in = NULL;
+	x = 0;
 	while (*i < len)
 	{
-		if (tokens[*i].type == T_FILE_IN)
-			in = tokens[*i].value;
-		else if (tokens[*i].type == T_COMMAND)
+		if (!x)
+		{
+			in = get_infile(all, *i);
+			x = 1;
+		}
+		if (tokens[*i].type == T_COMMAND)
 		{
 			if (exec_cmd(all, i, in) == 0)
 				break ;

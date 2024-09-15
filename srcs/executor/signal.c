@@ -15,4 +15,3 @@ void	ft_ctrl_c(int sig)
 		rl_redisplay();
 	}
 }
-

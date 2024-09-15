@@ -46,7 +46,7 @@
 // 	return (1);
 // }
 
-// void	ft_pipe(t_all *all)
+// /*void	ft_pipe(t_all *all)
 // {
 // 	if (all->child_pid == 0)
 // 	{
@@ -69,6 +69,34 @@
 // 			close(all->fd[1]);
 // 		}
 // 		close(all->fd[0]);
+// 	}
+// }*/
+// void	ft_pipe(t_all *all)
+// {
+// 	if (all->tmp != -1)
+// 	{
+// 		if (dup2(all->tmp, STDIN_FILENO) == -1)
+// 		{
+// 			perror("dup2 tmp to stdin");
+// 			exit(1);
+// 		}
+// 		close(all->tmp);
+// 		close(all->fd[0]);
+// 	}
+// 	if (all->has_pipe)
+// 	{
+// 		if (dup2(all->fd[1], STDOUT_FILENO) == -1)
+// 		{
+// 			perror("dup2 fd[1] to stdout");
+// 			exit(1);
+// 		}
+// 		close(all->fd[1]);
+// 		close(all->fd[0]);
+// 	}
+// 	if (!all->has_pipe)
+// 	{
+// 		close(all->fd[0]);
+// 		close(all->fd[1]);
 // 	}
 // }
 
@@ -125,12 +153,11 @@
 // 		envp = create_envp(all);
 // 		ft_pipe(all);
 // 		ch = is_built(token_str);
-// 		// close_fd();
 // 		if (ch)
 // 		{
+// 			free_split(envp);
 // 			exit_s = use_built(all, ch, token_str);
 // 			clean_child_b(all, token_str);
-// 			free_split(envp);
 // 			exit(exit_s);
 // 		}
 // 		clean_child(all);
@@ -163,6 +190,10 @@
 // 		{
 // 			if (all->has_pipe)
 // 				all->tmp = all->fd[0];
+// 			// ?
+// 			else
+// 			 	close(all->fd[0]);
+// 			// ?
 // 			close(all->fd[1]);
 // 		}
 // 		return ;
@@ -220,7 +251,7 @@
 // 		j++;
 // 	if (all->tokens[j].type == T_PIPE)
 // 		j++;
-// 	if (!ft_strncmp(all->tokens[j].value, "tee", 4))
+// 	if (!ft_strncmp(all->tokens[j].value, "/usr/bin/tee", 13))
 // 		has_tee = 1;
 // 	while (all->tokens[j].type == T_COMMAND || all->tokens[j].type == T_WORD
 // 		|| all->tokens[j].type == T_OUT)

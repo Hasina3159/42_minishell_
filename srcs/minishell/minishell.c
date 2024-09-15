@@ -45,9 +45,8 @@ int	main(void)
 			printf("exit !\n");
 			return (1);
 		}
-		ft_tokenize(&all);
 		i = 0;
-		if (!input_error(&all))
+		if (!ft_tokenize(&all))
 		{
 			ft_expander(&all);
 			ft_execute_all(&all, &i);

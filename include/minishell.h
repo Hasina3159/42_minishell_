@@ -49,5 +49,7 @@ int	close_fd(void);
 // ? test_2.c
 char	**create_envp(t_all *all);
 char	*get_path(char *cmd, char **env);
+// ? exit_status.c
+void	get_exit_status(t_all *all);
 
 #endif
