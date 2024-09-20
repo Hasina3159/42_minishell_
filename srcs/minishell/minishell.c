@@ -15,9 +15,9 @@ int	read_line(char **input, t_all *all)
 		else
 			*input = readline(GOOD);
 		if (*input == NULL)
-			return (0);
+			return (1);
 		else if ((*input)[0] == '\0')
-			return (0);
+			return (1);
 		else
 			add_history(*input);
 	}
@@ -35,6 +35,8 @@ int	main(void)
 	t_all	all;
 
 	signal(SIGINT, ft_ctrl_c);
+	signal(SIGQUIT, SIG_IGN);
+	// signal(SIGPIPE, SIG_IGN);
 	init_shell(&all);
 	while (1)
 	{
@@ -42,15 +44,12 @@ int	main(void)
 			continue ;
 		if (all.cmd == NULL)
 		{
-			printf("exit !\n");
-			return (1);
+			printf("exit\n");
+			return (0);
 		}
 		i = 0;
 		if (!ft_tokenize(&all))
-		{
-			ft_expander(&all);
 			ft_execute_all(&all, &i);
-		}
 		clean_after_cmd(&all);
 	}
 	return (0);

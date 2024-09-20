@@ -46,34 +46,23 @@
 // 	return (1);
 // }
 
-// /*void	ft_pipe(t_all *all)
-// {
-// 	if (all->child_pid == 0)
-// 	{
-// 		if (all->tmp != -1)
-// 		{
-// 			if (dup2(all->tmp, STDIN_FILENO) == -1)
-// 			{
-// 				perror("dup2 tmp to stdin");
-// 				exit(1);
-// 			}
-// 			close(all->tmp);
-// 		}
-// 		if (all->has_pipe)
-// 		{
-// 			if (dup2(all->fd[1], STDOUT_FILENO) == -1)
-// 			{
-// 				perror("dup2 fd[1] to stdout");
-// 				exit(1);
-// 			}
-// 			close(all->fd[1]);
-// 		}
-// 		close(all->fd[0]);
-// 	}
-// }*/
 // void	ft_pipe(t_all *all)
 // {
-// 	if (all->tmp != -1)
+// 	int	in;
+
+// 	if (all->infile)
+// 	{
+// 		in = open(all->infile, O_RDONLY);
+// 		dup2(in, STDIN_FILENO);
+// 		if (all->tmp != -1)
+// 			close(all->tmp);
+// 		if (all->hd_file)
+// 		{
+// 			if (!ft_strncmp(all->infile, all->hd_file, ft_strlen(all->infile)))
+// 				unlink(all->hd_file);
+// 		}
+// 	}
+// 	else if (all->tmp != -1)
 // 	{
 // 		if (dup2(all->tmp, STDIN_FILENO) == -1)
 // 		{
@@ -81,7 +70,6 @@
 // 			exit(1);
 // 		}
 // 		close(all->tmp);
-// 		close(all->fd[0]);
 // 	}
 // 	if (all->has_pipe)
 // 	{
@@ -93,7 +81,7 @@
 // 		close(all->fd[1]);
 // 		close(all->fd[0]);
 // 	}
-// 	if (!all->has_pipe)
+// 	else
 // 	{
 // 		close(all->fd[0]);
 // 		close(all->fd[1]);
@@ -141,12 +129,11 @@
 // 	return (126);
 // }
 
-// int	ft_child_exec_pipe(char **token_str, t_all *all, int *i)
+// int	ft_child_exec_pipe(char **token_str, t_all *all)
 // {
 // 	char		**envp;
 // 	int			ch;
 // 	int			exit_s;
-// 	(void)i;
 
 // 	if (all->child_pid == 0)
 // 	{
@@ -172,7 +159,9 @@
 
 // 	ch = is_built(cmd);
 // 	if (ch && is_last_cmd(all, *i))
+// 	{
 // 		all->exit_status = use_built(all, ch, cmd);
+// 	}
 // 	else
 // 	{
 // 		all->child_pid = fork();
@@ -184,31 +173,25 @@
 // 		else if (all->child_pid == 0)
 // 		{
 // 			all->sh++;
-// 			ft_child_exec_pipe(cmd, all, i);
+// 			ft_child_exec_pipe(cmd, all);
 // 		}
 // 		else
 // 		{
 // 			if (all->has_pipe)
 // 				all->tmp = all->fd[0];
-// 			// ?
 // 			else
+// 			{
 // 			 	close(all->fd[0]);
-// 			// ?
+// 				all->tmp = -1;
+// 			}
 // 			close(all->fd[1]);
 // 		}
-// 		return ;
-// 	}
-// 	if (!all->has_pipe)
-// 	{
-// 		close(all->fd[0]);
-// 		close(all->fd[1]);
 // 	}
 // }
 
-// int	ft_execute(t_all *all, int *i, const char *in)
+// int	ft_execute(t_all *all, int *i)
 // {
 // 	char	**token_str;
-// 	int		x;
 
 // 	token_str = ft_tokens_to_char(all, i);
 // 	all->child_pid = -2;
@@ -219,19 +202,12 @@
 // 		perror("Pipe Error!");
 // 		return (-1);
 // 	}
-// 	if (in)
-// 	{
-// 		x = 0;
-// 		while (token_str[x])
-// 			x++;
-// 		token_str[x] = ft_strdup(in);
-// 	}
 // 	all->has_pipe = ft_has_pipe_after(all, i);
 // 	check_cmd(all, token_str, i);
-// 	if (all->child_pid > 0)
+// 	if (is_last_cmd(all, *i) && all->child_pid > 0)
 // 	{
-// 		waitpid(all->child_pid, &all->statloc, 0);
-// 		all->exit_status = WEXITSTATUS(all->statloc);
+// 		get_exit_status(all);
+// 		waitpid(-1, NULL, 0);
 // 	}
 // 	free_split(token_str);
 // 	return (0);
@@ -263,13 +239,25 @@
 // 	return (NULL);
 // }
 
+// int	is_n_op(int type)
+// {
+// 	if (type == T_PIPE)
+// 		return (1);
+// 	else if (type == T_OR)
+// 		return (1);
+// 	else if (type == T_AND)
+// 		return (1);
+// 	else if (type == T_END)
+// 		return (1);
+// 	return (0);
+// }
+
 // int	ft_has_pipe_after(t_all *all, int *i)
 // {
 // 	int	j;
 
 // 	j = *i;
-// 	while (all->tokens[j].type == T_COMMAND || all->tokens[j].type == T_FILE_OUT
-// 		|| all->tokens[j].type == T_OUT)
+// 	while (!is_n_op(all->tokens[j].type))
 // 		j++;
 // 	if (all->tokens[j].type == T_PIPE)
 // 		return (1);
@@ -290,14 +278,14 @@
 // 	return (0);
 // }
 
-// int	exec_cmd(t_all *all, int *i, char *in)
+// int	exec_cmd(t_all *all, int *i)
 // {
 // 	if (all->exit_status && *i > 1 && (ft_has_op_before(all, i, T_AND)))
 // 		return (0);
 // 	else if (!all->exit_status && *i > 1 && (ft_has_op_before(all, i,
 // 				T_OR)))
 // 		return (0);
-// 	ft_execute(all, i, in);
+// 	ft_execute(all, i);
 // 	return (2);
 // }
 
@@ -305,21 +293,26 @@
 // {
 // 	t_token	*tokens;
 // 	int		len;
-// 	char	*in;
+// 	int		x;
 
 // 	len = all->token_count;
 // 	tokens = all->tokens;
-// 	in = NULL;
+// 	x = 0;
 // 	while (*i < len)
 // 	{
-// 		if (tokens[*i].type == T_FILE_IN)
-// 			in = tokens[*i].value;
-// 		else if (tokens[*i].type == T_COMMAND)
+// 		if (!x)
 // 		{
-// 			if (exec_cmd(all, i, in) == 0)
-// 				break ;
-// 			in = NULL;
+// 			all->infile = get_infile(all, *i);
+// 			x = 1;
 // 		}
+// 		if (tokens[*i].type == T_COMMAND)
+// 		{
+// 			if (exec_cmd(all, i) == 0)
+// 				break ;
+// 			x = 0;
+// 		}
+// 		while (!is_n_op(tokens[*i].type))
+// 			*i = *i + 1;
 // 		*i = *i + 1;
 // 	}
 // 	return (1);

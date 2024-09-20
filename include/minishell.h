@@ -51,5 +51,7 @@ char	**create_envp(t_all *all);
 char	*get_path(char *cmd, char **env);
 // ? exit_status.c
 void	get_exit_status(t_all *all);
+// ? handle_redin.c
+int	check_file(char *file, t_all *all);
 
 #endif

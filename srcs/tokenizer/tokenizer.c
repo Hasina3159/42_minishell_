@@ -193,22 +193,22 @@ void	ft_redir_to_pipe(t_all *all)
 
 int	ft_tokenize(t_all *all)
 {
-
 	ft_init_t_all(all);
 	ft_create_token(all);
-	ft_replace_all_vars(all);
-	//ft_replace_all_wildcards(all);
+	while (!ft_replace_all_vars(all));
+	// ft_replace_all_wildcards(all);
+	ft_expander(all);
 	ft_set_command(all);
 	ft_set_other(all);
 	ft_set_other_1(all);
 	ft_finalize_token(all);
-	// if (input_error(all))
-	// 	return (1);
+	if (input_error(all))
+		return (1);
 	ft_move_token_0(all);
 	ft_move_token(all);
 	ft_move_token_2(all);
 	ft_redir_to_pipe(all);
-	ft_print_tokens(all);
+	// ft_print_tokens(all);
 	return (0);
 }
 

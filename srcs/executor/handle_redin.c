@@ -1,6 +1,6 @@
 #include "../../include/minishell.h"
 
-int	check_file(char *file)
+/*int	check_file(char *file)
 {
 	if (access(file, F_OK) < 0)
 	{
@@ -10,6 +10,23 @@ int	check_file(char *file)
 	if (access(file, R_OK) < 0)
 	{
 		print_error(NULL, file, "Permission denied");
+		return (1);
+	}
+	return (0);
+}*/
+
+int	check_file(char *file, t_all *all)
+{
+	if (access(file, F_OK) < 0)
+	{
+		if (all->sh)
+			print_error(NULL, file, "No such file or directory");
+		return (1);
+	}
+	if (access(file, R_OK) < 0)
+	{
+		if (all->sh)
+			print_error(NULL, file, "Permission denied");
 		return (1);
 	}
 	return (0);
@@ -48,7 +65,7 @@ char	*get_infile(t_all *all, int i)
 		{
 			if (!check)
 				in = all->tokens[x + 1].value;
-			if (check_file(all->tokens[x + 1].value))
+			if (check_file(all->tokens[x + 1].value, all))
 				check = 1;
 		}
 		x++;

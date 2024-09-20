@@ -114,11 +114,11 @@ int	test_t_pipe(t_token *tokens, int i)
 		print_error(NULL, NULL, "syntax error near unexpected token « |& »");
 		return (1);
 	}
-	else if (type != T_WORD && type != T_COMMAND)
-	{
-		print_error(NULL, NULL, "syntax error near unexpected token « | »");
-		return (1);
-	}
+	// else if (type != T_WORD && type != T_COMMAND)
+	// {
+	// 	print_error(NULL, NULL, "syntax error near unexpected token « | »");
+	// 	return (1);
+	// }
 	else if (i == 0)
 	{
 		print_error(NULL, NULL, "syntax error near unexpected token « | »");

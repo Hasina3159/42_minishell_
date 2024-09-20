@@ -96,7 +96,28 @@ void	ft_expander_env(t_env *env, t_token *token, int i)
 	}
 	return (0);
 }*/
+
 int	ft_expander_word(t_all *all, t_token *token)
+{
+	int	i;
+
+	i = 0;
+	while (token->value[i])
+	{
+		if (token->value[i] == '$' && token->value[i + 1] != '\0')
+		{
+			if (token->value[i + 1] == '?')
+				ft_expander_exit_status(all, token, i);
+			// else if (ft_isalpha(token->value[i + 1]) || token->value[i + 1] == '_')
+			// 	ft_expander_env(all->env, token, i);
+			// return (1);
+		}
+		i++;
+	}
+	return (0);
+}
+
+/*int	ft_expander_word(t_all *all, t_token *token)
 {
 	int	i;
 	int	expanded;
@@ -121,7 +142,7 @@ int	ft_expander_word(t_all *all, t_token *token)
 		i = 0;
 	}
 	return (0);
-}
+}*/
 
 int	ft_expander(t_all *all)
 {

@@ -22,6 +22,7 @@ typedef struct s_all
 	int				token_index;
 	char			quote_char;
 	char			*cmd;
+	// char			*value;
 	t_token			tokens[TOKENS_MAX];
 	int				token_count;
 	t_env			*env;
@@ -31,10 +32,8 @@ typedef struct s_all
 	int				fd[2];
 	int				tmp;
 	int				has_pipe;
-	int				has_in;
-	int				has_out;
+	// char			*last_cmd;
 	int				sh;
-	char			*infile;
 	int				x;
 	char			*hd_file;
 }					t_all;

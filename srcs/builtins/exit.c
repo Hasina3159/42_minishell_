@@ -34,6 +34,8 @@ int	free_all(t_all *all)
 	{
 		close(all->fd[0]);
 		close(all->fd[1]);
+		if (all->tmp > 0)
+			close(all->tmp);
 		close(STDIN_FILENO);
 		close(STDOUT_FILENO);
 		close(STDERR_FILENO);
@@ -82,7 +84,6 @@ int	ft_exit(t_all *all, char **argv)
 		free_split(argv);
 		exit (exit_s);
 	}
-	free_split(argv);
 	print_error("exit", NULL, "too much arguments");
 	return (1);
 }

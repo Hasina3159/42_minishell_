@@ -36,5 +36,6 @@ void	init_shell(t_all *all)
 	// ?
 	all->sh = 0;
 	all->cmd = NULL;
+	all->hd_file = NULL;
 	// ?
 }
