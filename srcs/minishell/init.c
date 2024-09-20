@@ -13,7 +13,8 @@ int	init_sh_env(t_all *all)
 	while (environ[i])
 	{
 		key = ft_substr(environ[i], 0, ft_strchr(environ[i], '=') - environ[i]);
-		value = ft_substr(environ[i], ft_strchr(environ[i], '=') - environ[i] + 1, ft_strlen(environ[i]));
+		value = ft_substr(environ[i], ft_strchr(environ[i], '=') \
+				- environ[i] + 1, ft_strlen(environ[i]));
 		ft_setvarvalue(all, key, value);
 		i++;
 	}
@@ -33,9 +34,7 @@ void	init_shell(t_all *all)
 	}
 	all->tmp = -1;
 	all->exit_status = 0;
-	// ?
 	all->sh = 0;
 	all->cmd = NULL;
 	all->hd_file = NULL;
-	// ?
 }

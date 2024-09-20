@@ -191,16 +191,38 @@ void	ft_redir_to_pipe(t_all *all)
 	}
 }
 
-int	ft_tokenize(t_all *all)
+/*int	ft_tokenize(t_all *all)
 {
 	ft_init_t_all(all);
 	ft_create_token(all);
-	while (!ft_replace_all_vars(all));
+	while (!ft_replace_all_vars(all))
+		continue ;
 	// ft_replace_all_wildcards(all);
 	ft_expander(all);
 	ft_set_command(all);
 	ft_set_other(all);
 	ft_set_other_1(all);
+	ft_finalize_token(all);
+	// if (input_error(all))
+	// 	return (1);
+	ft_move_token_0(all);
+	ft_move_token(all);
+	ft_move_token_2(all);
+	ft_redir_to_pipe(all);
+	ft_print_tokens(all);
+	return (0);
+}*/
+int	ft_tokenize(t_all *all)
+{
+	ft_init_t_all(all);
+	ft_create_token(all);
+	while (!ft_replace_all_vars(all))
+		continue ;
+	// ft_replace_all_wildcards(all);
+	ft_expander(all);
+	ft_set_other(all);
+	ft_set_other_1(all);
+	ft_set_command(all);
 	ft_finalize_token(all);
 	if (input_error(all))
 		return (1);
@@ -211,53 +233,3 @@ int	ft_tokenize(t_all *all)
 	// ft_print_tokens(all);
 	return (0);
 }
-
-// int	main(void)
-// {
-// 	char	*cmd;
-// 	t_all	all;
-// 	//t_dir	**dirs;
-// 	//char	*wildcard;
-// 	int		i;
-
-// 	signal(SIGINT, ft_ctrl_c);
-// 	all.tmp = -1;
-// 	while (1)
-// 	{
-// 		cmd = readline("Entrez une commande : ");
-// 		if (cmd == NULL)
-// 		{
-// 			//perror("Erreur de lecture!");
-// 			printf("exit !\n");
-// 			return (1);
-// 		}
-// 		if (strlen(cmd) > CMD_MAX)
-// 		{
-// 			perror("Too long!");
-// 			free(cmd);
-// 			return (1);
-// 		}
-// 		if (ft_strlen(cmd))
-// 			add_history(cmd);
-
-// 		printf("VALUE : %s\n", ft_getvarvalue(&all, cmd));
-// 		ft_tokenize(&all, cmd);
-// 		printf("\n");
-// 		//printf("match : %d", ft_match(all.tokens[1].value,
-// 		//		all.tokens[0].value));
-// 		printf("\n");
-// 		//dirs = ft_init_dirs();
-// 		//ft_copy_dir(dirs, ft_strlen(getcwd(NULL, 0)) + 1);
-// 		//ft_print_tokens(&all);
-// 		//ft_show_sanitized_command(&all);
-// 		//wildcard = ft_get_wildcard(dirs, "test");
-// 		//printf("\n>>>>>>>>>>>>> FINAL : %s\n\n", all.tokens[0].value);
-// 		//printf("\n>>>>>>>>>>>>> WILDCARD : [%s]\n\n", wildcard);
-// 		//ft_show_match(dirs);
-// 		//ft_print_tokens(&all);
-// 		i = 0;
-// 		ft_execute_all(&all, &i);
-// 		free(cmd);
-// 	}
-// 	return (0);
-// }

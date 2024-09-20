@@ -58,11 +58,7 @@ char	**get_env(char **env)
 		i++;
 	}
 	if (!env[i])
-	{
-		// free(path);
-		// path = NULL;
 		return (NULL);
-	}
 	env_path = ft_split(path, ':');
 	free(path);
 	path = NULL;

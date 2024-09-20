@@ -27,9 +27,6 @@
 # include "utils.h"
 # include "tokenizer.h"
 
-// readline
-// int	read_line(char **input, t_ex exe);
-int	input_error(t_all *all);
 int	ft_expander(t_all *all);
 // ? init
 void	init_shell(t_all *all);
@@ -53,5 +50,9 @@ char	*get_path(char *cmd, char **env);
 void	get_exit_status(t_all *all);
 // ? handle_redin.c
 int	check_file(char *file, t_all *all);
+// ? imput_error
+int	test_hd_in(t_token *tokens, int i);
+int	test_out_n_append(t_token *tokens, int i);
+int	input_error(t_all *all);
 
 #endif

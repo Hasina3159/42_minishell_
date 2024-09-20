@@ -8,7 +8,7 @@ void	clean_after_cmd(t_all *all)
 
 int	read_line(char **input, t_all *all)
 {
-	if(isatty(STDIN_FILENO))
+	if (isatty(STDIN_FILENO))
 	{
 		if (all->exit_status)
 			*input = readline(BAD);
@@ -36,7 +36,6 @@ int	main(void)
 
 	signal(SIGINT, ft_ctrl_c);
 	signal(SIGQUIT, SIG_IGN);
-	// signal(SIGPIPE, SIG_IGN);
 	init_shell(&all);
 	while (1)
 	{
@@ -45,7 +44,7 @@ int	main(void)
 		if (all.cmd == NULL)
 		{
 			printf("exit\n");
-			return (0);
+			break ;
 		}
 		i = 0;
 		if (!ft_tokenize(&all))

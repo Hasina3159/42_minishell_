@@ -248,7 +248,8 @@ int	ft_execute(t_all *all, int *i)
 		return (-1);
 	}
 	check_cmd(all, token_str);
-	if (is_last_cmd(all, *i) && all->child_pid > 0)
+	// if (is_last_cmd(all, *i) && all->child_pid > 0)
+	if (!all->has_pipe && all->child_pid > 0)
 	{
 		get_exit_status(all);
 		waitpid(-1, NULL, 0);

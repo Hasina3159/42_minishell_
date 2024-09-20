@@ -32,7 +32,7 @@ int	check_file(char *file, t_all *all)
 	return (0);
 }
 
-int	f_op(int type)
+static int	f_op(int type)
 {
 	if (type == T_PIPE || type == T_END || type == T_OR || type == T_AND)
 		return (1);
@@ -54,6 +54,7 @@ char	*get_infile(t_all *all, int i)
 		{
 			if (all->hd_file)
 			{
+				unlink(all->hd_file);
 				free(all->hd_file);
 				all->hd_file = NULL;
 			}
@@ -63,6 +64,12 @@ char	*get_infile(t_all *all, int i)
 		}
 		else if (all->tokens[x].type == T_IN)
 		{
+			if (all->hd_file)
+			{
+				unlink(all->hd_file);
+				free(all->hd_file);
+				all->hd_file = NULL;
+			}
 			if (!check)
 				in = all->tokens[x + 1].value;
 			if (check_file(all->tokens[x + 1].value, all))
