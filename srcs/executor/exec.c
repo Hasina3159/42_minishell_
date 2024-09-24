@@ -69,15 +69,65 @@ void	is_need_pipe(t_all *all, int *i)
 		all->has_pipe = 1;
 }
 
+// int	ft_pipe(t_all *all)
+// {
+// 	int	in;
+
+// 	if (all->has_in)
+// 	{
+// 		if (all->tmp != -1)
+// 			close(all->tmp);
+// 		if (check_file(all->infile, all))
+// 		{
+// 			close(all->fd[0]);
+// 			close(all->fd[1]);
+// 			return (1);
+// 		}
+// 		in = open(all->infile, O_RDONLY);
+// 		dup2(in, STDIN_FILENO);
+// 		close(in);
+// 		if (all->hd_file)
+// 		{
+// 			if (!ft_strncmp(all->infile, all->hd_file, ft_strlen(all->infile)))
+// 				unlink(all->hd_file);
+// 		}
+// 	}
+// 	else if (all->tmp != -1)
+// 	{
+// 		if (dup2(all->tmp, STDIN_FILENO) == -1)
+// 		{
+// 			perror("dup2 tmp to stdin");
+// 			exit(1);
+// 		}
+// 		close(all->tmp);
+// 	}
+// 	if (all->has_pipe)
+// 	{
+// 		if (dup2(all->fd[1], STDOUT_FILENO) == -1)
+// 		{
+// 			perror("dup2 fd[1] to stdout");
+// 			exit(1);
+// 		}
+// 		close(all->fd[1]);
+// 		close(all->fd[0]);
+// 	}
+// 	else
+// 	{
+// 		close(all->fd[0]);
+// 		close(all->fd[1]);
+// 	}
+// 	return (0);
+// }
 int	ft_pipe(t_all *all)
 {
 	int	in;
+	int	out;
 
 	if (all->has_in)
 	{
 		if (all->tmp != -1)
 			close(all->tmp);
-		if (check_file(all->infile, all))
+		if (check_file(all->infile, all, 0))
 		{
 			close(all->fd[0]);
 			close(all->fd[1]);
@@ -101,7 +151,26 @@ int	ft_pipe(t_all *all)
 		}
 		close(all->tmp);
 	}
-	if (all->has_pipe)
+	if (all->has_out)
+	{
+		out = open_outfile(all, all->out_type);
+		if (check_file(all->outfile, all, 1))
+		{
+			close(out);
+			close(all->fd[0]);
+			close(all->fd[1]);
+			return (1);
+		}
+		if (dup2(out, STDOUT_FILENO) == -1)
+		{
+			perror("dup2 fd[1] to stdout");
+			exit(1);
+		}
+		close(out);
+		close(all->fd[0]);
+		close(all->fd[1]);
+	}
+	else if (all->has_pipe)
 	{
 		if (dup2(all->fd[1], STDOUT_FILENO) == -1)
 		{
@@ -248,7 +317,6 @@ int	ft_execute(t_all *all, int *i)
 		return (-1);
 	}
 	check_cmd(all, token_str);
-	// if (is_last_cmd(all, *i) && all->child_pid > 0)
 	if (!all->has_pipe && all->child_pid > 0)
 	{
 		get_exit_status(all);
@@ -283,6 +351,13 @@ int	exec_cmd(t_all *all, int *i)
 	return (2);
 }
 
+void	reset_redirection(t_all *all)
+{
+	all->has_in = 0;
+	all->has_pipe = 0;
+	all->has_out = 0;
+}
+
 int	ft_execute_all(t_all *all, int *i)
 {
 	t_token	*tokens;
@@ -292,14 +367,13 @@ int	ft_execute_all(t_all *all, int *i)
 	len = all->token_count;
 	tokens = all->tokens;
 	x = 0;
-	all->has_in = 0;
-	all->has_pipe = 0;
-	all->has_out = 0;
+	reset_redirection(all);
 	while (*i < len)
 	{
 		if (!x)
 		{
 			is_need_pipe(all, i);
+			all->outfile = get_outfile(all, *i);
 			all->infile = get_infile(all, *i);
 			x = 1;
 		}
@@ -308,9 +382,7 @@ int	ft_execute_all(t_all *all, int *i)
 			if (exec_cmd(all, i) == 0)
 				break ;
 			x = 0;
-			all->has_in = 0;
-			all->has_pipe = 0;
-			all->has_out = 0;
+			reset_redirection(all);
 		}
 		*i = *i + 1;
 	}

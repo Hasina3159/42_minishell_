@@ -6,11 +6,11 @@
         - [x] exec cmd (based on the PATH variable or using a relative or an absolute path)
         - [x] single quote (T_STRING_S)
         - [x] double quote (T_STRING_D)
-        - [ ] redirection:
+        - [x] redirection:
             - [x] < input
-            - [ ] output >
+            - [x] output >
             - [x] << heredoc
-            - [ ] >> output append
+            - [x] >> output append
         - [ ] pipes
         - [x] environment variables
         - [x] handle $?
@@ -27,28 +27,24 @@
         - [ ] check_leaks.sh
         - [x] builtins child
 - expander:
-        - [x] ```bash
+        - [ ]
+
+              ```bash
               echo $HOME$PWD$HOME$HOME$HOME$HOME$HOME
               ```
         - [ ] ~ to $HOME n'expand pas si quote, ou ~ n'est pas au debut (pas obligatoire)
-- fd:
-        - [ ] close unused fd
-- execution:
-        - [x] heredoc
+        - [ ] expand toujours meme si unset un variable
 - cas
-    - (obli ou pas ?)
-            - [ ] ```bash
-                  ls |
-                  ```
-            - [ ] ```bash
-                  cat | cat | ls
-                  ```
-- gestion cmd:
-        - [ ] ```bash
-              > out cat
+        - [ ] (obli ou pas ?)
+
+              ```bash
+              ls |
               ```
-        - [ ] redirection out avant la commande ne se comporte pas comme bash
-        - [x] get exit_status if signaled or exited
-- here-doc
+        - [ ] gerer SIGPIPE
+
+              ```bash
+              cat | cat | ls
+              ```
+- here-doc (obli ?)
         - [ ] expander here-doc
         - [ ] ctrl + c sur le prompt here-doc

@@ -35,6 +35,8 @@ typedef struct s_all
 	int				has_out;
 	int				sh;
 	char			*infile;
+	char			*outfile;
+	int				out_type;
 	int				x;
 	char			*hd_file;
 }					t_all;

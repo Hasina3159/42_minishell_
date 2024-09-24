@@ -226,10 +226,10 @@ int	ft_tokenize(t_all *all)
 	ft_finalize_token(all);
 	if (input_error(all))
 		return (1);
-	ft_move_token_0(all);
-	ft_move_token(all);
-	ft_move_token_2(all);
-	ft_redir_to_pipe(all);
+	// ft_move_token_0(all);
+	// ft_move_token(all);
+	// ft_move_token_2(all);
+	// ft_redir_to_pipe(all);
 	// ft_print_tokens(all);
 	return (0);
 }

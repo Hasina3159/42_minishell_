@@ -49,10 +49,14 @@ char	*get_path(char *cmd, char **env);
 // ? exit_status.c
 void	get_exit_status(t_all *all);
 // ? handle_redin.c
-int	check_file(char *file, t_all *all);
+// int	check_file(char *file, t_all *all);
+int	check_file(char *file, t_all *all, int f);
 // ? imput_error
 int	test_hd_in(t_token *tokens, int i);
 int	test_out_n_append(t_token *tokens, int i);
 int	input_error(t_all *all);
+// ? handle_redout.c
+int	open_outfile(t_all *all, int type);
+char	*get_outfile(t_all *all, int i);
 
 #endif
