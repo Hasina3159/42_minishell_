@@ -1,21 +1,17 @@
 #include "../../include/minishell.h"
 
-/*int	close_fd(void)
+void	free_split(char **cmd)
 {
-	int	fd;
 	int	i;
 
-	fd = 100;
-	i = 5;
-	while (i <= fd)
+	i = 0;
+	while (cmd[i] != NULL)
 	{
-		if (close(fd) == -1)
-			fd--;
-		else
-			fd--;
+		free(cmd[i]);
+		i++;
 	}
-	return (0);
-}*/
+	free(cmd);
+}
 
 void	del_env(t_env **env)
 {
@@ -36,9 +32,7 @@ void	del_env(t_env **env)
 
 int	clean_child_b(t_all *all, char **token_str)
 {
-	// ?
 	free_split(token_str);
-	// ?
 	free_all(all);
 	return (0);
 }

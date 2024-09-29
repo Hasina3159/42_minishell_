@@ -27,14 +27,12 @@
         - [ ] check_leaks.sh
         - [x] builtins child
 - expander:
-        - [ ]
-
-              ```bash
+        - [x] ```bash
               echo $HOME$PWD$HOME$HOME$HOME$HOME$HOME
               ```
         - [ ] ~ to $HOME n'expand pas si quote, ou ~ n'est pas au debut (pas obligatoire)
-        - [ ] expand toujours meme si unset un variable
-- cas
+        - [x] expand toujours meme si unset un variable
+- casàç
         - [ ] (obli ou pas ?)
 
               ```bash
@@ -46,5 +44,5 @@
               cat | cat | ls
               ```
 - here-doc (obli ?)
-        - [ ] expander here-doc
+        - [x] expander here-doc
         - [ ] ctrl + c sur le prompt here-doc

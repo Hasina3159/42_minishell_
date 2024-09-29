@@ -1,55 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   hd_utils.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: arazafin <arazafin@student.42antananari    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/09/28 17:00:50 by arazafin          #+#    #+#             */
+/*   Updated: 2024/09/29 11:15:51 by arazafin         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/minishell.h"
-
-/*static int	replace_var(t_all *all, char *str)
-{
-	char	**vars;
-	char	*value;
-	int		i;
-	char	*tmp;
-
-	(void) all;
-	vars = ft_get_all_var(str);
-	if (vars == NULL)
-		return (0);
-	i = 0;
-	while (vars[i])
-	{
-		value = ft_getvarvalue(all, &vars[i][1]);
-		tmp = ft_strdup(str);
-		free(str);
-		str = ft_str_repl_copy(tmp, vars[i], value);
-		free(tmp);
-		if (str)
-			return (0);
-		i++;
-	}
-	i = 0;
-	while (vars[i])
-	{
-		if (vars[i])
-			free(vars[i]);
-		i++;
-	}
-	if (vars)
-		free(vars);
-	return (1);
-}
-
-static int	replace_all_vars(t_all *all)
-{
-	t_token	*token;
-	int		i;
-
-	i = 0;
-	token = all->tokens;
-	while (i < all->token_count)
-	{
-		if (token[i].type != T_STRING_S && !ft_replace_var(all, &token[i]))
-			return (0);
-		i++;
-	}
-	return (1);
-}*/
 
 void	hd_expand_exit(t_all *all, char *line, int i)
 {
@@ -87,71 +48,29 @@ int	expand_heredoc(t_all *all, char *line)
 	return (0);
 }
 
-char	*get_heredoc(char *doc, char *line)
+int	ft_replace_hd(t_all *all, char *line)
 {
+	char	**vars;
+	char	*value;
+	int		i;
 	char	*tmp;
 
-	if (doc == NULL)
-		doc = ft_strjoin(line, "\n");
-	else
+	vars = ft_get_all_var(line);
+	if (vars == NULL)
+		return (0);
+	i = 0;
+	while (vars[i])
 	{
-		tmp = ft_strjoin(doc, line);
-		free(doc);
-		doc = ft_strjoin(tmp, "\n");
-		free(tmp);
-	}
-	return (doc);
-}
-
-void	here_doc(char *limiter, int fd_out, t_all *all)
-{
-	(void)all;
-	char	*line;
-	char	*doc;
-
-	doc = NULL;
-	while (1)
-	{
-		line = readline("heredoc> ");
-		if (!line)
-		{
-			print_error("warning", "terminate here_doc without", limiter);
-			break ;
-		}
-		if (ft_strncmp(line, limiter, ft_strlen(limiter)) == 0)
-		{
-			free(line);
-			break ;
-		}
-		// expand_heredoc(all, line);
-		doc = get_heredoc(doc, line);
+		value = ft_getvarvalue(all, &vars[i][1]);
+		tmp = ft_strdup(line);
 		free(line);
+		line = ft_str_repl_copy(tmp, vars[i], value);
+		free(tmp);
+		if (line)
+			return (0);
+		i++;
 	}
-	if (!doc)
-		doc = ft_strdup("");
-	ft_putstr_fd(doc, fd_out);
-	free(doc);
-}
-
-void	heredoc(t_all *all, char *limiter)
-{
-	int		tmp_fd;
-	char	*tmp;
-
-	tmp = getcwd(NULL, 0);
-	if (tmp == NULL)
-	{
-		perror("getcwd");
-		return ;
-	}
-	all->hd_file = ft_strjoin(tmp, "/.heredoc");
-	free(tmp);
-	tmp_fd = open(all->hd_file, O_CREAT | O_RDWR | O_TRUNC, 0777);
-	if (tmp_fd == -1)
-	{
-		perror("open");
-		return ;
-	}
-	here_doc(limiter, tmp_fd, all);
-	close(tmp_fd);
+	i = 0;
+	free_split(vars);
+	return (1);
 }

@@ -1,6 +1,6 @@
 #include "../../include/minishell.h"
 
-int	ft_replace_var(t_all *all, t_token *token)
+/*int	ft_replace_var(t_all *all, t_token *token)
 {
 	char	**vars;
 	char	*value;
@@ -8,6 +8,40 @@ int	ft_replace_var(t_all *all, t_token *token)
 	char	*tmp;
 
 	(void) all;
+	vars = ft_get_all_var(token->value);
+	if (vars == NULL)
+		return (0);
+	i = 0;
+	while (vars[i])
+	{
+		value = ft_getvarvalue(all, &vars[i][1]);
+		tmp = ft_strdup(token->value);
+		free(token->value);
+		token->value = ft_str_repl_copy(tmp, vars[i], value);
+		free(tmp);
+		if (token->value)
+			return (0);
+		i++;
+	}
+	i = 0;
+	while (vars[i])
+	{
+		if (vars[i])
+			free(vars[i]);
+		i++;
+	}
+	if (vars)
+		free(vars);
+	return (1);
+}*/
+
+int	ft_replace_var(t_all *all, t_token *token)
+{
+	char	**vars;
+	char	*value;
+	int		i;
+	char	*tmp;
+
 	vars = ft_get_all_var(token->value);
 	if (vars == NULL)
 		return (0);

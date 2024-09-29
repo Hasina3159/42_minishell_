@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minishell.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: arazafin <arazafin@student.42antananari    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/09/28 18:05:25 by arazafin          #+#    #+#             */
+/*   Updated: 2024/09/29 14:44:21 by arazafin         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
@@ -33,30 +45,15 @@ void	init_shell(t_all *all);
 // ? exit
 void	del_token(t_all *all);
 int		free_all(t_all *all);
-// ? test
-void	free_split(char **cmd);
-// ? executor
-int	use_built(t_all *all, int ch, char **cmd);
 // ? utils/clean.c
+void	free_split(char **cmd);
 int	clean_child(t_all *all);
-// int	clean_child_b(t_all *all);
 int	clean_child_b(t_all *all, char **token_str);
 void	del_env(t_env **env);
-int	close_fd(void);
-// ? test_2.c
-char	**create_envp(t_all *all);
-char	*get_path(char *cmd, char **env);
-// ? exit_status.c
-void	get_exit_status(t_all *all);
-// ? handle_redin.c
-// int	check_file(char *file, t_all *all);
-int	check_file(char *file, t_all *all, int f);
 // ? imput_error
 int	test_hd_in(t_token *tokens, int i);
 int	test_out_n_append(t_token *tokens, int i);
 int	input_error(t_all *all);
-// ? handle_redout.c
-int	open_outfile(t_all *all, int type);
-char	*get_outfile(t_all *all, int i);
+
 
 #endif
