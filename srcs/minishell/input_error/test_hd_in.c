@@ -6,7 +6,7 @@
 /*   By: arazafin <arazafin@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 14:36:55 by arazafin          #+#    #+#             */
-/*   Updated: 2024/09/29 14:37:00 by arazafin         ###   ########.fr       */
+/*   Updated: 2024/10/08 07:20:06 by arazafin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,12 +74,8 @@ int	test_in(t_token *tokens, int i)
 	}
 	else if (tokens[i + 1].type == T_AND)
 	{
-		if (ft_strncmp(tokens[i + 1].value, "&&", 2))
-		{
-			print_error(NULL, NULL,
-				"syntax error near unexpected token « && »");
+		if (in_test(tokens, i))
 			return (1);
-		}
 	}
 	else if (tokens[i + 1].type != T_FILE_IN)
 	{

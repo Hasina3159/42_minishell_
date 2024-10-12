@@ -6,7 +6,7 @@
 /*   By: arazafin <arazafin@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 18:23:03 by arazafin          #+#    #+#             */
-/*   Updated: 2024/09/29 14:31:32 by arazafin         ###   ########.fr       */
+/*   Updated: 2024/10/08 07:45:20 by arazafin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ int	open_outfile(t_all *all, int type)
 {
 	int	fd;
 
+	fd = -1;
 	if (type == 1)
 		fd = open(all->outfile, O_CREAT | O_WRONLY | O_TRUNC, 0777);
 	else if (type == 2)
@@ -32,8 +33,8 @@ int	f_op(int type)
 
 static char	*checkout(t_all *all, int x, int *check)
 {
-	int	fd;
-	char *out;
+	int		fd;
+	char	*out;
 
 	out = all->tokens[x + 1].value;
 	fd = open(out, O_CREAT | O_WRONLY | O_TRUNC, 0777);

@@ -6,7 +6,7 @@
 /*   By: arazafin <arazafin@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 11:17:19 by arazafin          #+#    #+#             */
-/*   Updated: 2024/09/29 11:17:22 by arazafin         ###   ########.fr       */
+/*   Updated: 2024/10/11 19:55:51 by arazafin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,8 @@
 # define FILE_DIR 0
 # define FILE_FILE 42
 # define FILE_ALL 2048
-# define HISTORY ".history"
-
 # define CMD_NOT_FOUND 127
-
-# define GOOD "\e[1;32m>\e[0m "
-# define BAD "\e[1;31m>\e[0m "
-# define SH "Sh"
+# define HISTORY ".history"
+# define SH "VeryBadBash> "
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: arazafin <arazafin@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 14:33:41 by arazafin          #+#    #+#             */
-/*   Updated: 2024/09/29 14:33:48 by arazafin         ###   ########.fr       */
+/*   Updated: 2024/10/08 07:42:34 by arazafin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ static int	cd_case_one(t_all *all, char *oldpwd)
 		free(oldpwd);
 		return (1);
 	}
-
 	return (0);
 }
 
@@ -86,7 +85,7 @@ static int	cd_case_two(char **av, t_all *all, char *oldpwd)
 
 int	ft_cd(char **av, t_all *all)
 {
-	int 	ac;
+	int		ac;
 	char	*oldpwd;
 
 	ac = ft_count_splitted(av);

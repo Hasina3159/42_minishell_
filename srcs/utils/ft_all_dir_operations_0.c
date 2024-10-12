@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_all_dir_operations_0.c                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: arazafin <arazafin@student.42antananari    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/10/08 08:12:13 by arazafin          #+#    #+#             */
+/*   Updated: 2024/10/08 08:47:15 by arazafin         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/minishell.h"
 
 void	ft_opendir(char *path, DIR **dir)
@@ -57,13 +69,10 @@ void	ft_add_dir(t_dir **lst, t_dir *elem)
 		return ;
 	}
 	tmp = *lst;
-	//printf("1- tmp : %p, elem : %p\n", tmp, elem);
 	while (tmp && tmp->next)
 	{
-		//printf("1,5- tmp : %p, elem : %p\n", tmp, elem);
 		tmp = tmp->next;
 	}
 	if (tmp && tmp != elem)
 		tmp->next = elem;
-	//printf("2- tmp : %p, elem : %p\n", tmp, elem);
 }

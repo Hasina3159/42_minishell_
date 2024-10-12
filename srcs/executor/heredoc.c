@@ -6,7 +6,7 @@
 /*   By: arazafin <arazafin@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 17:00:45 by arazafin          #+#    #+#             */
-/*   Updated: 2024/09/29 13:35:02 by arazafin         ###   ########.fr       */
+/*   Updated: 2024/10/11 10:22:35 by arazafin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,24 +48,25 @@ int	is_limiter(char *limiter, char *line)
 	return (0);
 }
 
-void	here_doc(char *limiter, int fd_out, t_all *all)
+void	here_doc(t_token lim, int fd_out, t_all *all)
 {
 	char	*line;
 	char	*doc;
+	int		expand;
 
 	doc = NULL;
+	expand = 1;
+	if (lim.second_type == T_STRING_D || lim.second_type == T_STRING_S)
+		expand = 0;
 	while (1)
 	{
 		line = readline("heredoc> ");
-		if (hd_signal(line, limiter))
+		if (hd_signal(line, lim.value))
 			break ;
-		if (is_limiter(limiter, line))
+		if (is_limiter(lim.value, line))
 			break ;
-		while (!ft_replace_hd(all, line))
-			continue ;
-		expand_heredoc(all, line);
-		if (is_limiter(limiter, line))
-			break ;
+		if (expand)
+			hd_expand(all, line);
 		doc = get_heredoc(doc, line);
 		free(line);
 	}
@@ -75,7 +76,7 @@ void	here_doc(char *limiter, int fd_out, t_all *all)
 	free(doc);
 }
 
-void	heredoc(t_all *all, char *limiter)
+void	heredoc(t_all *all, t_token lim)
 {
 	int		tmp_fd;
 	char	*tmp;
@@ -94,6 +95,6 @@ void	heredoc(t_all *all, char *limiter)
 		perror("open");
 		return ;
 	}
-	here_doc(limiter, tmp_fd, all);
+	here_doc(lim, tmp_fd, all);
 	close(tmp_fd);
 }

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   tokenizer_2.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: arazafin <arazafin@student.42antananari    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/10/08 09:31:06 by arazafin          #+#    #+#             */
+/*   Updated: 2024/10/11 21:32:50 by arazafin         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/minishell.h"
 
 int	ft_is_var(char *s)
@@ -52,7 +64,7 @@ char	**ft_get_all_var(char *s)
 	char	*var;
 
 	len = ft_count_var(s);
-	all_var = (char **)malloc(sizeof(char*) * (len + 1));
+	all_var = (char **)malloc(sizeof(char *) * (len + 1));
 	if (all_var == NULL)
 		return (NULL);
 	all_var[len] = NULL;
@@ -70,19 +82,3 @@ char	**ft_get_all_var(char *s)
 	}
 	return (all_var);
 }
-
-void	ft_show_all_var(char **var)
-{
-	int	i;
-
-	i = 0;
-	while (var[i])
-	{
-		printf("> Var[%d] : %s\n", i, var[i]);
-		i++;
-	}
-}
-/*void	ft_set_var_value(t_all *all)
-{
-
-}*/

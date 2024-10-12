@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   wildcard.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: arazafin <arazafin@student.42antananari    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/10/08 09:30:47 by arazafin          #+#    #+#             */
+/*   Updated: 2024/10/08 09:33:39 by arazafin         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/minishell.h"
 
 int	ft_match_one(char *s, char next)
@@ -48,7 +60,6 @@ int	ft_match(char *s, char *w)
 		j++;
 		i++;
 	}
-
 	return (1);
 }
 
@@ -110,7 +121,8 @@ t_dir	**ft_copy_dir(t_dir **dirs, int len_cwd)
 			chdir("..");
 		}
 		else if (ft_isdir(tmp) == 0)
-			ft_add_dir(dirs, ft_create_dir(ft_strdup(&tmp[len_cwd]), FILE_FILE));
+			ft_add_dir(dirs,
+				ft_create_dir(ft_strdup(&tmp[len_cwd]), FILE_FILE));
 		entry = readdir(dir);
 		free(tmp);
 	}

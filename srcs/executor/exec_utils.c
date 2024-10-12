@@ -6,7 +6,7 @@
 /*   By: arazafin <arazafin@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 18:02:24 by arazafin          #+#    #+#             */
-/*   Updated: 2024/09/28 18:05:55 by arazafin         ###   ########.fr       */
+/*   Updated: 2024/10/08 07:33:29 by arazafin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	env_size(t_env *env)
 
 char	**create_envp(t_all *all)
 {
-	char 	**envp;
+	char	**envp;
 	t_env	*tmp;
 	int		i;
 	char	*join;

@@ -6,7 +6,7 @@
 /*   By: arazafin <arazafin@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 18:16:35 by arazafin          #+#    #+#             */
-/*   Updated: 2024/09/29 14:43:27 by arazafin         ###   ########.fr       */
+/*   Updated: 2024/10/11 22:22:26 by arazafin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,16 @@ void	clean_after_cmd(t_all *all)
 
 int	read_line(char **input, t_all *all)
 {
+	(void)all;
 	if (isatty(STDIN_FILENO))
 	{
-		if (all->exit_status)
-			*input = readline(BAD);
-		else
-			*input = readline(GOOD);
+		*input = readline(SH);
+		if (*input == NULL)
+			return (1);
+		else if ((*input)[0] == '\0')
+			return (1);
+		while (op_last_pos(*input))
+				append_to_prompt(input);
 		if (*input == NULL)
 			return (1);
 		else if ((*input)[0] == '\0')
@@ -41,6 +45,18 @@ int	read_line(char **input, t_all *all)
 	return (1);
 }
 
+void	clean_exit(t_all *all)
+{
+	del_env(&all->env);
+	rl_clear_history();
+	printf("exit\n");
+	if (all->tmp > 0)
+		close(all->tmp);
+	close(STDIN_FILENO);
+	close(STDOUT_FILENO);
+	close(STDERR_FILENO);
+}
+
 int	main(void)
 {
 	int		i;
@@ -51,12 +67,11 @@ int	main(void)
 	init_shell(&all);
 	while (1)
 	{
-		if (!read_line(&all.cmd, &all))
-			continue ;
+		read_line(&all.cmd, &all);
 		if (all.cmd == NULL)
 		{
-			printf("exit\n");
-			break ;
+			clean_exit(&all);
+			exit(all.exit_status);
 		}
 		i = 0;
 		if (!ft_tokenize(&all))

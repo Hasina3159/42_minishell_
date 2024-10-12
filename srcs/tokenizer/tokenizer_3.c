@@ -1,28 +1,31 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   tokenizer_3.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: arazafin <arazafin@student.42antananari    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/10/08 09:23:08 by arazafin          #+#    #+#             */
+/*   Updated: 2024/10/11 10:12:48 by arazafin         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/minishell.h"
 
-/*int	ft_replace_var(t_all *all, t_token *token)
+static int	is_hd_lim(t_token *token, int i)
 {
-	char	**vars;
-	char	*value;
-	int		i;
-	char	*tmp;
-
-	(void) all;
-	vars = ft_get_all_var(token->value);
-	if (vars == NULL)
-		return (0);
-	i = 0;
-	while (vars[i])
+	if (i > 0)
 	{
-		value = ft_getvarvalue(all, &vars[i][1]);
-		tmp = ft_strdup(token->value);
-		free(token->value);
-		token->value = ft_str_repl_copy(tmp, vars[i], value);
-		free(tmp);
-		if (token->value)
-			return (0);
-		i++;
+		if (token[i - 1].type == T_HD)
+			return (1);
 	}
+	return (0);
+}
+
+static void	free_vars(char **vars)
+{
+	int	i;
+
 	i = 0;
 	while (vars[i])
 	{
@@ -32,8 +35,7 @@
 	}
 	if (vars)
 		free(vars);
-	return (1);
-}*/
+}
 
 int	ft_replace_var(t_all *all, t_token *token)
 {
@@ -57,15 +59,7 @@ int	ft_replace_var(t_all *all, t_token *token)
 			return (0);
 		i++;
 	}
-	i = 0;
-	while (vars[i])
-	{
-		if (vars[i])
-			free(vars[i]);
-		i++;
-	}
-	if (vars)
-		free(vars);
+	free_vars(vars);
 	return (1);
 }
 
@@ -78,7 +72,9 @@ int	ft_replace_all_vars(t_all *all)
 	token = all->tokens;
 	while (i < all->token_count)
 	{
-		if (token[i].type != T_STRING_S && !ft_replace_var(all, &token[i]))
+		if (!is_hd_lim(token, i)
+			&& (token[i].type != T_STRING_S && token[i].second_type != T_STRING_S)
+			&& !ft_replace_var(all, &token[i]))
 			return (0);
 		i++;
 	}
@@ -101,7 +97,8 @@ void	ft_finalize_token(t_all *all)
 		else
 			prec = NULL;
 		now = &tokens[i];
-		if (prec && (prec->type == T_FILE_OUT || prec->type == T_FILE_IN) && now->type == T_WORD)
+		if (prec && (prec->type == T_FILE_OUT || prec->type == T_FILE_IN)
+			&& now->type == T_WORD)
 			now->type = T_COMMAND;
 		i++;
 	}

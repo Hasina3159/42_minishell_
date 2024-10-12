@@ -1,11 +1,23 @@
-#include "../../include/minishell.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   count_args.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: arazafin <arazafin@student.42antananari    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/10/08 08:35:12 by arazafin          #+#    #+#             */
+/*   Updated: 2024/10/08 08:35:17 by arazafin         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-int	ft_count_args(char **args)
-{
-	int i;
+// #include "../../include/minishell.h"
 
-	i = 0;
-	while (args && args[i])
-		i++;
-	return (i);
-}
+// int	ft_count_args(char **args)
+// {
+// 	int i;
+
+// 	i = 0;
+// 	while (args && args[i])
+// 		i++;
+// 	return (i);
+// }

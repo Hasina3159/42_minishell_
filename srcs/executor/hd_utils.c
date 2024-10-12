@@ -6,7 +6,7 @@
 /*   By: arazafin <arazafin@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 17:00:50 by arazafin          #+#    #+#             */
-/*   Updated: 2024/09/29 11:15:51 by arazafin         ###   ########.fr       */
+/*   Updated: 2024/10/11 10:20:47 by arazafin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,4 +73,11 @@ int	ft_replace_hd(t_all *all, char *line)
 	i = 0;
 	free_split(vars);
 	return (1);
+}
+
+void	hd_expand(t_all *all, char *line)
+{
+	while (!ft_replace_hd(all, line))
+		continue ;
+	expand_heredoc(all, line);
 }

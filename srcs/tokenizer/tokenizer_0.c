@@ -1,18 +1,30 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   tokenizer_0.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: arazafin <arazafin@student.42antananari    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/10/08 09:26:57 by arazafin          #+#    #+#             */
+/*   Updated: 2024/10/11 10:08:39 by arazafin         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/minishell.h"
 
-void	ft_init_t_all(t_all *all/*, char *cmd*/)
+void	ft_init_t_all(t_all *all)
 {
 	all->i = 0;
 	all->in_quotes = 0;
 	all->token_index = 0;
 	all->quote_char = 0;
-	// all->cmd = cmd;
 	all->token_count = 0;
 }
 
 void	ft_add_token(t_all *all, int type, char *value)
 {
 	all->tokens[all->token_count].type = type;
+	all->tokens[all->token_count].second_type = type;
 	all->tokens[all->token_count].value = ft_strdup(value);
 	all->token_count = all->token_count + 1;
 }

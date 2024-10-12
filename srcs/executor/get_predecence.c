@@ -1,4 +1,26 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_predecence.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: arazafin <arazafin@student.42antananari    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/10/08 07:27:00 by arazafin          #+#    #+#             */
+/*   Updated: 2024/10/08 07:28:35 by arazafin         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/minishell.h"
+
+static int	test(t_token *token)
+{
+	if (token->type == T_IN || token->type == T_OUT
+		|| token->type == T_OUT_APPEND || token->type == T_HERE_DOC
+		|| token->type == T_HD || token->type == T_FILE_IN
+		|| token->type == T_FILE_OUT)
+		return (1);
+	return (0);
+}
 
 int	get_token_precedence(t_token *token)
 {
@@ -12,10 +34,7 @@ int	get_token_precedence(t_token *token)
 		return (2);
 	else if (token->type == T_PIPE)
 		return (3);
-	else if (token->type == T_IN || token->type == T_OUT
-		|| token->type == T_OUT_APPEND || token->type == T_HERE_DOC
-		|| token->type == T_HD || token->type == T_FILE_IN
-		|| token->type == T_FILE_OUT)
+	else if (test(token))
 		return (4);
 	else if (token->type == T_AND)
 		return (5);

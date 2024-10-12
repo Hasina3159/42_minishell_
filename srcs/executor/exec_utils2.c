@@ -6,7 +6,7 @@
 /*   By: arazafin <arazafin@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 13:23:32 by arazafin          #+#    #+#             */
-/*   Updated: 2024/09/29 13:42:50 by arazafin         ###   ########.fr       */
+/*   Updated: 2024/10/11 10:03:34 by arazafin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,22 +53,19 @@ char	**ft_tokens_to_char(t_all *all, int *i)
 
 int	is_built(char **av)
 {
-	int	len;
-
-	len = ft_strlen(av[0]);
-	if (!ft_strncmp(av[0], "echo", len))
+	if (!ft_strncmp(av[0], "echo", 5))
 		return (1);
-	else if (!ft_strncmp(av[0], "pwd", len))
+	else if (!ft_strncmp(av[0], "pwd", 4))
 		return (2);
-	else if (!ft_strncmp(av[0], "env", len))
+	else if (!ft_strncmp(av[0], "env", 4))
 		return (3);
-	else if (!ft_strncmp(av[0], "cd", len))
+	else if (!ft_strncmp(av[0], "cd", 3))
 		return (4);
-	else if (!ft_strncmp(av[0], "export", len))
+	else if (!ft_strncmp(av[0], "export", 7))
 		return (5);
-	else if (!ft_strncmp(av[0], "unset", len))
+	else if (!ft_strncmp(av[0], "unset", 6))
 		return (6);
-	else if (!ft_strncmp(av[0], "exit", len))
+	else if (!ft_strncmp(av[0], "exit", 5))
 		return (7);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: arazafin <arazafin@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 14:34:02 by arazafin          #+#    #+#             */
-/*   Updated: 2024/09/29 14:34:07 by arazafin         ###   ########.fr       */
+/*   Updated: 2024/10/11 10:04:35 by arazafin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	check_flag(int ac, char **av, int *nl)
 {
 	if (ac > 1)
 	{
-		if (!ft_strncmp("-n", av[1], ft_strlen("-n")))
+		if (!ft_strncmp("-n", av[1], 3))
 		{
 			*nl = 0;
 			return (2);

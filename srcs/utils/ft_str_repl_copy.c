@@ -1,34 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_str_repl.c                                      :+:      :+:    :+:   */
+/*   ft_str_repl_copy.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: arazafin <arazafin@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/08 08:16:10 by arazafin          #+#    #+#             */
-/*   Updated: 2024/10/08 08:52:45 by arazafin         ###   ########.fr       */
+/*   Created: 2024/10/08 08:51:20 by arazafin          #+#    #+#             */
+/*   Updated: 2024/10/08 08:52:23 by arazafin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-
-int	ft_count_occurences(char *text, char *sub)
-{
-	size_t	i;
-	size_t	len;
-	int		count;
-
-	len = ft_strlen(text);
-	i = 0;
-	count = 0;
-	while (i < len)
-	{
-		if (!ft_strncmp(&text[i], sub, ft_strlen(sub)))
-			count++;
-		i++;
-	}
-	return (count);
-}
 
 static int	ft_init(char *text, char *from, char *to, char **final)
 {
@@ -57,18 +39,7 @@ static void	ft_loop(char *final, char *to, size_t *j, size_t *k)
 	}
 }
 
-static void	ft_free_and_assign(char **text, char **final)
-{
-	printf("1 text : %s, final : %s\n", *text, *final);
-	//ft_strlcpy(*text, *final, ft_strlen(*final) + 1);
-	printf("2 ===============================\n");
-	free(*text);
-	printf("3 ===============================\n");
-	*text = *final;
-	printf("4 text : %s, final : %s\n", *text, *final);
-}
-
-int	ft_str_repl(char *text, char *from, char *to)
+char	*ft_str_repl_copy(char *text, char *from, char *to)
 {
 	char	*final;
 	size_t	i;
@@ -77,7 +48,7 @@ int	ft_str_repl(char *text, char *from, char *to)
 
 	final = NULL;
 	if (!ft_init(text, from, to, &final))
-		return (0);
+		return (NULL);
 	i = 0;
 	k = 0;
 	while (i < ft_strlen(text))
@@ -93,6 +64,5 @@ int	ft_str_repl(char *text, char *from, char *to)
 		i++;
 		k++;
 	}
-	ft_free_and_assign(&text, &final);
-	return (1);
+	return (final);
 }

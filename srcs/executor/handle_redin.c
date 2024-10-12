@@ -6,7 +6,7 @@
 /*   By: arazafin <arazafin@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 18:22:59 by arazafin          #+#    #+#             */
-/*   Updated: 2024/09/29 14:32:29 by arazafin         ###   ########.fr       */
+/*   Updated: 2024/10/11 10:15:49 by arazafin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ char	*get_infile(t_all *all, int i)
 				free(all->hd_file);
 				all->hd_file = NULL;
 			}
-			heredoc(all, all->tokens[x + 1].value);
+			heredoc(all, all->tokens[x + 1]);
 			in = all->hd_file;
 		}
 		else if (all->tokens[x].type == T_IN && !check)
