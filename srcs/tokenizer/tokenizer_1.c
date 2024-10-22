@@ -6,7 +6,7 @@
 /*   By: arazafin <arazafin@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 09:35:20 by arazafin          #+#    #+#             */
-/*   Updated: 2024/10/11 21:30:30 by arazafin         ###   ########.fr       */
+/*   Updated: 2024/10/21 11:34:36 by arazafin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,35 +129,6 @@ void	ft_set_other_1(t_all *all)
 		token = &all->tokens[i];
 		if (token->type == T_STRING_D || token->type == T_STRING_S)
 			token->type = T_WORD;
-		i++;
-	}
-}
-
-static int	i_n_op(int type)
-{
-	if (type == T_PIPE)
-		return (1);
-	else if (type == T_OR)
-		return (1);
-	else if (type == T_AND)
-		return (1);
-	return (0);
-}
-
-void	ft_set_other_2(t_all *all)
-{
-	int		i;
-	t_token	*token;
-
-	i = 0;
-	while (i < all->token_count)
-	{
-		token = &all->tokens[i];
-		if (i_n_op(token->type))
-		{
-			if (token->second_type == T_STRING_S || token->second_type == T_STRING_D)
-				token->type = T_WORD;
-		}
 		i++;
 	}
 }

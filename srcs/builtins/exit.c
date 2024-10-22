@@ -6,7 +6,7 @@
 /*   By: arazafin <arazafin@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 14:34:28 by arazafin          #+#    #+#             */
-/*   Updated: 2024/09/29 14:34:31 by arazafin         ###   ########.fr       */
+/*   Updated: 2024/10/21 06:48:02 by arazafin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,10 +62,15 @@ int	check_exit_arg(char *arg, t_all *all, char **cmd)
 	i = 0;
 	while (arg[i])
 	{
-		if (ft_isdigit(arg[i]) == 0)
+		if (i == 0)
 		{
-			free_split(cmd);
+			if (arg[0] == '+' || arg[0] == '-')
+				i++;
+		}
+		if (ft_isdigit((int)arg[i]) == 0)
+		{
 			print_error("exit", arg, "numeric argument required");
+			free_split(cmd);
 			free_all(all);
 			exit(2);
 		}

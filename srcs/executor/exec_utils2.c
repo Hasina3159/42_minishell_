@@ -6,7 +6,7 @@
 /*   By: arazafin <arazafin@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 13:23:32 by arazafin          #+#    #+#             */
-/*   Updated: 2024/10/11 10:03:34 by arazafin         ###   ########.fr       */
+/*   Updated: 2024/10/21 06:35:10 by arazafin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ char	**ft_tokens_to_char(t_all *all, int *i)
 	int		j;
 
 	len = get_cmd_len(all, *i);
+	if (!len)
+		return (NULL);
 	token_str = (char **)ft_calloc(len + 1, sizeof(char *));
 	if (token_str == NULL)
 		return (NULL);

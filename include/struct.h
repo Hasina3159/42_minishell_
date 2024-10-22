@@ -6,7 +6,7 @@
 /*   By: arazafin <arazafin@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 11:17:40 by arazafin          #+#    #+#             */
-/*   Updated: 2024/10/12 11:44:44 by arazafin         ###   ########.fr       */
+/*   Updated: 2024/10/21 10:04:52 by arazafin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,6 @@ typedef struct s_env
 	char			*value;
 	struct s_env	*next;
 }					t_env;
-
-// typedef struct s_lex
-// {
-// 	int				type;
-// 	int				second_type;
-// 	char			*value;
-// 	struct s_lex	*next;
-// }					t_lex;
 
 typedef struct s_all
 {
@@ -60,7 +52,6 @@ typedef struct s_all
 	int				out_type;
 	int				x;
 	char			*hd_file;
-	t_list			*lex;
 }					t_all;
 
 typedef struct s_dir

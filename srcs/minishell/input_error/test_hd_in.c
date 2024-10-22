@@ -6,7 +6,7 @@
 /*   By: arazafin <arazafin@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 14:36:55 by arazafin          #+#    #+#             */
-/*   Updated: 2024/10/08 07:20:06 by arazafin         ###   ########.fr       */
+/*   Updated: 2024/10/21 11:38:22 by arazafin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,12 @@ int	test_hd(t_token *tokens, int i)
 	{
 		if (t_hd(tokens, i))
 			return (1);
+	}
+	else if (tokens[i + 1].type == T_PIPE)
+	{
+		print_error(NULL, NULL,
+			"syntax error near unexpected token « | »");
+		return (1);
 	}
 	else if (tokens[i + 1].type != T_HD_ENDER)
 	{

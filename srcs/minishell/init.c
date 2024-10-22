@@ -6,7 +6,7 @@
 /*   By: arazafin <arazafin@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 18:15:37 by arazafin          #+#    #+#             */
-/*   Updated: 2024/09/28 18:16:26 by arazafin         ###   ########.fr       */
+/*   Updated: 2024/10/21 06:39:55 by arazafin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,4 +49,7 @@ void	init_shell(t_all *all)
 	all->sh = 0;
 	all->cmd = NULL;
 	all->hd_file = NULL;
+	ft_sigint(0, NULL, all);
+	setup_signal(SIGINT, CUSTOM);
+	setup_signal(SIGQUIT, IGNORE);
 }

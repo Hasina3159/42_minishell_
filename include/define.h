@@ -6,7 +6,7 @@
 /*   By: arazafin <arazafin@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 11:17:19 by arazafin          #+#    #+#             */
-/*   Updated: 2024/10/11 19:55:51 by arazafin         ###   ########.fr       */
+/*   Updated: 2024/10/21 06:48:57 by arazafin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,16 @@
 # define FILE_DIR 0
 # define FILE_FILE 42
 # define FILE_ALL 2048
-# define CMD_NOT_FOUND 127
 # define HISTORY ".history"
-# define SH "VeryBadBash> "
+# define CMD_NOT_FOUND 127
+# define PROMPT "VeryBadBash> "
+# define SH "VeryBadError"
+
+typedef enum e_state
+{
+	DEFAULT = 0,
+	IGNORE,
+	CUSTOM,
+}	t_state;
 
 #endif

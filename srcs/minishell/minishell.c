@@ -6,7 +6,7 @@
 /*   By: arazafin <arazafin@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 18:16:35 by arazafin          #+#    #+#             */
-/*   Updated: 2024/10/11 22:22:26 by arazafin         ###   ########.fr       */
+/*   Updated: 2024/10/21 06:52:04 by arazafin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,18 +23,14 @@ int	read_line(char **input, t_all *all)
 	(void)all;
 	if (isatty(STDIN_FILENO))
 	{
-		*input = readline(SH);
+		*input = readline(PROMPT);
 		if (*input == NULL)
-			return (1);
-		else if ((*input)[0] == '\0')
 			return (1);
 		while (op_last_pos(*input))
-				append_to_prompt(input);
+			append_to_prompt(input);
 		if (*input == NULL)
 			return (1);
-		else if ((*input)[0] == '\0')
-			return (1);
-		else
+		else if (ft_strlen(*input))
 			add_history(*input);
 	}
 	else
@@ -62,12 +58,11 @@ int	main(void)
 	int		i;
 	t_all	all;
 
-	signal(SIGINT, ft_ctrl_c);
-	signal(SIGQUIT, SIG_IGN);
 	init_shell(&all);
 	while (1)
 	{
-		read_line(&all.cmd, &all);
+		if (!read_line(&all.cmd, &all))
+			continue ;
 		if (all.cmd == NULL)
 		{
 			clean_exit(&all);

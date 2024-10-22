@@ -6,7 +6,7 @@
 /*   By: arazafin <arazafin@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 14:37:07 by arazafin          #+#    #+#             */
-/*   Updated: 2024/10/11 21:22:18 by arazafin         ###   ########.fr       */
+/*   Updated: 2024/10/08 07:10:30 by arazafin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,11 @@ int	test_t_pipe(t_token *tokens, int i)
 		print_error(NULL, NULL, "syntax error near unexpected token « |& »");
 		return (1);
 	}
-	// else if (type != T_WORD && type != T_COMMAND)
-	// {
-	// 	print_error(NULL, NULL, "syntax error near unexpected token « | »");
-	// 	return (1);
-	// }
+	else if (type != T_WORD && type != T_COMMAND)
+	{
+		print_error(NULL, NULL, "syntax error near unexpected token « | »");
+		return (1);
+	}
 	else if (i == 0)
 	{
 		print_error(NULL, NULL, "syntax error near unexpected token « | »");

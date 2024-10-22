@@ -6,7 +6,7 @@
 /*   By: arazafin <arazafin@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 09:26:57 by arazafin          #+#    #+#             */
-/*   Updated: 2024/10/11 10:08:39 by arazafin         ###   ########.fr       */
+/*   Updated: 2024/10/21 11:31:24 by arazafin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ int	ft_in_quotes_operation(t_all *all)
 	{
 		if (all->cmd[all->i] == all->quote_char)
 		{
-			//all->current_token[all->token_index++] = all->cmd[all->i];
 			all->current_token[all->token_index++] = 0;
 			if (all->quote_char == '\'')
 				ft_add_token(all, T_STRING_S, all->current_token);

@@ -6,7 +6,7 @@
 /*   By: arazafin <arazafin@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 17:00:45 by arazafin          #+#    #+#             */
-/*   Updated: 2024/10/11 10:22:35 by arazafin         ###   ########.fr       */
+/*   Updated: 2024/10/21 06:30:23 by arazafin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,13 @@ int	hd_signal(char *line, char *limiter)
 
 int	is_limiter(char *limiter, char *line)
 {
-	if (ft_strncmp(line, limiter, ft_strlen(limiter)) == 0)
+	int	len;
+
+	if (ft_strlen(limiter) > ft_strlen(line))
+		len = ft_strlen(limiter);
+	else
+		len = ft_strlen(line);
+	if (ft_strncmp(line, limiter, len) == 0)
 	{
 		free(line);
 		return (1);

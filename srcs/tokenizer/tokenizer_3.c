@@ -6,7 +6,7 @@
 /*   By: arazafin <arazafin@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 09:23:08 by arazafin          #+#    #+#             */
-/*   Updated: 2024/10/11 10:12:48 by arazafin         ###   ########.fr       */
+/*   Updated: 2024/10/21 11:31:01 by arazafin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,8 @@ int	ft_replace_all_vars(t_all *all)
 	while (i < all->token_count)
 	{
 		if (!is_hd_lim(token, i)
-			&& (token[i].type != T_STRING_S && token[i].second_type != T_STRING_S)
+			&& (token[i].type != T_STRING_S
+				&& token[i].second_type != T_STRING_S)
 			&& !ft_replace_var(all, &token[i]))
 			return (0);
 		i++;

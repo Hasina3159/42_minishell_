@@ -6,7 +6,7 @@
 /*   By: arazafin <arazafin@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 09:31:06 by arazafin          #+#    #+#             */
-/*   Updated: 2024/10/11 21:32:50 by arazafin         ###   ########.fr       */
+/*   Updated: 2024/10/08 09:32:05 by arazafin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,4 +81,16 @@ char	**ft_get_all_var(char *s)
 		i++;
 	}
 	return (all_var);
+}
+
+void	ft_show_all_var(char **var)
+{
+	int	i;
+
+	i = 0;
+	while (var[i])
+	{
+		printf("> Var[%d] : %s\n", i, var[i]);
+		i++;
+	}
 }
