@@ -1,1 +1,1 @@
-Tairo mba mampiasà anle extension Todo Tree @VSCode iny de mba preciseo ao ze tena mbola tsy milamina mba haharapide ny famaranantsika anazy fa zah manko tsy maintsy aty am-piasana no hanoy anazy fa nahazo alalana hanoy projet perso zah refa pause nefa tsy afaka mampiasa anle tester iny ah fa windows be ny Sys aty
+Efa misy modif kely ito fa mba jereo eo mety ve le fomba fanovako anle TODO sa aon fa tsitako lotra hoe aon fa jereo ao lou de asio retour
