@@ -6,7 +6,7 @@
 /*   By: arazafin <arazafin@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 09:18:57 by arazafin          #+#    #+#             */
-/*   Updated: 2024/10/21 11:34:20 by arazafin         ###   ########.fr       */
+/*   Updated: 2024/10/26 16:59:27 by arazafin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ int	ft_tokenize(t_all *all)
 	ft_set_other_1(all);
 	while (!ft_replace_all_vars(all))
 		continue ;
-	ft_replace_all_wildcards(all);
+	// ft_replace_all_wildcards(all);
 	ft_expander(all);
 	ft_set_command(all);
 	ft_finalize_token(all);

@@ -6,7 +6,7 @@
 /*   By: arazafin <arazafin@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 14:35:34 by arazafin          #+#    #+#             */
-/*   Updated: 2024/10/21 07:00:24 by arazafin         ###   ########.fr       */
+/*   Updated: 2024/10/27 07:14:17 by arazafin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,17 +23,12 @@ void	del_from_env(char *var, t_env **env)
 {
 	t_env	*tmp;
 	t_env	*prev;
-	int		len;
 
 	tmp = *env;
 	prev = NULL;
 	while (tmp)
 	{
-		if (ft_strlen(var) > ft_strlen(tmp->key))
-			len = ft_strlen(var);
-		else
-			len = ft_strlen(tmp->key);
-		if (!ft_strncmp(var, tmp->key, len))
+		if (!ft_strncmp(var, tmp->key, ft_strlen(var) + 1))
 		{
 			if (prev == NULL)
 				*env = tmp->next;

@@ -6,7 +6,7 @@
 /*   By: arazafin <arazafin@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 18:16:35 by arazafin          #+#    #+#             */
-/*   Updated: 2024/10/21 06:52:04 by arazafin         ###   ########.fr       */
+/*   Updated: 2024/10/25 08:31:34 by arazafin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,17 +26,20 @@ int	read_line(char **input, t_all *all)
 		*input = readline(PROMPT);
 		if (*input == NULL)
 			return (1);
-		while (op_last_pos(*input))
-			append_to_prompt(input);
-		if (*input == NULL)
-			return (1);
 		else if (ft_strlen(*input))
 			add_history(*input);
+		while (op_last_pos(*input))
+		{
+			if (append_to_prompt(input, all))
+				return (0);
+		}
+		if (*input == NULL)
+			return (1);
 	}
 	else
 	{
 		*input = NULL;
-		return (1);
+		return (0);
 	}
 	return (1);
 }
@@ -59,6 +62,7 @@ int	main(void)
 	t_all	all;
 
 	init_shell(&all);
+	all.second = 0;
 	while (1)
 	{
 		if (!read_line(&all.cmd, &all))

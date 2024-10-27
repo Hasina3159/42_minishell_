@@ -6,7 +6,7 @@
 /*   By: arazafin <arazafin@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 11:11:13 by arazafin          #+#    #+#             */
-/*   Updated: 2024/09/29 11:11:22 by arazafin         ###   ########.fr       */
+/*   Updated: 2024/10/26 16:41:02 by arazafin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,10 @@ int	ft_expander(t_all *all)
 	i = 0;
 	while (all->tokens[i].type != T_END)
 	{
-		if (all->tokens[i].type != T_STRING_S)
+		if (all->tokens[i].type != T_STRING_S
+			&& all->tokens[i].second_type != T_STRING_S
+			&& all->tokens[i].type != T_HD_ENDER
+			&& all->tokens[i].second_type != T_HD_ENDER)
 			ft_expander_word(all, &all->tokens[i]);
 		i++;
 	}

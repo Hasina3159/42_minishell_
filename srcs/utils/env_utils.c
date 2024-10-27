@@ -6,7 +6,7 @@
 /*   By: arazafin <arazafin@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 08:11:47 by arazafin          #+#    #+#             */
-/*   Updated: 2024/10/08 08:11:48 by arazafin         ###   ########.fr       */
+/*   Updated: 2024/10/27 14:33:01 by arazafin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ int	ft_setvarvalue(t_all *all, char *key, char *value)
 	}
 	while (tmp)
 	{
-		if (!ft_strncmp(tmp->key, key, ft_strlen(key)))
+		if (!ft_strncmp(tmp->key, key, ft_strlen(key) + 1))
 		{
 			free(key);
 			free(tmp->value);

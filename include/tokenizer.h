@@ -6,7 +6,7 @@
 /*   By: arazafin <arazafin@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 08:59:29 by arazafin          #+#    #+#             */
-/*   Updated: 2024/10/21 11:34:25 by arazafin         ###   ########.fr       */
+/*   Updated: 2024/10/25 10:30:16 by arazafin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,6 @@ t_dir	**ft_get_all_dirs(t_dir **dirs, int i, t_dir *tmp);
 int		ft_is_t_op(int type);
 void	ft_set_other_1(t_all *all);
 int		op_last_pos(char *input);
-void	append_to_prompt(char **input);
+int		append_to_prompt(char **input, t_all *all);
 
 #endif

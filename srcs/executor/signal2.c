@@ -1,43 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_getvalue.c                                      :+:      :+:    :+:   */
+/*   signal2.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: arazafin <arazafin@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/08 08:14:18 by arazafin          #+#    #+#             */
-/*   Updated: 2024/10/26 19:59:42 by arazafin         ###   ########.fr       */
+/*   Created: 2024/10/25 11:38:45 by arazafin          #+#    #+#             */
+/*   Updated: 2024/10/25 11:45:39 by arazafin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-char	*ft_getvarvalue(t_all *all, char *var)
+void	reset_parent_sig(void)
 {
-	t_env	*tmp;
-
-	tmp = all->env;
-	while (tmp)
-	{
-		if (!ft_strncmp(tmp->key, var, ft_strlen(var) + 1))
-			return (tmp->value);
-		tmp = tmp->next;
-	}
-	if (tmp)
-		return (tmp->value);
-	return ("");
+	setup_signal(SIGINT, CUSTOM);
+	setup_signal(SIGQUIT, IGNORE);
 }
 
-char	*ft_is_in_env(t_all *all, char *var)
+void	setup_parent_signals(void)
 {
-	t_env	*tmp;
+	setup_signal(SIGINT, IGNORE);
+	setup_signal(SIGQUIT, IGNORE);
+}
 
-	tmp = all->env;
-	while (tmp)
-	{
-		if (!ft_strncmp(tmp->key, var, ft_strlen(var) + 1))
-			return (tmp->value);
-		tmp = tmp->next;
-	}
-	return (NULL);
+void	setup_child_signals(void)
+{
+	setup_signal(SIGINT, DEFAULT);
+	setup_signal(SIGQUIT, DEFAULT);
 }

@@ -6,7 +6,7 @@
 /*   By: arazafin <arazafin@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 11:17:40 by arazafin          #+#    #+#             */
-/*   Updated: 2024/10/21 10:04:52 by arazafin         ###   ########.fr       */
+/*   Updated: 2024/10/25 13:23:25 by arazafin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,8 @@ typedef struct s_all
 	int				out_type;
 	int				x;
 	char			*hd_file;
+	int				hd_expand;
+	int				second;
 }					t_all;
 
 typedef struct s_dir

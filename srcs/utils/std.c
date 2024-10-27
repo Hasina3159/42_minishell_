@@ -1,43 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_getvalue.c                                      :+:      :+:    :+:   */
+/*   std.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: arazafin <arazafin@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/08 08:14:18 by arazafin          #+#    #+#             */
-/*   Updated: 2024/10/26 19:59:42 by arazafin         ###   ########.fr       */
+/*   Created: 2024/10/24 14:15:09 by arazafin          #+#    #+#             */
+/*   Updated: 2024/10/24 14:19:44 by arazafin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-char	*ft_getvarvalue(t_all *all, char *var)
+void	new_std(char *nstd)
 {
-	t_env	*tmp;
+	int	fd;
 
-	tmp = all->env;
-	while (tmp)
+	fd = open(nstd, O_RDWR);
+	if (fd == -1)
 	{
-		if (!ft_strncmp(tmp->key, var, ft_strlen(var) + 1))
-			return (tmp->value);
-		tmp = tmp->next;
+		perror("open");
+		return ;
 	}
-	if (tmp)
-		return (tmp->value);
-	return ("");
-}
-
-char	*ft_is_in_env(t_all *all, char *var)
-{
-	t_env	*tmp;
-
-	tmp = all->env;
-	while (tmp)
+	if (fd != STDIN_FILENO)
 	{
-		if (!ft_strncmp(tmp->key, var, ft_strlen(var) + 1))
-			return (tmp->value);
-		tmp = tmp->next;
+		if (dup2(fd, STDIN_FILENO) == -1)
+		{
+			perror("dup2");
+			close(fd);
+			return ;
+		}
+		close(fd);
 	}
-	return (NULL);
 }

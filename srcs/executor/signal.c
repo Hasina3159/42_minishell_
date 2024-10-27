@@ -6,15 +6,25 @@
 /*   By: arazafin <arazafin@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 07:32:46 by arazafin          #+#    #+#             */
-/*   Updated: 2024/10/21 07:58:06 by arazafin         ###   ########.fr       */
+/*   Updated: 2024/10/25 11:41:22 by arazafin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
+static void	is_second(int *check)
+{
+	*check = 1;
+	close(STDIN_FILENO);
+	printf("\n");
+	rl_on_new_line();
+	rl_replace_line("", 0);
+}
+
 void	ft_sigint(int sig, siginfo_t *info, void *ucontext)
 {
 	static t_all	*all;
+	static int		check = 0;
 
 	(void)info;
 	if (!all)
@@ -22,10 +32,15 @@ void	ft_sigint(int sig, siginfo_t *info, void *ucontext)
 		all = ucontext;
 		return ;
 	}
+	if (all->exit_status != 130)
+		check = 0;
 	all->exit_status = 128 + sig;
-	if (sig == SIGINT)
+	if (all->second == 1)
+		is_second(&check);
+	else if (sig == SIGINT)
 	{
-		printf("\n");
+		if (check == 0)
+			printf("\n");
 		rl_on_new_line();
 		rl_replace_line("", 0);
 		rl_redisplay();
@@ -53,22 +68,4 @@ void	setup_signal(int sig, t_state state)
 	}
 	if (sigaction(sig, &sa, NULL) != 0)
 		perror("sigaction");
-}
-
-void	reset_parent_sig(void)
-{
-	setup_signal(SIGINT, CUSTOM);
-	setup_signal(SIGQUIT, IGNORE);
-}
-
-void	setup_parent_signals(void)
-{
-	setup_signal(SIGINT, IGNORE);
-	setup_signal(SIGQUIT, IGNORE);
-}
-
-void	setup_child_signals(void)
-{
-	setup_signal(SIGINT, DEFAULT);
-	setup_signal(SIGQUIT, DEFAULT);
 }

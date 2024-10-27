@@ -6,7 +6,7 @@
 /*   By: arazafin <arazafin@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 11:13:47 by arazafin          #+#    #+#             */
-/*   Updated: 2024/10/21 11:39:31 by arazafin         ###   ########.fr       */
+/*   Updated: 2024/10/27 14:55:16 by arazafin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,14 @@ int	ft_execute(t_all *all, int *i)
 	char	**token_str;
 
 	token_str = ft_tokens_to_char(all, i);
-	if (token_str == NULL)
+	if (token_str == NULL
+		|| (all->exit_status == 130 && all->hd_file))
+	{
+		if (check_redin(all))
+			return (1);
+		all->exit_status = 0;
 		return (1);
+	}
 	if (pipe(all->fd) == -1)
 	{
 		perror("Pipe Error!");
@@ -100,24 +106,22 @@ int	ft_execute_all(t_all *all, int *i)
 	t_token	*tokens;
 	int		len;
 	int		x;
+	int		ret;
 
 	len = all->token_count;
 	tokens = all->tokens;
+	ret = 0;
 	reset_redirection(all, &x);
 	while (*i < len)
 	{
-		if (!x)
-		{
-			is_need_pipe(all, i);
-			all->outfile = get_outfile(all, *i);
-			all->infile = get_infile(all, *i);
-			x = 1;
-		}
+		check_redir(all, i, &x, &ret);
 		if (tokens[*i].type == T_COMMAND || is_n_op(tokens[*i].type))
 		{
 			if (exec_cmd(all, i) == 0)
 				break ;
 			reset_redirection(all, &x);
+			if (ret == 2)
+				return (2);
 		}
 		*i = *i + 1;
 	}

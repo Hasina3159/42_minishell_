@@ -6,7 +6,7 @@
 /*   By: arazafin <arazafin@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 13:23:32 by arazafin          #+#    #+#             */
-/*   Updated: 2024/10/21 06:35:10 by arazafin         ###   ########.fr       */
+/*   Updated: 2024/10/27 14:55:55 by arazafin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,12 @@ int	use_built(t_all *all, int ch, char **cmd)
 {
 	int	ac;
 
+	if (all->sh == 0)
+	{
+		close(all->fd[0]);
+		close(all->fd[1]);
+		all->child_pid = -2;
+	}
 	ac = ft_count_splitted(cmd);
 	if (ch == 1)
 		return (ft_echo(ac, cmd));

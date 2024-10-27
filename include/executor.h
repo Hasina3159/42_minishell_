@@ -6,7 +6,7 @@
 /*   By: arazafin <arazafin@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 11:17:25 by arazafin          #+#    #+#             */
-/*   Updated: 2024/10/21 10:18:35 by arazafin         ###   ########.fr       */
+/*   Updated: 2024/10/25 13:24:53 by arazafin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,16 @@ int		ft_execute_all(t_all *all, int *i);
 int		get_token_precedence(t_token *token);
 void	execve_cmd(char **cmd, char **envp);
 // * handle_redin.c
-char	*get_infile(t_all *all, int i);
+char	*get_infile(t_all *all, int i, int *stat);
 int		check_file(char *file, t_all *all, int f);
 int		handle_redin(t_all *all);
 // * heredoc
-void	heredoc(t_all *all, t_token lim);
+char	*get_heredoc(char *doc, char *line);
+int		hd_signal(char *line, char *limiter);
+int		is_limiter(char *limiter, char *line);
+int		here_doc(t_token lim, int fd_out, t_all *all);
 void	hd_expand(t_all *all, char *line);
+int		heredoc(t_all *all, t_token lim);
 // * handle_redout.c
 int		open_outfile(t_all *all, int type);
 int		f_op(int type);
@@ -45,11 +49,16 @@ char	**ft_tokens_to_char(t_all *all, int *i);
 int		is_built(char **av);
 int		use_built(t_all *all, int ch, char **cmd);;
 void	parent_process(t_all *all);
+// *exec_utils3
+int		check_redin(t_all *all);
+int		check_redir(t_all *all, int *i, int *x, int *ret);
 // *signal test
 void	setup_signal(int sig, t_state state);
 void	ft_sigint(int sig, siginfo_t *info, void *ucontext);
 void	reset_parent_sig(void);
 void	setup_parent_signals(void);
 void	setup_child_signals(void);
+// *utils/std.c
+void	new_std(char *nstd);
 
 #endif

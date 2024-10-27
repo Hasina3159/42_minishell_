@@ -6,7 +6,7 @@
 /*   By: arazafin <arazafin@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 19:59:21 by arazafin          #+#    #+#             */
-/*   Updated: 2024/10/21 11:29:07 by arazafin         ###   ########.fr       */
+/*   Updated: 2024/10/25 11:49:22 by arazafin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,9 +60,9 @@ int	op_last_pos(char *input)
 		return (0);
 	while (input[i])
 	{
-		before_last = last;
 		if (!ft_isspace(input[i]))
 		{
+			before_last = last;
 			get_last_op(input, &i, &last);
 		}
 		i++;
@@ -72,17 +72,40 @@ int	op_last_pos(char *input)
 	return (0);
 }
 
-void	append_to_prompt(char **input)
+void	is_ctrl_d(char *tmp, t_all *all)
+{
+	if (!tmp)
+	{
+		del_env(&all->env);
+		free(all->cmd);
+		print_error("syntax error", NULL, "unexpected end of file");
+		exit(2);
+	}
+}
+
+int	append_to_prompt(char **input, t_all *all)
 {
 	char	*tmp;
 	char	*join;
 	char	*space;
+	char	*in_std;
 
+	in_std = ttyname(STDIN_FILENO);
+	all->second = 1;
 	tmp = readline("Fill command: ");
+	if (all->exit_status == 130)
+	{
+		free(*input);
+		new_std(in_std);
+		all->second = 0;
+		return (1);
+	}
+	is_ctrl_d(tmp, all);
 	space = ft_strjoin(*input, " ");
 	join = ft_strjoin(space, tmp);
 	free(*input);
 	free(tmp);
 	free(space);
 	*input = join;
+	return (0);
 }

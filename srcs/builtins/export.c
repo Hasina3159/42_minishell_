@@ -6,7 +6,7 @@
 /*   By: arazafin <arazafin@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 14:34:51 by arazafin          #+#    #+#             */
-/*   Updated: 2024/09/29 14:34:52 by arazafin         ###   ########.fr       */
+/*   Updated: 2024/10/27 14:35:06 by arazafin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	print_exported(t_all *all)
 	while (tmp)
 	{
 		printf("declare -x %s", tmp->key);
-		if (tmp->value[0] != '\0')
+		if (tmp->value != NULL)
 			printf("=\"%s\"", tmp->value);
 		printf("\n");
 		tmp = tmp->next;
@@ -57,7 +57,7 @@ void	add_export_variable(t_all *all, char *arg)
 	else
 	{
 		key = ft_strdup(arg);
-		value = ft_strdup("");
+		value = NULL;
 	}
 	ft_setvarvalue(all, key, value);
 }
