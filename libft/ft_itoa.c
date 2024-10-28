@@ -60,6 +60,6 @@ char	*ft_itoa(int value)
 		x = -x;
 	}
 	place_unity(x, final, len - 1);
-	final[len + 1] = 0;
+	final[len] = 0;
 	return (final);
 }

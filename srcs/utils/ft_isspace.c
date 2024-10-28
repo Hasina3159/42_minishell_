@@ -1,8 +1,20 @@
-#include "../minishell.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_isspace.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: arazafin <arazafin@student.42antananari    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/10/08 08:15:02 by arazafin          #+#    #+#             */
+/*   Updated: 2024/10/08 08:18:37 by arazafin         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-int ft_isspace(char c)
+#include "../../include/minishell.h"
+
+int	ft_isspace(char c)
 {
-    if (c == ' ' || c == '\t' || c == '\n')
-        return (1);
-    return (0);
+	if (c == ' ' || c == '\t' || c == '\n')
+		return (1);
+	return (0);
 }

@@ -1,6 +1,18 @@
-# include "../minishell.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parser.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: arazafin <arazafin@student.42antananari    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/10/08 07:43:47 by arazafin          #+#    #+#             */
+/*   Updated: 2024/10/08 07:43:48 by arazafin         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-char    *ft_compute_atom(char *s)
-{
-    return (s);
-}
+// # include "../minishell.h"
+
+// char    *ft_compute_atom(char *s)
+// {
+//     return (s);
+// }

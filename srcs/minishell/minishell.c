@@ -1,30 +1,85 @@
-#include "../minishell.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minishell.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: arazafin <arazafin@student.42antananari    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/09/28 18:16:35 by arazafin          #+#    #+#             */
+/*   Updated: 2024/10/11 22:22:26 by arazafin         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-/*int	main(void)
+#include "../../include/minishell.h"
+
+void	clean_after_cmd(t_all *all)
 {
-	int		argc;
-	char	**argv;
-	char	*input;
-	//char	**pwd;
+	del_token(all);
+	free(all->cmd);
+}
 
-	//pwd = ft_split("pwd", ' ');
+int	read_line(char **input, t_all *all)
+{
+	(void)all;
+	if (isatty(STDIN_FILENO))
+	{
+		*input = readline(SH);
+		if (*input == NULL)
+			return (1);
+		else if ((*input)[0] == '\0')
+			return (1);
+		while (op_last_pos(*input))
+				append_to_prompt(input);
+		if (*input == NULL)
+			return (1);
+		else if ((*input)[0] == '\0')
+			return (1);
+		else
+			add_history(*input);
+	}
+	else
+	{
+		*input = NULL;
+		return (1);
+	}
+	return (1);
+}
+
+void	clean_exit(t_all *all)
+{
+	del_env(&all->env);
+	rl_clear_history();
+	printf("exit\n");
+	if (all->tmp > 0)
+		close(all->tmp);
+	close(STDIN_FILENO);
+	close(STDOUT_FILENO);
+	close(STDERR_FILENO);
+}
+
+int	main(void)
+{
+	int		i;
+	t_all	all;
+
+	signal(SIGINT, ft_ctrl_c);
+	signal(SIGQUIT, SIG_IGN);
+	init_shell(&all);
 	while (1)
 	{
-		//ft_pwd(1, pwd);
-		input = readline("> ");
-		argv = ft_split(input, ' ');
-		argc = ft_count_args(argv);
-		if (!ft_strncmp(argv[0], "echo", ft_strlen("echo")))
-			ft_echo(argc, argv);
-		if (!ft_strncmp(argv[0], "cd", ft_strlen("cd")))
-			ft_cd(argc, argv);
-		if (!ft_strncmp(argv[0], "pwd", ft_strlen("pwd")))
-			ft_pwd(argc, argv);
-		printf("COUNT : %d\n", ft_count_words(input));
-		printf("STRIP : %d\n", ft_strip_quotes(&argv[0]));
-		printf("ARGV[0] : %s\n", argv[0]);
-		free(input);
-		continue;
+		read_line(&all.cmd, &all);
+		if (all.cmd == NULL)
+		{
+			clean_exit(&all);
+			exit(all.exit_status);
+		}
+		i = 0;
+		if (!ft_tokenize(&all))
+		{
+			ft_execute_all(&all, &i);
+			//ft_show_sanitized_command(&all);
+		}
+		clean_after_cmd(&all);
 	}
 	return (0);
-}*/
+}

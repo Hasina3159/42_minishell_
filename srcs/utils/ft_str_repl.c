@@ -1,4 +1,16 @@
-#include "../minishell.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_str_repl.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: arazafin <arazafin@student.42antananari    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/10/08 08:16:10 by arazafin          #+#    #+#             */
+/*   Updated: 2024/10/08 08:52:45 by arazafin         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../../include/minishell.h"
 
 int	ft_count_occurences(char *text, char *sub)
 {
@@ -81,39 +93,6 @@ int	ft_str_repl(char *text, char *from, char *to)
 		i++;
 		k++;
 	}
-	printf("55 =============================== : %s\n", final);
 	ft_free_and_assign(&text, &final);
-	printf(">>> text : %s, final : %s\n", text, final);
 	return (1);
-}
-
-
-char	*ft_str_repl_copy(char *text, char *from, char *to)
-{
-	char	*final;
-	size_t	i;
-	size_t	j;
-	size_t	k;
-
-	final = NULL;
-	if (!ft_init(text, from, to, &final))
-		return (NULL);
-	i = 0;
-	k = 0;
-	while (i < ft_strlen(text))
-	{
-		if (!ft_strncmp(&text[i], from, ft_strlen(from)))
-		{
-			ft_loop(final, to, &j, &k);
-			i = i + ft_strlen(from);
-			continue ;
-		}
-		else
-			final[k] = text[i];
-		i++;
-		k++;
-	}
-	printf("55 =============================== : %s\n", final);
-	printf(">>> text : %s, final : %s\n", text, final);
-	return (final);
 }

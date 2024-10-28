@@ -1,10 +1,21 @@
-#include "../minishell.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_getvalue.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: arazafin <arazafin@student.42antananari    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/10/08 08:14:18 by arazafin          #+#    #+#             */
+/*   Updated: 2024/10/08 08:14:20 by arazafin         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../../include/minishell.h"
 
 char	*ft_getvarvalue(t_all *all, char *var)
 {
 	t_env	*tmp;
 
-    //printf("[GETVARVALUE]\n");
 	tmp = all->env;
 	while (tmp)
 	{
@@ -12,8 +23,8 @@ char	*ft_getvarvalue(t_all *all, char *var)
 			return (tmp->value);
 		tmp = tmp->next;
 	}
-	if (getenv(var))
-		return (getenv(var));
+	if (tmp)
+		return (tmp->value);
 	return ("");
 }
 
