@@ -6,7 +6,7 @@
 /*   By: arazafin <arazafin@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 11:17:19 by arazafin          #+#    #+#             */
-/*   Updated: 2024/10/21 06:48:57 by arazafin         ###   ########.fr       */
+/*   Updated: 2024/10/29 12:17:46 by arazafin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@
 # define FILE_ALL 2048
 # define HISTORY ".history"
 # define CMD_NOT_FOUND 127
+# define T_SPACE 128
 # define PROMPT "VeryBadBash> "
 # define SH "VeryBadError"
 

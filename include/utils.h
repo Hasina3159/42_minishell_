@@ -6,7 +6,7 @@
 /*   By: arazafin <arazafin@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 08:59:34 by arazafin          #+#    #+#             */
-/*   Updated: 2024/10/08 09:01:43 by arazafin         ###   ########.fr       */
+/*   Updated: 2024/10/29 13:58:48 by arazafin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,5 +45,8 @@ void	print_error(char *name, char *arg, char *error);
 int		ft_search_key(char *key, t_all *all);
 char	*ft_get_env(char *key, t_all *all);
 int		ft_setvarvalue(t_all *all, char *key, char *value);
+// * tok_utils.c
+int		i_n_op(int type);
+int		is_n_op(int type);
 
 #endif

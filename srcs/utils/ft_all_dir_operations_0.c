@@ -6,7 +6,7 @@
 /*   By: arazafin <arazafin@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 08:12:13 by arazafin          #+#    #+#             */
-/*   Updated: 2024/10/08 08:47:15 by arazafin         ###   ########.fr       */
+/*   Updated: 2024/10/29 15:25:36 by arazafin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ int	ft_isdir(char *path)
 {
 	struct stat	statbuf;
 
-	printf("STATS\n");
 	if (stat(path, &statbuf) == -1)
 	{
 		perror("stat");

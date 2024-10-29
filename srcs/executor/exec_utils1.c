@@ -6,24 +6,11 @@
 /*   By: arazafin <arazafin@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 11:33:32 by arazafin          #+#    #+#             */
-/*   Updated: 2024/10/21 10:18:29 by arazafin         ###   ########.fr       */
+/*   Updated: 2024/10/29 13:57:43 by arazafin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-
-int	is_n_op(int type)
-{
-	if (type == T_PIPE)
-		return (1);
-	else if (type == T_OR)
-		return (1);
-	else if (type == T_AND)
-		return (1);
-	else if (type == T_END)
-		return (1);
-	return (0);
-}
 
 void	is_need_pipe(t_all *all, int *i)
 {

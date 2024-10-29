@@ -6,7 +6,7 @@
 /*   By: arazafin <arazafin@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 09:18:57 by arazafin          #+#    #+#             */
-/*   Updated: 2024/10/26 16:59:27 by arazafin         ###   ########.fr       */
+/*   Updated: 2024/10/29 16:10:04 by arazafin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ void	ft_create_token(t_all *all)
 					ft_add_token(all, T_WORD, all->current_token);
 					all->token_index = 0;
 				}
+				ft_add_token(all, T_SPACE, " ");
 			}
 			else if (!ft_start_quotes(all) && ft_is_operator(all->cmd[all->i]))
 				ft_sep_operation(all);
@@ -70,7 +71,7 @@ void	ft_replace_all_wildcards(t_all *all)
 	free(dirs);
 }
 
-int	ft_tokenize(t_all *all)
+/*int	ft_tokenize(t_all *all)
 {
 	ft_init_t_all(all);
 	ft_create_token(all);
@@ -82,6 +83,94 @@ int	ft_tokenize(t_all *all)
 	ft_expander(all);
 	ft_set_command(all);
 	ft_finalize_token(all);
+	if (input_error(all))
+		return (1);
+	return (0);
+}*/
+
+// !
+
+char	*ft_show_token(t_token *token)
+{
+	int	len;
+
+	len = ft_strlen(token->value);
+	if (len == 0)
+		return "END";
+	if (!ft_strncmp(token->value, "|", len))
+		return "PIPE";
+	else if (!ft_strncmp(token->value, "||", len))
+		return "OR";
+	else if (!ft_strncmp(token->value, "&&", len))
+		return "AND";
+	else if (!ft_strncmp(token->value, "(", len))
+		return "P_OPEN";
+	else if (!ft_strncmp(token->value, ")", len))
+		return "P_CLOSE";
+	else if (!ft_strncmp(token->value, "<", len))
+		return "RED_IN";
+	else if (!ft_strncmp(token->value, ">", len))
+		return "RED_OUT";
+	else if (!ft_strncmp(token->value, ">>", len))
+		return "RED_APPEND";
+	else if (!ft_strncmp(token->value, "<<", len))
+		return "HERE_DOC";
+	else if (token->type == T_COMMAND)
+		return "COMMAND";
+	else if (token->type == T_WORD)
+		return "ARG";
+	else if (token->type == T_STRING_S)
+		return "STRING_S";
+	else if (token->type == T_STRING_D)
+		return "STRING_D";
+	else if (token->type == T_FILE_OUT)
+		return "FILE_OUT";
+	else if (token->type == T_FILE_IN)
+		return "FILE_IN";
+	else if (token->type == T_HD_ENDER)
+		return "T_HD_ENDER";
+	else if (token->type == T_SPACE)
+		return "T_SPACE";
+	else
+		return "END";
+}
+
+void	ft_print_tokens(t_all *all)
+{
+	int	i;
+
+	i = 0;
+	while (i < all->token_count)
+	{
+		printf("t_token %d: Value: %s, Type: '%s', ind : %d\n", i,
+			all->tokens[i].value, ft_show_token(&all->tokens[i]),
+			all->tokens[i].type);
+		i++;
+	}
+}
+
+// !
+
+int	ft_tokenize(t_all *all)
+{
+	t_token	*tokens;
+
+	ft_init_t_all(all);
+	ft_create_token(all);
+	ft_set_other(all);
+	ft_set_other_1(all);
+	ft_set_other_2(all);
+	// ft_print_tokens(all);
+	tokens = ft_create_copy_token(all);
+	del_token(all);
+	ft_restore_token(all, tokens);
+	while (!ft_replace_all_vars(all))
+		continue ;
+	// ft_replace_all_wildcards(all);
+	ft_expander(all);
+	ft_set_command(all);
+	ft_finalize_token(all);
+	// ft_print_tokens(all);
 	if (input_error(all))
 		return (1);
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: arazafin <arazafin@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 11:17:25 by arazafin          #+#    #+#             */
-/*   Updated: 2024/10/25 13:24:53 by arazafin         ###   ########.fr       */
+/*   Updated: 2024/10/29 13:58:28 by arazafin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ void	get_exit_status(t_all *all);
 // * exec_utils
 char	**create_envp(t_all *all);
 // * exec_utils1
-int		is_n_op(int type);
 void	is_need_pipe(t_all *all, int *i);
 int		ft_has_op_before(t_all *all, int *i, int type);
 void	reset_redirection(t_all *all, int *x);
