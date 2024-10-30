@@ -6,7 +6,7 @@
 /*   By: arazafin <arazafin@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 14:34:02 by arazafin          #+#    #+#             */
-/*   Updated: 2024/10/21 11:17:06 by arazafin         ###   ########.fr       */
+/*   Updated: 2024/10/29 22:36:57 by arazafin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,11 @@ char	*join_arg(char **av, int i)
 	out = NULL;
 	while (av[i])
 	{
+		if (av[i] == NULL)
+		{
+			i++;
+			continue ;
+		}
 		out = get_arg(av, i, out);
 		i++;
 	}

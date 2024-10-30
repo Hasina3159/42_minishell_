@@ -6,7 +6,7 @@
 /*   By: arazafin <arazafin@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 09:26:57 by arazafin          #+#    #+#             */
-/*   Updated: 2024/10/29 16:24:14 by arazafin         ###   ########.fr       */
+/*   Updated: 2024/10/30 19:03:23 by arazafin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,10 @@ void	ft_add_token(t_all *all, int type, char *value)
 	all->token_count = all->token_count + 1;
 }
 
-// TODO: si commande echo ""$?"" doit afficher 0, ici affiche "0
+// TODO: si commande echo ""$?"" ;bash: 0 ;minishell: "0
 // FIXME: dans certain cas comme "" vide a l'interieur un quote pas envlever
 // FIXME: gestion de quote vide
+// FIXME: ouverture et fermeture des quotes
 int	ft_start_quotes(t_all *all)
 {
 	if (all->cmd[all->i] == '\'' || all->cmd[all->i] == '\"')

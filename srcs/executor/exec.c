@@ -6,7 +6,7 @@
 /*   By: arazafin <arazafin@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 11:13:47 by arazafin          #+#    #+#             */
-/*   Updated: 2024/10/27 14:55:16 by arazafin         ###   ########.fr       */
+/*   Updated: 2024/10/30 21:13:06 by arazafin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ int	ft_execute(t_all *all, int *i)
 		return (-1);
 	}
 	check_cmd(all, token_str, i);
-	if (all->has_pipe == 0 && all->child_pid > 0)
+	if ((all->has_pipe == 0 && all->child_pid > 0) || ft_has_op_after(all, i))
 		get_exit_status(all);
 	free_split(token_str);
 	return (0);

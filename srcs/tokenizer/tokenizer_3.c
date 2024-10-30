@@ -6,7 +6,7 @@
 /*   By: arazafin <arazafin@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 09:23:08 by arazafin          #+#    #+#             */
-/*   Updated: 2024/10/21 11:31:01 by arazafin         ###   ########.fr       */
+/*   Updated: 2024/10/30 19:24:28 by arazafin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,10 @@ int	ft_replace_var(t_all *all, t_token *token)
 		token->value = ft_str_repl_copy(tmp, vars[i], value);
 		free(tmp);
 		if (token->value)
+		{
+			free_vars(vars);
 			return (0);
+		}
 		i++;
 	}
 	free_vars(vars);

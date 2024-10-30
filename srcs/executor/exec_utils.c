@@ -6,7 +6,7 @@
 /*   By: arazafin <arazafin@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 18:02:24 by arazafin          #+#    #+#             */
-/*   Updated: 2024/10/08 07:33:29 by arazafin         ###   ########.fr       */
+/*   Updated: 2024/10/30 15:51:16 by arazafin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,13 @@ int	env_size(t_env *env)
 	tmp = env;
 	while (tmp)
 	{
-		i++;
+		if (tmp->value == NULL)
+		{
+			tmp = tmp->next;
+			continue ;
+		}
+		else
+			i++;
 		tmp = tmp->next;
 	}
 	return (i);
@@ -35,14 +41,17 @@ char	**create_envp(t_all *all)
 	char	*join;
 
 	tmp = all->env;
-	if (!tmp)
-		return (NULL);
 	envp = malloc(sizeof(char *) * (env_size(all->env) + 1));
 	if (envp == NULL)
 		return (NULL);
 	i = 0;
 	while (tmp)
 	{
+		if (tmp->value == NULL)
+		{
+			tmp = tmp->next;
+			continue ;
+		}
 		join = ft_strjoin(tmp->key, "=");
 		envp[i] = ft_strjoin(join, tmp->value);
 		free(join);

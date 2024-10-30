@@ -6,7 +6,7 @@
 /*   By: arazafin <arazafin@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 13:23:32 by arazafin          #+#    #+#             */
-/*   Updated: 2024/10/27 14:55:55 by arazafin         ###   ########.fr       */
+/*   Updated: 2024/10/30 19:02:34 by arazafin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,14 @@ int	get_cmd_len(t_all *all, int i)
 	while (!is_n_op(all->tokens[j].type))
 	{
 		if (all->tokens[j].type == T_COMMAND || all->tokens[j].type == T_WORD)
+		{
+			if (ft_strlen(all->tokens[j].value) < 1)
+			{
+				j++;
+				continue ;
+			}
 			len++;
+		}
 		j++;
 	}
 	return (len);
@@ -45,6 +52,11 @@ char	**ft_tokens_to_char(t_all *all, int *i)
 	{
 		if (all->tokens[*i].type == T_COMMAND || all->tokens[*i].type == T_WORD)
 		{
+			if (ft_strlen(all->tokens[*i].value) < 1)
+			{
+				*i = *i + 1;
+				continue ;
+			}
 			token_str[j] = ft_strdup(all->tokens[*i].value);
 			j++;
 		}

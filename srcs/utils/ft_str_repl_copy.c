@@ -6,7 +6,7 @@
 /*   By: arazafin <arazafin@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 08:51:20 by arazafin          #+#    #+#             */
-/*   Updated: 2024/10/08 08:52:23 by arazafin         ###   ########.fr       */
+/*   Updated: 2024/10/30 19:09:00 by arazafin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static int	ft_init(char *text, char *from, char *to, char **final)
 	*final[0] = 'a';
 	if (*final == NULL)
 		return (0);
-	ft_bzero(*final, len_final + 1);
+	ft_bzero(*final, len_final);
 	return (1);
 }
 
@@ -38,7 +38,7 @@ static void	ft_loop(char *final, char *to, size_t *j, size_t *k)
 		*j = *j + 1;
 	}
 }
-
+// TODO: echo $"HOME" ; bash: HOME
 char	*ft_str_repl_copy(char *text, char *from, char *to)
 {
 	char	*final;

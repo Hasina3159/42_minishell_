@@ -6,7 +6,7 @@
 /*   By: arazafin <arazafin@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 11:33:32 by arazafin          #+#    #+#             */
-/*   Updated: 2024/10/29 13:57:43 by arazafin         ###   ########.fr       */
+/*   Updated: 2024/10/30 21:09:55 by arazafin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,4 +51,16 @@ void	reset_redirection(t_all *all, int *x)
 	all->has_in = 0;
 	all->has_pipe = 0;
 	all->has_out = 0;
+}
+
+int	ft_has_op_after(t_all *all, int *i)
+{
+	int	j;
+
+	j = *i;
+	while (!is_n_op(all->tokens[j].type))
+		j++;
+	if (all->tokens[j].type == T_AND || all->tokens[j].type == T_OR)
+		return (1);
+	return (0);
 }
