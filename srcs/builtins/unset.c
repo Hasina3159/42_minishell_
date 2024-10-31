@@ -6,7 +6,7 @@
 /*   By: arazafin <arazafin@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 14:35:34 by arazafin          #+#    #+#             */
-/*   Updated: 2024/10/27 07:14:17 by arazafin         ###   ########.fr       */
+/*   Updated: 2024/10/31 16:10:04 by arazafin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,10 @@ int	ft_unset(t_all *all, char **av)
 	i = 1;
 	while (av[i])
 	{
-		del_from_env(av[i], &all->env);
+		if (is_valid_arg(av[i]))
+			del_from_env(av[i], &all->env);
+		else
+			print_error(av[0], av[i], "is not a valid identifier");
 		i++;
 	}
 	return (SUCCESS);

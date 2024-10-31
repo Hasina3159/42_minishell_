@@ -6,7 +6,7 @@
 /*   By: arazafin <arazafin@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 11:33:32 by arazafin          #+#    #+#             */
-/*   Updated: 2024/10/30 21:09:55 by arazafin         ###   ########.fr       */
+/*   Updated: 2024/10/31 16:17:42 by arazafin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	is_need_pipe(t_all *all, int *i)
 		all->has_pipe = 1;
 }
 
-int	ft_has_op_before(t_all *all, int *i, int type)
+/*int	ft_has_op_before(t_all *all, int *i, int type)
 {
 	int	j;
 
@@ -39,6 +39,17 @@ int	ft_has_op_before(t_all *all, int *i, int type)
 	while (j > 0 && (all->tokens[j].type == T_FILE_IN
 			|| all->tokens[j].type == T_IN || all->tokens[j].type == T_COMMAND
 			|| all->tokens[j].type == T_WORD))
+		j--;
+	if (all->tokens[j].type == type)
+		return (1);
+	return (0);
+}*/
+int	ft_has_op_before(t_all *all, int *i, int type)
+{
+	int	j;
+
+	j = *i;
+	while (j > 0 && !is_n_op(all->tokens[j].type))
 		j--;
 	if (all->tokens[j].type == type)
 		return (1);

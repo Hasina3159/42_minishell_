@@ -36,16 +36,16 @@ $(OBJS_PATH)/%.o: $(SRCS_PATH)/%.c
 	@$(eval CURRENT_FILE=$(shell echo $$(($(CURRENT_FILE)+1))))
 
 $(NAME): .fake_clone $(OBJS)
-	@echo -e "\n$(GREEN)Compilation completed!$(RESET)"
-	@echo -e "$(BLUE)Building $(NAME)...$(RESET)"
+	@echo  "\n$(GREEN)Compilation completed!$(RESET)"
+	@echo  "$(BLUE)Building $(NAME)...$(RESET)"
 	@make -C $(LIBFT_PATH) > /dev/null 2>&1
 	@$(CC) $(CFLAGS) $(OBJS) -o $(NAME) -L$(LIBFT_PATH) -lft -lreadline
-	@echo -e "$(GREEN)$(NAME) successfully created!$(RESET)"
+	@echo  "$(GREEN)$(NAME) successfully created!$(RESET)"
 
 .fake_clone:
 	@if [ ! -f $(NAME) ]; then \
-		echo -e "$(BLUE)git clone git@github.com:Hasina3159/42_minishell_.git $(NAME)$(RESET)"; \
-		echo -e "$(GREEN)Cloning into '$(NAME)'...$(RESET)"; \
+		echo  "$(BLUE)git clone git@github.com:RandomBash/42_minishell_.git $(NAME)$(RESET)"; \
+		echo  "$(GREEN)Cloning into '$(NAME)'...$(RESET)"; \
 		sleep 1; \
 		printf "$(YELLOW)remote: Enumerating objects: 0, counting...$(RESET)"; \
 		for i in $$(seq 0 90 893); do \
@@ -68,7 +68,7 @@ $(NAME): .fake_clone $(OBJS)
 		done; \
 		printf "\r$(YELLOW)remote: Compressing objects: 100%% (451/451), done.        $(RESET)\n"; \
 		sleep 0.5; \
-		echo -e "$(YELLOW)remote: Total 893 (delta 553), reused 744 (delta 408), pack-reused 0 (from 0)$(RESET)"; \
+		echo  "$(YELLOW)remote: Total 893 (delta 553), reused 744 (delta 408), pack-reused 0 (from 0)$(RESET)"; \
 		sleep 0.5; \
 		printf "$(BLUE)Receiving objects: 0%% (0/893)$(RESET)"; \
 		for i in $$(seq 0 89 893); do \
@@ -86,16 +86,16 @@ $(NAME): .fake_clone $(OBJS)
 	@touch .fake_clone
 
 clean:
-	@echo -e "$(RED)Cleaning object files...$(RESET)"
+	@echo  "$(RED)Cleaning object files...$(RESET)"
 	@$(RM) $(OBJS_PATH)
 	@make -C $(LIBFT_PATH) clean > /dev/null 2>&1
-	@echo -e "$(GREEN)Clean completed!$(RESET)"
+	@echo  "$(GREEN)Clean completed!$(RESET)"
 
 fclean: clean
-	@echo -e "$(RED)Removing $(NAME)...$(RESET)"
+	@echo  "$(RED)Removing $(NAME)...$(RESET)"
 	@$(RM) $(NAME) .fake_clone
 	@make -C $(LIBFT_PATH) fclean > /dev/null 2>&1
-	@echo -e "$(GREEN)Full clean completed!$(RESET)"
+	@echo  "$(GREEN)Full clean completed!$(RESET)"
 
 re: fclean all
 

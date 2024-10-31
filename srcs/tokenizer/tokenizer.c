@@ -6,7 +6,7 @@
 /*   By: arazafin <arazafin@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 09:18:57 by arazafin          #+#    #+#             */
-/*   Updated: 2024/10/29 21:55:45 by arazafin         ###   ########.fr       */
+/*   Updated: 2024/10/31 15:19:25 by arazafin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -194,7 +194,7 @@ int	ft_tokenize(t_all *all)
 	ft_expander(all);
 	ft_set_command(all);
 	ft_finalize_token(all);
-	// ft_print_tokens(all);
+	ft_print_tokens(all);
 	if (input_error(all))
 		return (1);
 	return (0);

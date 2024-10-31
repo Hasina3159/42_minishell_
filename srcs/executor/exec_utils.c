@@ -6,7 +6,7 @@
 /*   By: arazafin <arazafin@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 18:02:24 by arazafin          #+#    #+#             */
-/*   Updated: 2024/10/30 15:51:16 by arazafin         ###   ########.fr       */
+/*   Updated: 2024/10/31 11:58:15 by arazafin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,7 @@ void	execve_cmd(char **cmd, char **envp)
 	int		error;
 
 	path = get_path(cmd[0], envp);
-	if (access(path, F_OK))
+	if (access(path, F_OK) || access(path, X_OK))
 	{
 		print_error(cmd[0], NULL, "command not found");
 		free_split(cmd);

@@ -6,7 +6,7 @@
 /*   By: arazafin <arazafin@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 11:13:47 by arazafin          #+#    #+#             */
-/*   Updated: 2024/10/30 21:13:06 by arazafin         ###   ########.fr       */
+/*   Updated: 2024/10/31 16:21:32 by arazafin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,11 @@ void	check_cmd(t_all *all, char **cmd, int *i)
 {
 	int		ch;
 
+	(void)i;
 	ch = is_built(cmd);
-	if (ch && !all->has_pipe && !all->has_out
-		&& !ft_has_op_before(all, i, T_PIPE))
+	// if (ch && !all->has_pipe && !all->has_out
+	// 	&& !ft_has_op_before(all, i, T_PIPE))
+	if (ch && all->token_count == 2)
 		all->exit_status = use_built(all, ch, cmd);
 	else
 	{
