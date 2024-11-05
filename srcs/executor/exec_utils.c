@@ -6,7 +6,7 @@
 /*   By: arazafin <arazafin@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 18:02:24 by arazafin          #+#    #+#             */
-/*   Updated: 2024/10/31 11:58:15 by arazafin         ###   ########.fr       */
+/*   Updated: 2024/11/05 09:02:23 by arazafin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,13 +115,33 @@ static char	*get_path(char *cmd, char **env)
 	return (cmd);
 }
 
+void	execve_error(int	error, char **cmd, char **envp)
+{
+	int	ret;
+
+	ret = ft_isdir(cmd[0]);
+	if (ret== -1)
+		print_error(cmd[0], NULL, strerror(2));
+	else if (ret == 1)
+		print_error(cmd[0], NULL, strerror(EISDIR));
+	else
+		print_error(cmd[0], NULL, strerror(error));
+	free_split(cmd);
+	free_split(envp);
+	exit(126);
+}
+
 void	execve_cmd(char **cmd, char **envp)
 {
 	char	*path;
 	int		error;
 
-	path = get_path(cmd[0], envp);
-	if (access(path, F_OK) || access(path, X_OK))
+
+	if (cmd[0][0] == '/' || (cmd[0][0] == '.' && cmd[0][1] == '/'))
+		path = cmd[0];
+	else
+		path = get_path(cmd[0], envp);
+	if ((path[0] != '.' && path[1] != '/') && path[0] != '/')
 	{
 		print_error(cmd[0], NULL, "command not found");
 		free_split(cmd);
@@ -131,12 +151,6 @@ void	execve_cmd(char **cmd, char **envp)
 	if (execve(path, cmd, envp) < 0)
 	{
 		error = errno;
-		if (ft_isdir(path))
-			print_error(path, NULL, strerror(EISDIR));
-		else
-			print_error(cmd[0], NULL, strerror(error));
-		free_split(cmd);
-		free_split(envp);
-		exit(126);
+		execve_error(error, cmd, envp);
 	}
 }

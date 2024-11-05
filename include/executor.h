@@ -6,7 +6,7 @@
 /*   By: arazafin <arazafin@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 11:17:25 by arazafin          #+#    #+#             */
-/*   Updated: 2024/10/30 21:11:19 by arazafin         ###   ########.fr       */
+/*   Updated: 2024/11/05 12:40:54 by arazafin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@ char	*get_heredoc(char *doc, char *line);
 int		hd_signal(char *line, char *limiter);
 int		is_limiter(char *limiter, char *line);
 int		here_doc(t_token lim, int fd_out, t_all *all);
-void	hd_expand(t_all *all, char *line);
+// void	hd_expand(t_all *all, char *line);
+char	*hd_expand(t_all *all, char *line);
 int		heredoc(t_all *all, t_token lim);
 // * handle_redout.c
 int		open_outfile(t_all *all, int type);

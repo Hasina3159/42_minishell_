@@ -6,7 +6,7 @@
 /*   By: arazafin <arazafin@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 11:17:40 by arazafin          #+#    #+#             */
-/*   Updated: 2024/10/25 13:23:25 by arazafin         ###   ########.fr       */
+/*   Updated: 2024/11/05 10:33:09 by arazafin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,13 @@ typedef struct s_env
 	struct s_env	*next;
 }					t_env;
 
+typedef struct s_expand
+{
+	char	*result;
+	int		i;
+	int		tok_i;
+}	t_expand;
+
 typedef struct s_all
 {
 	size_t			i;
@@ -38,6 +45,8 @@ typedef struct s_all
 	t_token			tokens[TOKENS_MAX];
 	int				token_count;
 	t_env			*env;
+	int				pos;
+	int				nb_cmd;
 	int				statloc;
 	int				exit_status;
 	int				child_pid;

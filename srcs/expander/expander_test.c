@@ -1,88 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   hd_utils.c                                         :+:      :+:    :+:   */
+/*   expander_test.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: arazafin <arazafin@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/28 17:00:50 by arazafin          #+#    #+#             */
-/*   Updated: 2024/11/05 14:17:01 by arazafin         ###   ########.fr       */
+/*   Created: 2024/11/01 15:13:06 by arazafin          #+#    #+#             */
+/*   Updated: 2024/11/05 13:26:21 by arazafin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-// void	hd_expand_exit(t_all *all, char *line, int i)
-// {
-// 	char	*tmp;
-// 	char	*tmp2;
-// 	char	*tmp3;
-// 	char	*exit_status;
-
-// 	tmp = ft_substr(line, 0, i);
-// 	tmp2 = ft_substr(line, i + 2, ft_strlen(line) - i - 2);
-// 	exit_status = ft_itoa(all->exit_status);
-// 	tmp3 = ft_strjoin(tmp, exit_status);
-// 	free(line);
-// 	line = ft_strjoin(tmp3, tmp2);
-// 	free(tmp);
-// 	free(tmp2);
-// 	free(tmp3);
-// 	free(exit_status);
-// }
-
-// int	expand_heredoc(t_all *all, char *line)
-// {
-// 	int	i;
-
-// 	i = 0;
-// 	while (line[i])
-// 	{
-// 		if (line[i] == '$')
-// 		{
-// 			if (line[i + 1] == '?')
-// 				hd_expand_exit(all, line, i);
-// 		}
-// 		i++;
-// 	}
-// 	return (0);
-// }
-
-// int	ft_replace_hd(t_all *all, char *line)
-// {
-// 	char	**vars;
-// 	char	*value;
-// 	int		i;
-// 	char	*tmp;
-
-// 	vars = ft_get_all_var(line);
-// 	if (vars == NULL)
-// 		return (0);
-// 	i = 0;
-// 	while (vars[i])
-// 	{
-// 		value = ft_getvarvalue(all, &vars[i][1]);
-// 		tmp = ft_strdup(line);
-// 		free(line);
-// 		line = ft_str_repl_copy(tmp, vars[i], value);
-// 		free(tmp);
-// 		if (line)
-// 		{
-// 			free_split(vars);
-// 			return (0);
-// 		}
-// 		i++;
-// 	}
-// 	free_split(vars);
-// 	return (1);
-// }
-
-// void	hd_expand(t_all *all, char *line)
-// {
-// 	while (!ft_replace_hd(all, line))
-// 		continue ;
-// 	expand_heredoc(all, line);
-// }
 static void	append_char(char **str, char c)
 {
 	char	*tmp;
@@ -135,26 +64,29 @@ static void	handle_dollar(t_all *all, char *str, t_expand *exp)
 		expand_exit_status(all, exp);
 	else if (ft_isalpha(str[exp->i + 1]) || str[exp->i + 1] == '_')
 		expand_env_var(all, str, exp);
-	else if (ft_strlen(str) == 1)
+	else if (ft_strlen(str) == 1 && is_n_op(all->tokens[exp->tok_i + 1].type))
 		append_char(&exp->result, str[exp->i]);
 	else
 		exp->i++;
 }
 
-char	*hd_expand(t_all *all, char *line)
+char	*expand_variables(t_all *all, char *str, int i)
 {
 	t_expand exp;
 
-	if (!line)
+	if (!str)
 		return (NULL);
 	exp.result = ft_strdup("");
 	exp.i = 0;
-	while (line[exp.i])
+	exp.tok_i = i;
+	while (str[exp.i])
 	{
-		if (line[exp.i] == '$')
-			handle_dollar(all, line, &exp);
+		if (str[exp.i] == '$')
+			handle_dollar(all, str, &exp);
 		else
-			append_char(&exp.result, line[exp.i]);
+			append_char(&exp.result, str[exp.i]);
+		if (!str[exp.i])
+			break ;
 		exp.i++;
 	}
 	return (exp.result);

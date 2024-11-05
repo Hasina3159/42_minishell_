@@ -6,7 +6,7 @@
 /*   By: arazafin <arazafin@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 11:13:47 by arazafin          #+#    #+#             */
-/*   Updated: 2024/10/31 16:21:32 by arazafin         ###   ########.fr       */
+/*   Updated: 2024/11/03 16:13:44 by arazafin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,15 +23,14 @@ int	ft_child_exec_pipe(char **token_str, t_all *all)
 		clean_child_b(all, token_str);
 		exit(1);
 	}
-	envp = create_envp(all);
 	ch = is_built(token_str);
 	if (ch)
 	{
-		free_split(envp);
 		exit_s = use_built(all, ch, token_str);
 		clean_child_b(all, token_str);
 		exit(exit_s);
 	}
+	envp = create_envp(all);
 	clean_child(all);
 	setup_child_signals();
 	execve_cmd(token_str, envp);
@@ -42,11 +41,9 @@ void	check_cmd(t_all *all, char **cmd, int *i)
 {
 	int		ch;
 
-	(void)i;
 	ch = is_built(cmd);
-	// if (ch && !all->has_pipe && !all->has_out
-	// 	&& !ft_has_op_before(all, i, T_PIPE))
-	if (ch && all->token_count == 2)
+	if (ch && !all->has_pipe && !all->has_out
+		&& !ft_has_op_before(all, i, T_PIPE))
 		all->exit_status = use_built(all, ch, cmd);
 	else
 	{
@@ -94,6 +91,7 @@ int	ft_execute(t_all *all, int *i)
 
 int	exec_cmd(t_all *all, int *i)
 {
+	all->pos = *i;
 	if (all->exit_status && *i > 1 && (ft_has_op_before(all, i, T_AND)))
 		return (0);
 	else if (!all->exit_status && *i > 1 && (ft_has_op_before(all, i,

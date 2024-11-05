@@ -6,7 +6,7 @@
 /*   By: arazafin <arazafin@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 18:16:35 by arazafin          #+#    #+#             */
-/*   Updated: 2024/10/25 08:31:34 by arazafin         ###   ########.fr       */
+/*   Updated: 2024/11/05 12:49:17 by arazafin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,12 @@ void	clean_after_cmd(t_all *all)
 {
 	del_token(all);
 	free(all->cmd);
+	if (all->hd_file)
+	{
+		unlink(all->hd_file);
+		free(all->hd_file);
+		all->hd_file = NULL;
+	}
 }
 
 int	read_line(char **input, t_all *all)
@@ -47,6 +53,12 @@ int	read_line(char **input, t_all *all)
 void	clean_exit(t_all *all)
 {
 	del_env(&all->env);
+	if (all->hd_file)
+	{
+		unlink(all->hd_file);
+		free(all->hd_file);
+		all->hd_file = NULL;
+	}
 	rl_clear_history();
 	printf("exit\n");
 	if (all->tmp > 0)

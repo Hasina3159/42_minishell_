@@ -6,7 +6,7 @@
 /*   By: arazafin <arazafin@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 18:05:25 by arazafin          #+#    #+#             */
-/*   Updated: 2024/10/08 09:02:55 by arazafin         ###   ########.fr       */
+/*   Updated: 2024/11/02 18:14:25 by arazafin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@
 # include "utils.h"
 # include "tokenizer.h"
 
-int			ft_expander(t_all *all);
 // ? init
 void		init_shell(t_all *all);
 // ? exit

@@ -6,7 +6,7 @@
 /*   By: arazafin <arazafin@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 12:05:14 by arazafin          #+#    #+#             */
-/*   Updated: 2024/10/25 13:27:41 by arazafin         ###   ########.fr       */
+/*   Updated: 2024/11/05 14:19:51 by arazafin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,18 @@ int	hd_lim_sig(char *line, t_token lim)
 	if (is_limiter(lim.value, line))
 		return (1);
 	return (0);
+}
+
+static void	expand_tok_hd(char **line, t_all *all)
+{
+	char	*expanded;
+
+	expanded = hd_expand(all, *line);
+	if (expanded)
+	{
+		free(*line);
+		*line = expanded;
+	}
 }
 
 int	hd_loop(t_all *all, t_token lim, char **doc, int fd_out)
@@ -43,7 +55,7 @@ int	hd_loop(t_all *all, t_token lim, char **doc, int fd_out)
 		if (hd_lim_sig(line, lim))
 			break ;
 		if (all->hd_expand)
-			hd_expand(all, line);
+			expand_tok_hd(&line, all);
 		*doc = get_heredoc(*doc, line);
 		free(line);
 	}

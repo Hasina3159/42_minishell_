@@ -6,7 +6,7 @@
 /*   By: arazafin <arazafin@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 08:12:13 by arazafin          #+#    #+#             */
-/*   Updated: 2024/10/29 15:25:36 by arazafin         ###   ########.fr       */
+/*   Updated: 2024/11/05 08:57:06 by arazafin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,8 @@ int	ft_isdir(char *path)
 
 	if (stat(path, &statbuf) == -1)
 	{
-		perror("stat");
+		// perror("stat");
+		// printf("%d\n", errno);
 		return (-1);
 	}
 	if ((statbuf.st_mode & S_IFMT) == S_IFDIR)

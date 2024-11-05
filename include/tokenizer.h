@@ -6,7 +6,7 @@
 /*   By: arazafin <arazafin@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 08:59:29 by arazafin          #+#    #+#             */
-/*   Updated: 2024/10/29 13:37:55 by arazafin         ###   ########.fr       */
+/*   Updated: 2024/11/05 10:55:43 by arazafin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,5 +44,7 @@ t_token *ft_create_copy_token(t_all *all);
 void ft_restore_token(t_all *all, t_token *tokens);
 int		op_last_pos(char *input);
 int		append_to_prompt(char **input, t_all *all);
+int		ft_expander(t_all *all);
+char	*expand_variables(t_all *all, char *str, int i);
 
 #endif

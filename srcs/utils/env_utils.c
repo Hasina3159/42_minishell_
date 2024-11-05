@@ -6,7 +6,7 @@
 /*   By: arazafin <arazafin@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 08:11:47 by arazafin          #+#    #+#             */
-/*   Updated: 2024/10/27 14:33:01 by arazafin         ###   ########.fr       */
+/*   Updated: 2024/11/02 08:11:28 by arazafin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,4 +86,28 @@ int	ft_setvarvalue(t_all *all, char *key, char *value)
 	}
 	last->next = ft_create_env(key, value);
 	return (1);
+}
+
+void	update_underscore(t_all *all)
+{
+	char	*key;
+	char	*value;
+	int		i;
+
+	i = all->token_count - 1;
+	key = ft_strdup("_");
+	value = NULL;
+	while (i >= 0)
+	{
+		if (all->tokens[i].type == T_WORD || all->tokens[i].type == T_COMMAND)
+		{
+			if (all->tokens[i].value != NULL && ft_strlen(all->tokens[i].value) > 0)
+			{
+				value = ft_strdup(all->tokens[i].value);
+				break ;
+			}
+		}
+		i--;
+	}
+	ft_setvarvalue(all, key, value);
 }

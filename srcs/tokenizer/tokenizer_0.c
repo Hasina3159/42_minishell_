@@ -6,7 +6,7 @@
 /*   By: arazafin <arazafin@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 09:26:57 by arazafin          #+#    #+#             */
-/*   Updated: 2024/10/31 14:55:54 by arazafin         ###   ########.fr       */
+/*   Updated: 2024/11/05 13:16:24 by arazafin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	ft_init_t_all(t_all *all)
 	all->quote_char = 0;
 	all->token_count = 0;
 }
-// FIXME: leaks quand builtins apres pipe
+
 void	ft_add_token(t_all *all, int type, char *value)
 {
 	all->tokens[all->token_count].type = type;

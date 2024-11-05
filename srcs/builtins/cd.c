@@ -6,7 +6,7 @@
 /*   By: arazafin <arazafin@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 14:33:41 by arazafin          #+#    #+#             */
-/*   Updated: 2024/10/08 07:42:34 by arazafin         ###   ########.fr       */
+/*   Updated: 2024/11/03 10:59:57 by arazafin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,20 @@ int	expand_cd_arg(char **av, t_all *all)
 
 static int	cd_case_one(t_all *all, char *oldpwd)
 {
+	char	*dir;
+
+	dir = NULL;
 	if (ft_search_key("HOME", all))
 	{
-		chdir(ft_get_env("HOME", all));
+		dir = ft_get_env("HOME", all);
+		if (dir)
+			chdir(dir);
+		else
+		{
+			print_error("cd", NULL, "HOME not set");
+			free(oldpwd);
+			return (1);
+		}
 	}
 	else
 	{

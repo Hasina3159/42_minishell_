@@ -1,29 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pwd.c                                              :+:      :+:    :+:   */
+/*   expand_u.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: arazafin <arazafin@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/29 14:35:00 by arazafin          #+#    #+#             */
-/*   Updated: 2024/11/03 11:10:18 by arazafin         ###   ########.fr       */
+/*   Created: 2024/11/01 19:03:31 by arazafin          #+#    #+#             */
+/*   Updated: 2024/11/02 18:04:07 by arazafin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-int	ft_pwd(t_all *all)
+char	*get_env_value(t_env *env, char *key)
 {
-	char	pwd[TOKENS_MAX];
-	int		error;
+	char	*value;
+	t_env	*tmp;
 
-	(void)all;
-	if (getcwd(pwd, TOKENS_MAX) == NULL)
+	tmp = env;
+	value = NULL;
+	while (tmp)
 	{
-		error = errno;
-		print_error("pwd", NULL, strerror(error));
-		return (ERROR);
+		if (!ft_strncmp(tmp->key, key, ft_strlen(key) + 1))
+			return (tmp->value);
+		tmp = tmp->next;
 	}
-	printf("%s\n", pwd);
-	return (SUCCESS);
+	return (value);
+}
+
+char	*ft_strjoin_free(char *s1, char *s2)
+{
+	char *result;
+
+	if (!s1 || !s2)
+		return (NULL);
+	result = ft_strjoin(s1, s2);
+	free(s1);
+	return (result);
 }

@@ -6,7 +6,7 @@
 /*   By: arazafin <arazafin@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 09:35:20 by arazafin          #+#    #+#             */
-/*   Updated: 2024/10/29 16:09:42 by arazafin         ###   ########.fr       */
+/*   Updated: 2024/11/05 15:25:07 by arazafin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -231,7 +231,8 @@ t_token *ft_create_copy_token(t_all *all)
 			i++;
 			continue;
 		}
-		else if (!is_n_op(token->type) && !is_n_op(next_token->type))
+		//else if (!is_n_op(token->type) && !is_n_op(next_token->type))// TODO: operateur et fichier de redirection coller ensemble
+		else if (token->type == T_WORD && next_token->type == T_WORD)
 			tokens[j].value = ft_strjoin(tokens[j].value, next_token->value);
 		else
 		{

@@ -6,7 +6,7 @@
 /*   By: arazafin <arazafin@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 14:34:28 by arazafin          #+#    #+#             */
-/*   Updated: 2024/10/21 06:48:02 by arazafin         ###   ########.fr       */
+/*   Updated: 2024/11/02 17:52:59 by arazafin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,11 @@ void	del_token(t_all *all)
 	i = 0;
 	while (i < all->token_count)
 	{
-		free(all->tokens[i].value);
-		all->tokens[i].value = NULL;
+		if (all->tokens[i].value)
+		{
+			free(all->tokens[i].value);
+			all->tokens[i].value = NULL;
+		}
 		i++;
 	}
 }

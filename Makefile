@@ -4,23 +4,19 @@ CFLAGS		= -Wall -Wextra -Werror
 RM			= rm -rf
 MKDIR_P		= mkdir -p
 
-# Couleurs pour les messages
 RED			= \e[31m
 GREEN		= \e[32m
 YELLOW		= \e[33m
 BLUE		= \e[34m
 RESET		= \e[0m
 
-# Chemins
 SRCS_PATH	= ./srcs
 OBJS_PATH	= ./objs
 LIBFT_PATH	= ./libft
 
-# Sources et objets
 SRCS		= $(shell find $(SRCS_PATH) -name "*.c")
 OBJS		= $(patsubst $(SRCS_PATH)/%.c,$(OBJS_PATH)/%.o,$(SRCS))
 
-# Nombre de fichiers à compiler
 TOTAL_FILES	= $(words $(SRCS))
 CURRENT_FILE	= 1
 
