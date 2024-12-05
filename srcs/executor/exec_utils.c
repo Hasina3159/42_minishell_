@@ -128,7 +128,7 @@ void	execve_error(int	error, char **cmd, char **envp)
 		print_error(cmd[0], NULL, strerror(error));
 	free_split(cmd);
 	free_split(envp);
-	exit(126);
+	exit(127);
 }
 
 void	execve_cmd(char **cmd, char **envp)

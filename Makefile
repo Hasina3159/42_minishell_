@@ -35,7 +35,7 @@ $(NAME): .fake_clone $(OBJS)
 	@echo  "\n$(GREEN)Compilation completed!$(RESET)"
 	@echo  "$(BLUE)Building $(NAME)...$(RESET)"
 	@make -C $(LIBFT_PATH) > /dev/null 2>&1
-	@$(CC) $(CFLAGS) $(OBJS) -o $(NAME) -L$(LIBFT_PATH) -lft -lreadline
+	@$(CC) $(CFLAGS) $(OBJS) -o $(NAME) -L$(LIBFT_PATH) -lft -lreadline -g
 	@echo  "$(GREEN)$(NAME) successfully created!$(RESET)"
 
 .fake_clone:

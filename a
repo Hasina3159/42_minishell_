@@ -1,0 +1,12 @@
+a
+check_leaks.sh
+echo.c
+include
+libft
+Makefile
+minishell
+objs
+README.md
+srcs
+test.c
+valgrind_readline_leaks_ignore.txt

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arazafin <arazafin@student.42antananari    +#+  +:+       +#+        */
+/*   By: petera <petera@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 08:59:34 by arazafin          #+#    #+#             */
-/*   Updated: 2024/11/02 07:20:05 by arazafin         ###   ########.fr       */
+/*   Updated: 2024/12/02 20:57:48 by petera           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ int		ft_search_key(char *key, t_all *all);
 char	*ft_get_env(char *key, t_all *all);
 int		ft_setvarvalue(t_all *all, char *key, char *value);
 void	update_underscore(t_all *all);
+char	*ft_remove_quotes(char *s);
 // * tok_utils.c
 int		i_n_op(int type);
 int		is_n_op(int type);
