@@ -6,7 +6,7 @@
 /*   By: ntodisoa <ntodisoa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/06 10:23:45 by ntodisoa          #+#    #+#             */
-/*   Updated: 2024/12/06 15:09:03 by ntodisoa         ###   ########.fr       */
+/*   Updated: 2024/12/06 15:32:07 by ntodisoa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,7 @@ char	**ft_tokens_to_char(t_all *all, int *i)
 				*i = *i + 1;
 				continue ;
 			}
-			token_str[j] = ft_strdup(all->tokens[*i].value);
-			j++;
+			token_str[j++] = ft_strdup(all->tokens[*i].value);
 		}
 		*i = *i + 1;
 	}

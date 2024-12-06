@@ -6,7 +6,7 @@
 /*   By: ntodisoa <ntodisoa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/06 10:21:41 by ntodisoa          #+#    #+#             */
-/*   Updated: 2024/12/06 13:56:37 by ntodisoa         ###   ########.fr       */
+/*   Updated: 2024/12/06 15:24:55 by ntodisoa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,8 @@ t_dir	**ft_get_all_dirs(t_dir **dirs, int i, t_dir *tmp);
 int		ft_is_t_op(int type);
 void	ft_set_other_1(t_all *all);
 void	ft_set_other_2(t_all *all);
-t_token *ft_create_copy_token(t_all *all);
-void ft_restore_token(t_all *all, t_token *tokens);
+t_token	*ft_create_copy_token(t_all *all);
+void	ft_restore_token(t_all *all, t_token *tokens);
 int		op_last_pos(char *input);
 int		append_to_prompt(char **input, t_all *all);
 int		ft_expander(t_all *all);

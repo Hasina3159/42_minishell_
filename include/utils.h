@@ -6,7 +6,7 @@
 /*   By: ntodisoa <ntodisoa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/06 10:21:49 by ntodisoa          #+#    #+#             */
-/*   Updated: 2024/12/06 10:21:50 by ntodisoa         ###   ########.fr       */
+/*   Updated: 2024/12/06 15:40:11 by ntodisoa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,6 @@ int		count_cmd(t_all *all);
 // * expand_u.c
 char	*get_env_value(t_env *env, char *key);
 char	*ft_strjoin_free(char *s1, char *s2);
-
+int		env_size(t_env *env);
 
 #endif

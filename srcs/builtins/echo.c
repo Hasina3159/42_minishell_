@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   echo_test.c                                        :+:      :+:    :+:   */
+/*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ntodisoa <ntodisoa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/06 10:22:37 by ntodisoa          #+#    #+#             */
-/*   Updated: 2024/12/06 10:22:38 by ntodisoa         ###   ########.fr       */
+/*   Updated: 2024/12/06 15:27:21 by ntodisoa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-char *remove_extra_spaces(char *str)
+char	*remove_extra_spaces(char *str)
 {
 	char	*tmp;
 	int		i;
@@ -131,28 +131,4 @@ int	check_flag(char **av, int *i)
 	if (*i > 1)
 		return (0);
 	return (1);
-}
-
-int	ft_echo(int argc, char **argv, t_all *all)
-{
-	int		nl;
-	int		i;
-	char	*to_print;
-
-	if (argc == 1)
-	{
-		printf("\n");
-		return (SUCCESS);
-	}
-	i = 1;
-	nl = check_flag(argv, &i);
-	to_print = join_arg(argv, i, all);
-	if (to_print != NULL)
-	{
-		printf("%s", to_print);
-		free(to_print);
-	}
-	if (nl)
-		printf("\n");
-	return (SUCCESS);
 }

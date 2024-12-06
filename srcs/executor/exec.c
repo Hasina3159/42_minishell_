@@ -6,7 +6,7 @@
 /*   By: ntodisoa <ntodisoa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/06 10:24:06 by ntodisoa          #+#    #+#             */
-/*   Updated: 2024/12/06 15:16:44 by ntodisoa         ###   ########.fr       */
+/*   Updated: 2024/12/06 15:28:59 by ntodisoa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,6 +125,5 @@ int	ft_execute_all(t_all *all, int *i)
 		}
 		*i = *i + 1;
 	}
-	//printf("cmd : %p, env : %p\n", all->cmd, all->env);
 	return (1);
 }

@@ -6,32 +6,11 @@
 /*   By: ntodisoa <ntodisoa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/06 10:23:32 by ntodisoa          #+#    #+#             */
-/*   Updated: 2024/12/06 15:17:27 by ntodisoa         ###   ########.fr       */
+/*   Updated: 2024/12/06 15:39:32 by ntodisoa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-
-int	env_size(t_env *env)
-{
-	int		i;
-	t_env	*tmp;
-
-	i = 0;
-	tmp = env;
-	while (tmp)
-	{
-		if (tmp->value == NULL)
-		{
-			tmp = tmp->next;
-			continue ;
-		}
-		else
-			i++;
-		tmp = tmp->next;
-	}
-	return (i);
-}
 
 char	**create_envp(t_all *all)
 {
@@ -104,7 +83,6 @@ static char	*get_path(char *cmd, char **env)
 		free(tmp);
 		if (!access(path, F_OK) && !access(path, X_OK))
 		{
-			printf("ACCESS PATH!");
 			free_split(env_path);
 			return (path);
 		}
@@ -116,12 +94,12 @@ static char	*get_path(char *cmd, char **env)
 	return (cmd);
 }
 
-void	execve_error(int	error, char **cmd, char **envp)
+void	execve_error(int error, char **cmd, char **envp)
 {
 	int	ret;
 
 	ret = ft_isdir(cmd[0]);
-	if (ret== -1)
+	if (ret == -1)
 		print_error(cmd[0], NULL, strerror(2));
 	else if (ret == 1)
 		print_error(cmd[0], NULL, strerror(EISDIR));
@@ -132,12 +110,10 @@ void	execve_error(int	error, char **cmd, char **envp)
 	exit(127);
 }
 
-
 void	execve_cmd(char **cmd, char **envp)
 {
 	char	*path;
 	int		error;
-
 
 	if (cmd[0][0] == '/' || (cmd[0][0] == '.' && cmd[0][1] == '/'))
 		path = cmd[0];
@@ -148,14 +124,11 @@ void	execve_cmd(char **cmd, char **envp)
 		print_error(cmd[0], NULL, "command not found");
 		free_split(cmd);
 		free_split(envp);
-		//printf("CMD : %p, envp : %p\n", cmd, envp);
 		exit(CMD_NOT_FOUND);
 	}
 	if (execve(path, cmd, envp) < 0)
 	{
 		error = errno;
 		execve_error(error, cmd, envp);
-		
 	}
-
 }

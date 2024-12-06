@@ -6,7 +6,7 @@
 /*   By: ntodisoa <ntodisoa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/06 10:29:13 by ntodisoa          #+#    #+#             */
-/*   Updated: 2024/12/06 10:29:14 by ntodisoa         ###   ########.fr       */
+/*   Updated: 2024/12/06 16:47:49 by ntodisoa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,15 @@ int	test_t_pipe(t_token *tokens, int i)
 		print_error(NULL, NULL, "syntax error near unexpected token « |& »");
 		return (1);
 	}
-	else if (type != T_WORD && type != T_COMMAND)
+	else if (type != T_WORD && type != T_COMMAND && tokens[i + 1].type != T_IN)
 	{
-		print_error(NULL, NULL, "syntax error near unexpected token « | »");
+		printf("TYPE : %d\n", tokens[i + 1].second_type);
+		print_error(NULL, NULL, "syntax error near unexpected token « | » 10101010");
 		return (1);
 	}
 	else if (i == 0)
 	{
-		print_error(NULL, NULL, "syntax error near unexpected token « | »");
+		print_error(NULL, NULL, "syntax error near unexpected token « | » 11 11 11 11");
 		return (1);
 	}
 	return (0);

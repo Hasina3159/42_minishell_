@@ -6,11 +6,32 @@
 /*   By: ntodisoa <ntodisoa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/06 10:23:57 by ntodisoa          #+#    #+#             */
-/*   Updated: 2024/12/06 10:23:58 by ntodisoa         ###   ########.fr       */
+/*   Updated: 2024/12/06 15:39:51 by ntodisoa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+
+int	env_size(t_env *env)
+{
+	int		i;
+	t_env	*tmp;
+
+	i = 0;
+	tmp = env;
+	while (tmp)
+	{
+		if (tmp->value == NULL)
+		{
+			tmp = tmp->next;
+			continue ;
+		}
+		else
+			i++;
+		tmp = tmp->next;
+	}
+	return (i);
+}
 
 int	check_redin(t_all *all)
 {

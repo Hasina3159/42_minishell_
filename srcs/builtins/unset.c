@@ -6,7 +6,7 @@
 /*   By: ntodisoa <ntodisoa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/06 10:23:16 by ntodisoa          #+#    #+#             */
-/*   Updated: 2024/12/06 10:23:17 by ntodisoa         ###   ########.fr       */
+/*   Updated: 2024/12/06 15:28:33 by ntodisoa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,5 @@ int	ft_unset(t_all *all, char **av)
 			print_error(av[0], av[i], "is not a valid identifier");
 		i++;
 	}
-	// if (all->nb_cmd == 1)
-	// 	update_underscore(all);
 	return (SUCCESS);
 }

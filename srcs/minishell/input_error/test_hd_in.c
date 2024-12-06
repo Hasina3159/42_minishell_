@@ -6,7 +6,7 @@
 /*   By: ntodisoa <ntodisoa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/06 10:29:02 by ntodisoa          #+#    #+#             */
-/*   Updated: 2024/12/06 10:29:03 by ntodisoa         ###   ########.fr       */
+/*   Updated: 2024/12/06 15:46:07 by ntodisoa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int	test_hd(t_token *tokens, int i)
 	else if (tokens[i + 1].type == T_PIPE)
 	{
 		print_error(NULL, NULL,
-			"syntax error near unexpected token « | »");
+			"syntax error near unexpected token « | » 7777");
 		return (1);
 	}
 	else if (tokens[i + 1].type != T_HD_ENDER)
@@ -70,7 +70,7 @@ int	test_in(t_token *tokens, int i)
 {
 	if (tokens[i + 1].type == T_PIPE)
 	{
-		print_error(NULL, NULL, "syntax error near unexpected token « | »");
+		print_error(NULL, NULL, "syntax error near unexpected token mamamia « | »");
 		return (1);
 	}
 	else if (tokens[i + 1].type == T_OR)

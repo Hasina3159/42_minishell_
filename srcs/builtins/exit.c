@@ -6,7 +6,7 @@
 /*   By: ntodisoa <ntodisoa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/06 10:22:55 by ntodisoa          #+#    #+#             */
-/*   Updated: 2024/12/06 15:15:20 by ntodisoa         ###   ########.fr       */
+/*   Updated: 2024/12/06 15:28:17 by ntodisoa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ void	del_token(t_all *all)
 	{
 		if (all->tokens[i].value)
 		{
-
 			free(all->tokens[i].value);
 			all->tokens[i].value = NULL;
 		}
