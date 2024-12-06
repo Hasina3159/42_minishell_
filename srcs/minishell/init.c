@@ -6,7 +6,7 @@
 /*   By: ntodisoa <ntodisoa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/06 10:29:19 by ntodisoa          #+#    #+#             */
-/*   Updated: 2024/12/06 10:29:20 by ntodisoa         ###   ########.fr       */
+/*   Updated: 2024/12/06 13:38:51 by ntodisoa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ int	init_sh_env(t_all *all)
 
 void	init_shell(t_all *all)
 {
+	int	i;
+
 	all->env = NULL;
 	if (init_sh_env(all))
 	{
@@ -52,4 +54,10 @@ void	init_shell(t_all *all)
 	ft_sigint(0, NULL, all);
 	setup_signal(SIGINT, CUSTOM);
 	setup_signal(SIGQUIT, IGNORE);
+	i = 0;
+	while (i < TOKENS_MAX)
+	{
+		all->tokens[i].value = NULL;
+		i++;
+	}
 }

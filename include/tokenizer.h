@@ -6,7 +6,7 @@
 /*   By: ntodisoa <ntodisoa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/06 10:21:41 by ntodisoa          #+#    #+#             */
-/*   Updated: 2024/12/06 10:21:45 by ntodisoa         ###   ########.fr       */
+/*   Updated: 2024/12/06 13:56:37 by ntodisoa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,5 +46,9 @@ int		op_last_pos(char *input);
 int		append_to_prompt(char **input, t_all *all);
 int		ft_expander(t_all *all);
 char	*expand_variables(t_all *all, char *str, int i);
+void	append_char(char **str, char c);
+void	append_char1(char **str, char c);
+void	append_char2(char **str, char c);
+void	append_char3(char **str, char c);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: ntodisoa <ntodisoa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/06 10:25:00 by ntodisoa          #+#    #+#             */
-/*   Updated: 2024/12/06 10:25:01 by ntodisoa         ###   ########.fr       */
+/*   Updated: 2024/12/06 14:19:10 by ntodisoa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,61 @@
 // 		continue ;
 // 	expand_heredoc(all, line);
 // }
-static void	append_char(char **str, char c)
+void	append_char(char **str, char c)
+{
+	char	*tmp;
+	int		len;
+
+	if (!str || !*str)
+		return ;
+	len = ft_strlen(*str);
+	tmp = malloc(len + 2);
+	if (!tmp)
+		return ;
+	ft_strlcpy(tmp, *str, len + 1);
+	tmp[len] = c;
+	tmp[len + 1] = '\0';
+	free(*str);
+	*str = tmp;
+}
+
+void	append_char1(char **str, char c)
+{
+	char	*tmp;
+	int		len;
+
+	if (!str || !*str)
+		return ;
+	len = ft_strlen(*str);
+	tmp = malloc(len + 2);
+	if (!tmp)
+		return ;
+	ft_strlcpy(tmp, *str, len + 1);
+	tmp[len] = c;
+	tmp[len + 1] = '\0';
+	free(*str);
+	*str = tmp;
+}
+
+void	append_char2(char **str, char c)
+{
+	char	*tmp;
+	int		len;
+
+	if (!str || !*str)
+		return ;
+	len = ft_strlen(*str);
+	tmp = malloc(len + 2);
+	if (!tmp)
+		return ;
+	ft_strlcpy(tmp, *str, len + 1);
+	tmp[len] = c;
+	tmp[len + 1] = '\0';
+	free(*str);
+	*str = tmp;
+}
+
+void	append_char3(char **str, char c)
 {
 	char	*tmp;
 	int		len;
@@ -136,7 +190,7 @@ static void	handle_dollar(t_all *all, char *str, t_expand *exp)
 	else if (ft_isalpha(str[exp->i + 1]) || str[exp->i + 1] == '_')
 		expand_env_var(all, str, exp);
 	else if (ft_strlen(str) == 1)
-		append_char(&exp->result, str[exp->i]);
+		append_char1(&exp->result, str[exp->i]);
 	else
 		exp->i++;
 }

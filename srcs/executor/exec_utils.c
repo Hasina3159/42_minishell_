@@ -6,7 +6,7 @@
 /*   By: ntodisoa <ntodisoa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/06 10:23:32 by ntodisoa          #+#    #+#             */
-/*   Updated: 2024/12/06 11:46:41 by ntodisoa         ###   ########.fr       */
+/*   Updated: 2024/12/06 15:17:27 by ntodisoa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,6 +132,7 @@ void	execve_error(int	error, char **cmd, char **envp)
 	exit(127);
 }
 
+
 void	execve_cmd(char **cmd, char **envp)
 {
 	char	*path;
@@ -147,7 +148,7 @@ void	execve_cmd(char **cmd, char **envp)
 		print_error(cmd[0], NULL, "command not found");
 		free_split(cmd);
 		free_split(envp);
-		printf("CMD : %p, envp : %p\n", cmd, envp);
+		//printf("CMD : %p, envp : %p\n", cmd, envp);
 		exit(CMD_NOT_FOUND);
 	}
 	if (execve(path, cmd, envp) < 0)

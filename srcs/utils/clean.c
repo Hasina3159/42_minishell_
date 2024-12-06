@@ -6,7 +6,7 @@
 /*   By: ntodisoa <ntodisoa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/06 10:32:17 by ntodisoa          #+#    #+#             */
-/*   Updated: 2024/12/06 10:32:18 by ntodisoa         ###   ########.fr       */
+/*   Updated: 2024/12/06 15:03:03 by ntodisoa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,11 @@ void	free_split(char **cmd)
 	i = 0;
 	while (cmd[i] != NULL)
 	{
-		free(cmd[i]);
+		if (cmd[i])
+		{
+			free(cmd[i]);
+			cmd[i] = NULL;
+		}
 		i++;
 	}
 	free(cmd);
@@ -34,9 +38,21 @@ void	del_env(t_env **env)
 	while (tmp)
 	{
 		next = tmp->next;
-		free(tmp->key);
-		free(tmp->value);
-		free(tmp);
+		if (tmp->key)
+		{
+			free(tmp->key);
+			tmp->key = NULL;	
+		}
+		if (tmp->value)
+		{
+			free(tmp->value);
+			tmp->value = NULL;
+		}
+		if (tmp)
+		{
+			free(tmp);
+			tmp = NULL;
+		}
 		tmp = next;
 	}
 	*env = NULL;

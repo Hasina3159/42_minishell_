@@ -6,7 +6,7 @@
 /*   By: ntodisoa <ntodisoa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/06 10:22:31 by ntodisoa          #+#    #+#             */
-/*   Updated: 2024/12/06 10:22:32 by ntodisoa         ###   ########.fr       */
+/*   Updated: 2024/12/06 13:27:44 by ntodisoa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ int	expand_cd_arg(char **av, t_all *all)
 			return (1);
 		}
 		free(av[1]);
+		av[1] = NULL;
 		while (tmp)
 		{
 			if (!ft_strncmp(tmp->key, "OLDPWD", 6))
@@ -60,6 +61,7 @@ static int	cd_case_one(t_all *all, char *oldpwd)
 		{
 			print_error("cd", NULL, "HOME not set");
 			free(oldpwd);
+			oldpwd = NULL;
 			return (1);
 		}
 	}
@@ -67,6 +69,7 @@ static int	cd_case_one(t_all *all, char *oldpwd)
 	{
 		print_error("cd", NULL, "HOME not set");
 		free(oldpwd);
+		oldpwd = NULL;
 		return (1);
 	}
 	return (0);
@@ -83,12 +86,14 @@ static int	cd_case_two(char **av, t_all *all, char *oldpwd)
 			error = errno;
 			print_error("cd", av[1], strerror(error));
 			free(oldpwd);
+			oldpwd = NULL;
 			return (1);
 		}
 	}
 	else
 	{
 		free(oldpwd);
+		oldpwd = NULL;
 		return (1);
 	}
 	return (0);

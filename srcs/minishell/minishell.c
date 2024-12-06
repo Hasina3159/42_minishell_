@@ -6,7 +6,7 @@
 /*   By: ntodisoa <ntodisoa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/06 10:30:02 by ntodisoa          #+#    #+#             */
-/*   Updated: 2024/12/06 11:25:47 by ntodisoa         ###   ########.fr       */
+/*   Updated: 2024/12/06 13:52:54 by ntodisoa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ void	clean_after_cmd(t_all *all)
 
 int	read_line(char **input, t_all *all)
 {
-	(void)all;
 	if (isatty(STDIN_FILENO))
 	{
 		*input = readline(PROMPT);
@@ -71,7 +70,7 @@ void	clean_exit(t_all *all)
 int	main(void)
 {
 	int		i;
-	t_all	all;
+	static t_all	all;
 
 	init_shell(&all);
 	all.second = 0;
@@ -87,7 +86,7 @@ int	main(void)
 		i = 0;
 		if (!ft_tokenize(&all))
 			ft_execute_all(&all, &i);
-		//clean_after_cmd(&all);
+		clean_after_cmd(&all);
 	}
 	return (0);
 }

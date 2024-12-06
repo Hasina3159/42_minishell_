@@ -6,7 +6,7 @@
 /*   By: ntodisoa <ntodisoa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/06 10:22:55 by ntodisoa          #+#    #+#             */
-/*   Updated: 2024/12/06 10:22:56 by ntodisoa         ###   ########.fr       */
+/*   Updated: 2024/12/06 15:15:20 by ntodisoa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,11 @@ void	del_token(t_all *all)
 	int	i;
 
 	i = 0;
-	while (i < all->token_count)
+	while (i < TOKENS_MAX)
 	{
 		if (all->tokens[i].value)
 		{
+
 			free(all->tokens[i].value);
 			all->tokens[i].value = NULL;
 		}
@@ -34,9 +35,7 @@ void	clean_all(t_all *all, char **cmd)
 	free(all->cmd);
 	free_split(cmd);
 	if (!all->sh)
-	{
 		del_env(&all->env);
-	}
 }
 
 int	free_all(t_all *all)

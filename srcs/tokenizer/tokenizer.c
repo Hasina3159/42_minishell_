@@ -6,7 +6,7 @@
 /*   By: ntodisoa <ntodisoa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/06 10:31:40 by ntodisoa          #+#    #+#             */
-/*   Updated: 2024/12/06 10:31:41 by ntodisoa         ###   ########.fr       */
+/*   Updated: 2024/12/06 13:29:57 by ntodisoa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,11 @@ void	ft_replace_all_wildcards(t_all *all)
 		{
 			ft_copy_dir(dirs, ft_strlen(getcwd(NULL, 0)) + 1);
 			wildcard = ft_get_wildcard(dirs, all->tokens[i].value);
-			free(all->tokens[i].value);
+			if (all->tokens[i].value)
+			{
+				free(all->tokens[i].value);
+				all->tokens[i].value = NULL;
+			}
 			all->tokens[i].value = wildcard;
 		}
 		i++;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arazafin <arazafin@student.42antananari    +#+  +:+       +#+        */
+/*   By: ntodisoa <ntodisoa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 14:34:02 by arazafin          #+#    #+#             */
-/*   Updated: 2024/10/29 22:36:57 by arazafin         ###   ########.fr       */
+/*   Updated: 2024/12/06 13:26:44 by ntodisoa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,13 @@ static char	*get_arg(char **av, int i, char *out)
 	{
 		tmp = ft_strjoin(out, av[i]);
 		free(out);
+		out = NULL;
 		if (!av[i + 1])
 			out = ft_strdup(tmp);
 		else
 			out = ft_strjoin(tmp, " ");
 		free(tmp);
+		tmp = NULL;
 	}
 	return (out);
 }

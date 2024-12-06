@@ -6,7 +6,7 @@
 /*   By: ntodisoa <ntodisoa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/06 10:31:17 by ntodisoa          #+#    #+#             */
-/*   Updated: 2024/12/06 10:31:18 by ntodisoa         ###   ########.fr       */
+/*   Updated: 2024/12/06 13:49:51 by ntodisoa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -207,7 +207,6 @@ void ft_copy_token(t_token *src, t_token *dst)
 	//printf(".....4 [%s]\n", tmp);
 	dst->value = tmp;
 	//printf(".....5\n");
-
 }
 
 
@@ -238,6 +237,7 @@ t_token *ft_create_copy_token(t_all *all)
 		{
 			j++;
 			ft_copy_token(next_token, &tokens[j]);
+			//free(next_token->value);
 		}
 		i++;
 	}
