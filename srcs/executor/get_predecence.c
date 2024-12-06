@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_predecence.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arazafin <arazafin@student.42antananari    +#+  +:+       +#+        */
+/*   By: ntodisoa <ntodisoa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/08 07:27:00 by arazafin          #+#    #+#             */
-/*   Updated: 2024/10/08 07:28:35 by arazafin         ###   ########.fr       */
+/*   Created: 2024/12/06 10:24:34 by ntodisoa          #+#    #+#             */
+/*   Updated: 2024/12/06 10:24:35 by ntodisoa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

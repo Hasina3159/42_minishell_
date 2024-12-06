@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wildcard.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arazafin <arazafin@student.42antananari    +#+  +:+       +#+        */
+/*   By: ntodisoa <ntodisoa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/08 09:30:47 by arazafin          #+#    #+#             */
-/*   Updated: 2024/10/08 09:33:39 by arazafin         ###   ########.fr       */
+/*   Created: 2024/12/06 10:31:45 by ntodisoa          #+#    #+#             */
+/*   Updated: 2024/12/06 10:31:46 by ntodisoa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

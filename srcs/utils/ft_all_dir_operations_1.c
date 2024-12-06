@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_all_dir_operations_1.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arazafin <arazafin@student.42antananari    +#+  +:+       +#+        */
+/*   By: ntodisoa <ntodisoa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/08 08:12:46 by arazafin          #+#    #+#             */
-/*   Updated: 2024/10/08 08:47:54 by arazafin         ###   ########.fr       */
+/*   Created: 2024/12/06 10:32:54 by ntodisoa          #+#    #+#             */
+/*   Updated: 2024/12/06 10:32:55 by ntodisoa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

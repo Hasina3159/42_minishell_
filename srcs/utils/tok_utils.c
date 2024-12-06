@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tok_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arazafin <arazafin@student.42antananari    +#+  +:+       +#+        */
+/*   By: ntodisoa <ntodisoa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/29 13:56:55 by arazafin          #+#    #+#             */
-/*   Updated: 2024/11/02 07:19:44 by arazafin         ###   ########.fr       */
+/*   Created: 2024/12/06 10:36:48 by ntodisoa          #+#    #+#             */
+/*   Updated: 2024/12/06 10:36:49 by ntodisoa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

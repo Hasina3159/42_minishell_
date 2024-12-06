@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit_status.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arazafin <arazafin@student.42antananari    +#+  +:+       +#+        */
+/*   By: ntodisoa <ntodisoa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/28 18:22:50 by arazafin          #+#    #+#             */
-/*   Updated: 2024/10/21 09:45:13 by arazafin         ###   ########.fr       */
+/*   Created: 2024/12/06 10:24:12 by ntodisoa          #+#    #+#             */
+/*   Updated: 2024/12/06 10:24:13 by ntodisoa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

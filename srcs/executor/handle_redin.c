@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_redin.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arazafin <arazafin@student.42antananari    +#+  +:+       +#+        */
+/*   By: ntodisoa <ntodisoa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/28 18:22:59 by arazafin          #+#    #+#             */
-/*   Updated: 2024/10/25 08:13:56 by arazafin         ###   ########.fr       */
+/*   Created: 2024/12/06 10:24:42 by ntodisoa          #+#    #+#             */
+/*   Updated: 2024/12/06 10:24:43 by ntodisoa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

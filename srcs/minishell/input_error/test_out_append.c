@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   test_out_append.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arazafin <arazafin@student.42antananari    +#+  +:+       +#+        */
+/*   By: ntodisoa <ntodisoa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/29 14:37:02 by arazafin          #+#    #+#             */
-/*   Updated: 2024/10/21 11:11:44 by arazafin         ###   ########.fr       */
+/*   Created: 2024/12/06 10:29:07 by ntodisoa          #+#    #+#             */
+/*   Updated: 2024/12/06 10:29:08 by ntodisoa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

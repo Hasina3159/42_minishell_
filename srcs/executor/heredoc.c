@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arazafin <arazafin@student.42antananari    +#+  +:+       +#+        */
+/*   By: ntodisoa <ntodisoa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/28 17:00:45 by arazafin          #+#    #+#             */
-/*   Updated: 2024/10/27 07:17:54 by arazafin         ###   ########.fr       */
+/*   Created: 2024/12/06 10:25:06 by ntodisoa          #+#    #+#             */
+/*   Updated: 2024/12/06 10:25:07 by ntodisoa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

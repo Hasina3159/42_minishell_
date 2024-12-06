@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arazafin <arazafin@student.42antananari    +#+  +:+       +#+        */
+/*   By: ntodisoa <ntodisoa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/08 08:59:29 by arazafin          #+#    #+#             */
-/*   Updated: 2024/11/05 10:55:43 by arazafin         ###   ########.fr       */
+/*   Created: 2024/12/06 10:21:41 by ntodisoa          #+#    #+#             */
+/*   Updated: 2024/12/06 10:21:45 by ntodisoa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

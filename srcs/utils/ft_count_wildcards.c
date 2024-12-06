@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_count_wildcards.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arazafin <arazafin@student.42antananari    +#+  +:+       +#+        */
+/*   By: ntodisoa <ntodisoa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/08 08:14:03 by arazafin          #+#    #+#             */
-/*   Updated: 2024/10/08 08:49:54 by arazafin         ###   ########.fr       */
+/*   Created: 2024/12/06 10:33:33 by ntodisoa          #+#    #+#             */
+/*   Updated: 2024/12/06 10:33:34 by ntodisoa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arazafin <arazafin@student.42antananari    +#+  +:+       +#+        */
+/*   By: ntodisoa <ntodisoa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/28 18:02:24 by arazafin          #+#    #+#             */
-/*   Updated: 2024/11/05 09:02:23 by arazafin         ###   ########.fr       */
+/*   Created: 2024/12/06 10:23:32 by ntodisoa          #+#    #+#             */
+/*   Updated: 2024/12/06 11:46:41 by ntodisoa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,7 @@ static char	*get_path(char *cmd, char **env)
 		free(tmp);
 		if (!access(path, F_OK) && !access(path, X_OK))
 		{
+			printf("ACCESS PATH!");
 			free_split(env_path);
 			return (path);
 		}
@@ -146,11 +147,14 @@ void	execve_cmd(char **cmd, char **envp)
 		print_error(cmd[0], NULL, "command not found");
 		free_split(cmd);
 		free_split(envp);
+		printf("CMD : %p, envp : %p\n", cmd, envp);
 		exit(CMD_NOT_FOUND);
 	}
 	if (execve(path, cmd, envp) < 0)
 	{
 		error = errno;
 		execve_error(error, cmd, envp);
+		
 	}
+
 }

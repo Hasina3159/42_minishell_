@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander_test.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arazafin <arazafin@student.42antananari    +#+  +:+       +#+        */
+/*   By: ntodisoa <ntodisoa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/01 15:13:06 by arazafin          #+#    #+#             */
-/*   Updated: 2024/11/05 13:26:21 by arazafin         ###   ########.fr       */
+/*   Created: 2024/12/06 10:28:43 by ntodisoa          #+#    #+#             */
+/*   Updated: 2024/12/06 10:28:44 by ntodisoa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

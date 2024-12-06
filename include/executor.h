@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arazafin <arazafin@student.42antananari    +#+  +:+       +#+        */
+/*   By: ntodisoa <ntodisoa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/29 11:17:25 by arazafin          #+#    #+#             */
-/*   Updated: 2024/11/05 12:40:54 by arazafin         ###   ########.fr       */
+/*   Created: 2024/12/06 10:21:13 by ntodisoa          #+#    #+#             */
+/*   Updated: 2024/12/06 10:21:14 by ntodisoa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

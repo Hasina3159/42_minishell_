@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_str_repl_copy.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arazafin <arazafin@student.42antananari    +#+  +:+       +#+        */
+/*   By: ntodisoa <ntodisoa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/08 08:51:20 by arazafin          #+#    #+#             */
-/*   Updated: 2024/10/30 19:09:00 by arazafin         ###   ########.fr       */
+/*   Created: 2024/12/06 10:35:52 by ntodisoa          #+#    #+#             */
+/*   Updated: 2024/12/06 10:35:53 by ntodisoa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

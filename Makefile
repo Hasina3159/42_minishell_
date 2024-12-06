@@ -28,7 +28,7 @@ $(OBJS_PATH)/%.o: $(SRCS_PATH)/%.c
 		$(shell echo $$(($(CURRENT_FILE)*100/$(TOTAL_FILES)))) \
 		`printf '%*s' $$(($(CURRENT_FILE)*50/$(TOTAL_FILES))) | tr ' ' '#'` \
 		$(CURRENT_FILE) $(TOTAL_FILES)
-	@$(CC) $(CFLAGS) -c $< -o $@
+	@$(CC) $(CFLAGS) -c $< -o $@ -g
 	@$(eval CURRENT_FILE=$(shell echo $$(($(CURRENT_FILE)+1))))
 
 $(NAME): .fake_clone $(OBJS)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils1.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arazafin <arazafin@student.42antananari    +#+  +:+       +#+        */
+/*   By: ntodisoa <ntodisoa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/29 11:33:32 by arazafin          #+#    #+#             */
-/*   Updated: 2024/11/02 06:56:47 by arazafin         ###   ########.fr       */
+/*   Created: 2024/12/06 10:23:38 by ntodisoa          #+#    #+#             */
+/*   Updated: 2024/12/06 10:23:39 by ntodisoa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

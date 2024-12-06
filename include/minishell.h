@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arazafin <arazafin@student.42antananari    +#+  +:+       +#+        */
+/*   By: ntodisoa <ntodisoa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/28 18:05:25 by arazafin          #+#    #+#             */
-/*   Updated: 2024/11/02 18:14:25 by arazafin         ###   ########.fr       */
+/*   Created: 2024/12/06 10:21:22 by ntodisoa          #+#    #+#             */
+/*   Updated: 2024/12/06 10:21:23 by ntodisoa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

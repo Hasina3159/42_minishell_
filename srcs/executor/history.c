@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   history.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arazafin <arazafin@student.42antananari    +#+  +:+       +#+        */
+/*   By: ntodisoa <ntodisoa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/08 07:32:35 by arazafin          #+#    #+#             */
-/*   Updated: 2024/10/08 07:32:36 by arazafin         ###   ########.fr       */
+/*   Created: 2024/12/06 10:28:04 by ntodisoa          #+#    #+#             */
+/*   Updated: 2024/12/06 10:28:05 by ntodisoa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

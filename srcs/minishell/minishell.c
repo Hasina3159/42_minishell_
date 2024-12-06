@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arazafin <arazafin@student.42antananari    +#+  +:+       +#+        */
+/*   By: ntodisoa <ntodisoa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/28 18:16:35 by arazafin          #+#    #+#             */
-/*   Updated: 2024/11/05 12:49:17 by arazafin         ###   ########.fr       */
+/*   Created: 2024/12/06 10:30:02 by ntodisoa          #+#    #+#             */
+/*   Updated: 2024/12/06 11:25:47 by ntodisoa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ int	main(void)
 		i = 0;
 		if (!ft_tokenize(&all))
 			ft_execute_all(&all, &i);
-		clean_after_cmd(&all);
+		//clean_after_cmd(&all);
 	}
 	return (0);
 }

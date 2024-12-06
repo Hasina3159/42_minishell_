@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   better_strjoin.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arazafin <arazafin@student.42antananari    +#+  +:+       +#+        */
+/*   By: ntodisoa <ntodisoa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/08 08:08:16 by arazafin          #+#    #+#             */
-/*   Updated: 2024/10/08 08:08:17 by arazafin         ###   ########.fr       */
+/*   Created: 2024/12/06 10:32:08 by ntodisoa          #+#    #+#             */
+/*   Updated: 2024/12/06 10:32:09 by ntodisoa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

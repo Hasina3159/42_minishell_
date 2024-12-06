@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_hd_str.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arazafin <arazafin@student.42antananari    +#+  +:+       +#+        */
+/*   By: ntodisoa <ntodisoa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/25 12:05:14 by arazafin          #+#    #+#             */
-/*   Updated: 2024/11/05 14:19:51 by arazafin         ###   ########.fr       */
+/*   Created: 2024/12/06 10:24:27 by ntodisoa          #+#    #+#             */
+/*   Updated: 2024/12/06 10:24:28 by ntodisoa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
