@@ -6,7 +6,7 @@
 /*   By: ntodisoa <ntodisoa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/06 10:31:40 by ntodisoa          #+#    #+#             */
-/*   Updated: 2024/12/06 15:23:21 by ntodisoa         ###   ########.fr       */
+/*   Updated: 2024/12/06 16:58:57 by ntodisoa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,25 +75,6 @@ void	ft_replace_all_wildcards(t_all *all)
 	free(dirs);
 }
 
-/*int	ft_tokenize(t_all *all)
-{
-	ft_init_t_all(all);
-	ft_create_token(all);
-	ft_set_other(all);
-	ft_set_other_1(all);
-	while (!ft_replace_all_vars(all))
-		continue ;
-	// ft_replace_all_wildcards(all);
-	ft_expander(all);
-	ft_set_command(all);
-	ft_finalize_token(all);
-	if (input_error(all))
-		return (1);
-	return (0);
-}*/
-
-// !
-
 char	*ft_show_token(t_token *token)
 {
 	int	len;
@@ -153,56 +134,6 @@ void	ft_print_tokens(t_all *all)
 	}
 }
 
-// !
-
-/*int	ft_tokenize(t_all *all)
-{
-	t_token	*tokens;
-
-	ft_init_t_all(all);
-	ft_create_token(all);
-	ft_set_other(all);
-	ft_set_other_1(all);
-	ft_set_other_2(all);
-	// ft_print_tokens(all);
-	tokens = ft_create_copy_token(all);
-	del_token(all);
-	ft_restore_token(all, tokens);
-	while (!ft_replace_all_vars(all))
-		continue ;
-	// ft_replace_all_wildcards(all);
-	ft_expander(all);
-	ft_set_command(all);
-	ft_finalize_token(all);
-	// ft_print_tokens(all);
-	if (input_error(all))
-		return (1);
-	return (0);
-}*/
-/*int	ft_tokenize(t_all *all)
-{
-	t_token	*tokens;
-
-	ft_init_t_all(all);
-	ft_create_token(all);
-	ft_set_other(all);
-	ft_set_other_1(all);
-	ft_set_other_2(all);
-	// ft_print_tokens(all);
-	while (!ft_replace_all_vars(all))
-		continue ;
-	tokens = ft_create_copy_token(all);
-	del_token(all);
-	ft_restore_token(all, tokens);
-	// ft_replace_all_wildcards(all);
-	ft_expander(all);
-	ft_set_command(all);
-	ft_finalize_token(all);
-	// ft_print_tokens(all);
-	if (input_error(all))
-		return (1);
-	return (0);
-}*/
 int	ft_tokenize(t_all *all)
 {
 	t_token	*tokens;
@@ -212,20 +143,14 @@ int	ft_tokenize(t_all *all)
 	ft_set_other(all);
 	ft_set_other_1(all);
 	ft_set_other_2(all);
-	// ft_print_tokens(all);
-	// ft_replace_all_vars(all);
 	ft_expander(all);
 	tokens = ft_create_copy_token(all);
 	del_token(all);
 	ft_restore_token(all, tokens);
-	// ft_replace_all_wildcards(all);
 	ft_set_command(all);
 	ft_finalize_token(all);
-	// ft_print_tokens(all);
 	if (input_error(all))
 		return (1);
 	all->nb_cmd = count_cmd(all);
-	// if (all->nb_cmd == 1)
-		// update_underscore(all);
 	return (0);
 }

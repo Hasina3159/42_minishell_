@@ -6,7 +6,7 @@
 /*   By: ntodisoa <ntodisoa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/06 10:32:47 by ntodisoa          #+#    #+#             */
-/*   Updated: 2024/12/06 10:32:48 by ntodisoa         ###   ########.fr       */
+/*   Updated: 2024/12/06 16:59:20 by ntodisoa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,8 @@ int	ft_isdir(char *path)
 	struct stat	statbuf;
 
 	if (stat(path, &statbuf) == -1)
-	{
-		// perror("stat");
-		// printf("%d\n", errno);
+
 		return (-1);
-	}
 	if ((statbuf.st_mode & S_IFMT) == S_IFDIR)
 		return (1);
 	return (0);

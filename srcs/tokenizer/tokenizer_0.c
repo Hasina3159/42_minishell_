@@ -6,7 +6,7 @@
 /*   By: ntodisoa <ntodisoa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/06 10:31:07 by ntodisoa          #+#    #+#             */
-/*   Updated: 2024/12/06 12:53:55 by ntodisoa         ###   ########.fr       */
+/*   Updated: 2024/12/06 16:57:48 by ntodisoa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,10 +66,6 @@ void	ft_add_token(t_all *all, int type, char *value)
 	ft_clean_current_token(all);
 }
 
-// TODO: si commande echo ""$?"" ;bash: 0 ;minishell: "0
-// FIXME: dans certain cas comme "" vide a l'interieur un quote pas envlever
-// FIXME: gestion de quote vide
-// FIXME: ouverture et fermeture des quotes
 int	ft_start_quotes(t_all *all)
 {
 	if (all->cmd[all->i] == '\'' || all->cmd[all->i] == '\"')

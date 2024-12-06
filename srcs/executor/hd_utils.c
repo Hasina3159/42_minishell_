@@ -6,83 +6,12 @@
 /*   By: ntodisoa <ntodisoa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/06 10:25:00 by ntodisoa          #+#    #+#             */
-/*   Updated: 2024/12/06 14:19:10 by ntodisoa         ###   ########.fr       */
+/*   Updated: 2024/12/06 16:57:36 by ntodisoa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-// void	hd_expand_exit(t_all *all, char *line, int i)
-// {
-// 	char	*tmp;
-// 	char	*tmp2;
-// 	char	*tmp3;
-// 	char	*exit_status;
-
-// 	tmp = ft_substr(line, 0, i);
-// 	tmp2 = ft_substr(line, i + 2, ft_strlen(line) - i - 2);
-// 	exit_status = ft_itoa(all->exit_status);
-// 	tmp3 = ft_strjoin(tmp, exit_status);
-// 	free(line);
-// 	line = ft_strjoin(tmp3, tmp2);
-// 	free(tmp);
-// 	free(tmp2);
-// 	free(tmp3);
-// 	free(exit_status);
-// }
-
-// int	expand_heredoc(t_all *all, char *line)
-// {
-// 	int	i;
-
-// 	i = 0;
-// 	while (line[i])
-// 	{
-// 		if (line[i] == '$')
-// 		{
-// 			if (line[i + 1] == '?')
-// 				hd_expand_exit(all, line, i);
-// 		}
-// 		i++;
-// 	}
-// 	return (0);
-// }
-
-// int	ft_replace_hd(t_all *all, char *line)
-// {
-// 	char	**vars;
-// 	char	*value;
-// 	int		i;
-// 	char	*tmp;
-
-// 	vars = ft_get_all_var(line);
-// 	if (vars == NULL)
-// 		return (0);
-// 	i = 0;
-// 	while (vars[i])
-// 	{
-// 		value = ft_getvarvalue(all, &vars[i][1]);
-// 		tmp = ft_strdup(line);
-// 		free(line);
-// 		line = ft_str_repl_copy(tmp, vars[i], value);
-// 		free(tmp);
-// 		if (line)
-// 		{
-// 			free_split(vars);
-// 			return (0);
-// 		}
-// 		i++;
-// 	}
-// 	free_split(vars);
-// 	return (1);
-// }
-
-// void	hd_expand(t_all *all, char *line)
-// {
-// 	while (!ft_replace_hd(all, line))
-// 		continue ;
-// 	expand_heredoc(all, line);
-// }
 void	append_char(char **str, char c)
 {
 	char	*tmp;
