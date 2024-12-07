@@ -6,7 +6,7 @@
 /*   By: ntodisoa <ntodisoa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/06 10:32:17 by ntodisoa          #+#    #+#             */
-/*   Updated: 2024/12/06 15:03:03 by ntodisoa         ###   ########.fr       */
+/*   Updated: 2024/12/07 10:38:24 by ntodisoa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,11 +51,9 @@ void	del_env(t_env **env)
 		if (tmp)
 		{
 			free(tmp);
-			tmp = NULL;
 		}
 		tmp = next;
 	}
-	*env = NULL;
 }
 
 int	clean_child_b(t_all *all, char **token_str)
@@ -72,4 +70,5 @@ int	clean_child(t_all *all)
 	rl_clear_history();
 	del_env(&all->env);
 	return (0);
+	free(all->env);
 }

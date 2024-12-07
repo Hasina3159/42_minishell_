@@ -6,7 +6,7 @@
 /*   By: ntodisoa <ntodisoa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/06 10:23:32 by ntodisoa          #+#    #+#             */
-/*   Updated: 2024/12/06 15:39:32 by ntodisoa         ###   ########.fr       */
+/*   Updated: 2024/12/07 11:42:02 by ntodisoa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,7 @@ void	execve_cmd(char **cmd, char **envp)
 	char	*path;
 	int		error;
 
+	printf("--> EXECVE\n");
 	if (cmd[0][0] == '/' || (cmd[0][0] == '.' && cmd[0][1] == '/'))
 		path = cmd[0];
 	else

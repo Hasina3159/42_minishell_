@@ -6,7 +6,7 @@
 /*   By: ntodisoa <ntodisoa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/06 10:24:06 by ntodisoa          #+#    #+#             */
-/*   Updated: 2024/12/06 15:28:59 by ntodisoa         ###   ########.fr       */
+/*   Updated: 2024/12/07 12:32:38 by ntodisoa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ int	ft_child_exec_pipe(char **token_str, t_all *all)
 	clean_child(all);
 	setup_child_signals();
 	execve_cmd(token_str, envp);
+	
 	return (0);
 }
 

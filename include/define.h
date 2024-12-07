@@ -6,7 +6,7 @@
 /*   By: ntodisoa <ntodisoa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/06 10:21:03 by ntodisoa          #+#    #+#             */
-/*   Updated: 2024/12/06 10:21:05 by ntodisoa         ###   ########.fr       */
+/*   Updated: 2024/12/07 12:43:40 by ntodisoa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,8 @@
 # define HISTORY ".history"
 # define CMD_NOT_FOUND 127
 # define T_SPACE 128
-# define PROMPT "VeryBadBash> "
-# define SH "VeryBadError"
-
+# define SH "\e[31mBotError "
+# define PROMPT "\e[32mBotBash> \e[0m"
 typedef enum e_state
 {
 	DEFAULT = 0,

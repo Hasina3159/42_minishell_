@@ -6,7 +6,7 @@
 /*   By: ntodisoa <ntodisoa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/06 10:31:17 by ntodisoa          #+#    #+#             */
-/*   Updated: 2024/12/06 16:58:46 by ntodisoa         ###   ########.fr       */
+/*   Updated: 2024/12/07 13:34:22 by ntodisoa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,6 +151,7 @@ void ft_copy_token(t_token *src, t_token *dst)
 	dst->second_type = src->second_type;
 	dst->type = src->type;
 	tmp = ft_strdup(src->value);
+	printf("--> VALUE : [%s : %lu], [%p]\n", tmp, sizeof(char) * ft_strlen(tmp), tmp);
 	dst->value = tmp;
 }
 
