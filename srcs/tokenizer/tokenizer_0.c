@@ -6,7 +6,7 @@
 /*   By: ntodisoa <ntodisoa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/06 10:31:07 by ntodisoa          #+#    #+#             */
-/*   Updated: 2024/12/07 11:29:20 by ntodisoa         ###   ########.fr       */
+/*   Updated: 2024/12/08 10:56:22 by ntodisoa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,18 +31,14 @@ void	ft_clean_current_token_quotes(t_all *all)
 
 	i = 0;
 	quote_nb = 0;
-	printf("1 --> [%s]\n", all->current_token);
 	while (all->in_quotes && i < CMD_MAX)
 	{
-		//printf("[%ld]\n", i);
 		if (all->current_token[i] == all->quote_char)
 			quote_nb++;
 		if (quote_nb >= 1)
 			all->current_token[i] = 0;
 		i++;
 	}
-	printf("2 --> [%s]\n", all->current_token);
-	//ft_strtrim()
 }
 
 void	ft_init_t_all(t_all *all)
@@ -57,12 +53,9 @@ void	ft_init_t_all(t_all *all)
 
 void	ft_add_token(t_all *all, int type, char *value)
 {
-	printf("VALUE : %s\n", value);
 	all->tokens[all->token_count].type = type;
 	all->tokens[all->token_count].second_type = type;
-	//all->tokens[all->token_count].value = ft_remove_quotes(value);
 	all->tokens[all->token_count].value = ft_strdup(value);
-	printf("corrected : [%s]\n", all->tokens[all->token_count].value);
 	all->token_count = all->token_count + 1;
 	ft_clean_current_token(all);
 }
@@ -74,14 +67,12 @@ int	ft_start_quotes(t_all *all)
 		if (all->token_index > 0)
 		{
 			all->current_token[all->token_index] = 0;
-			printf("token manidy : %s\n", all->current_token);
 			ft_add_token(all, T_WORD, all->current_token);
 			all->token_index = 0;
 		}
 		all->in_quotes = 1;
 		all->quote_char = all->cmd[all->i];
 		all->current_token[all->token_index] = all->quote_char;
-		printf("[%ld]token01 : %s\n", all->i, all->current_token);
 		all->i++;
 		all->token_index++;
 		return (1);
@@ -97,18 +88,14 @@ int	ft_in_quotes_operation(t_all *all)
 	{
 		if (all->cmd[all->i] == all->quote_char)
 		{
-			printf("token110 : [%s]\n", all->current_token);
 			all->current_token[all->token_index++] = all->quote_char;
 			all->current_token[all->token_index] = 0;
-			printf("token11 : %s\n", all->current_token);
 			if (all->quote_char == '\'')
 				tmp = ft_strtrim(all->current_token, "'");
 			else
 				tmp = ft_strtrim(all->current_token, "\"");
 			ft_strlcpy(all->current_token, tmp, ft_strlen(tmp) + 1);
-			printf("tmp : %s\n", tmp);
-			if (tmp)
-				free(tmp);
+			free(tmp);
 			if (all->quote_char == '\'')
 				ft_add_token(all, T_STRING_S, all->current_token);
 			else

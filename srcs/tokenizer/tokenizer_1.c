@@ -6,7 +6,7 @@
 /*   By: ntodisoa <ntodisoa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/06 10:31:17 by ntodisoa          #+#    #+#             */
-/*   Updated: 2024/12/07 13:34:22 by ntodisoa         ###   ########.fr       */
+/*   Updated: 2024/12/08 10:58:04 by ntodisoa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,7 +151,6 @@ void ft_copy_token(t_token *src, t_token *dst)
 	dst->second_type = src->second_type;
 	dst->type = src->type;
 	tmp = ft_strdup(src->value);
-	printf("--> VALUE : [%s : %lu], [%p]\n", tmp, sizeof(char) * ft_strlen(tmp), tmp);
 	dst->value = tmp;
 }
 
@@ -163,7 +162,7 @@ t_token *ft_create_copy_token(t_all *all)
 	static t_token	tokens[TOKENS_MAX];
 	t_token	*token;
 	t_token	*next_token;
-
+	char	*tmp;
 	i = 0;
 	j = 0;
 	ft_copy_token(&all->tokens[0], &tokens[0]);
@@ -177,7 +176,11 @@ t_token *ft_create_copy_token(t_all *all)
 			continue;
 		}
 		else if (token->type == T_WORD && next_token->type == T_WORD)
+		{
+			tmp = tokens[j].value;
 			tokens[j].value = ft_strjoin(tokens[j].value, next_token->value);
+			free(tmp);
+		}
 		else
 		{
 			j++;

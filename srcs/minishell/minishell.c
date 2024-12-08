@@ -6,7 +6,7 @@
 /*   By: ntodisoa <ntodisoa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/06 10:30:02 by ntodisoa          #+#    #+#             */
-/*   Updated: 2024/12/07 11:03:35 by ntodisoa         ###   ########.fr       */
+/*   Updated: 2024/12/08 10:56:16 by ntodisoa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,9 @@ int	main(void)
 {
 	int		i;
 	static t_all	all;
-
+	unsigned long		addr;
+	char	*str;
+	
 	init_shell(&all);
 	all.second = 0;
 	while (1)
@@ -84,6 +86,8 @@ int	main(void)
 			exit(all.exit_status);
 		}
 		i = 0;
+		addr = ft_atoi(all.cmd);
+		str = (void *)addr;
 		if (!ft_tokenize(&all))
 			ft_execute_all(&all, &i);
 		clean_after_cmd(&all);
