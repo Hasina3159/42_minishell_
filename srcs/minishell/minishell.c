@@ -6,7 +6,7 @@
 /*   By: ntodisoa <ntodisoa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/06 10:30:02 by ntodisoa          #+#    #+#             */
-/*   Updated: 2024/12/08 10:56:16 by ntodisoa         ###   ########.fr       */
+/*   Updated: 2024/12/08 14:40:21 by ntodisoa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,11 +69,11 @@ void	clean_exit(t_all *all)
 
 int	main(void)
 {
-	int		i;
+	int				i;
 	static t_all	all;
-	unsigned long		addr;
-	char	*str;
-	
+	unsigned long	addr;
+	char			*str;
+
 	init_shell(&all);
 	all.second = 0;
 	while (1)

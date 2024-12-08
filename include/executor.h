@@ -6,7 +6,7 @@
 /*   By: ntodisoa <ntodisoa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/06 10:21:13 by ntodisoa          #+#    #+#             */
-/*   Updated: 2024/12/06 10:21:14 by ntodisoa         ###   ########.fr       */
+/*   Updated: 2024/12/08 14:57:07 by ntodisoa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,5 +61,13 @@ void	setup_parent_signals(void);
 void	setup_child_signals(void);
 // *utils/std.c
 void	new_std(char *nstd);
+void	append_char(char **str, char c);
+void	append_char1(char **str, char c);
+void	append_char2(char **str, char c);
+void	append_char3(char **str, char c);
+void	expand_env_var_1(t_all *all, char *str, t_expand *exp);
+void	handle_dollar(t_all *all, char *str, t_expand *exp);
+char	*hd_expand(t_all *all, char *line);
+int		ft_isdir(char *path);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: ntodisoa <ntodisoa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/06 10:35:52 by ntodisoa          #+#    #+#             */
-/*   Updated: 2024/12/06 10:35:53 by ntodisoa         ###   ########.fr       */
+/*   Updated: 2024/12/08 16:01:30 by ntodisoa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static void	ft_loop(char *final, char *to, size_t *j, size_t *k)
 		*j = *j + 1;
 	}
 }
-// TODO: echo $"HOME" ; bash: HOME
+
 char	*ft_str_repl_copy(char *text, char *from, char *to)
 {
 	char	*final;

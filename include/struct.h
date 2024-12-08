@@ -6,7 +6,7 @@
 /*   By: ntodisoa <ntodisoa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/06 10:21:29 by ntodisoa          #+#    #+#             */
-/*   Updated: 2024/12/06 10:21:30 by ntodisoa         ###   ########.fr       */
+/*   Updated: 2024/12/08 14:52:32 by ntodisoa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,10 +65,4 @@ typedef struct s_all
 	int				second;
 }					t_all;
 
-typedef struct s_dir
-{
-	char			*name;
-	int				type;
-	struct s_dir	*next;
-}					t_dir;
 #endif

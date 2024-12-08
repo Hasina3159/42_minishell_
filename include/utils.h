@@ -6,7 +6,7 @@
 /*   By: ntodisoa <ntodisoa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/06 10:21:49 by ntodisoa          #+#    #+#             */
-/*   Updated: 2024/12/06 15:40:11 by ntodisoa         ###   ########.fr       */
+/*   Updated: 2024/12/08 15:59:28 by ntodisoa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,17 +26,8 @@ char	*ft_strndup(const char *s, int len);
 void	ft_show_sanitized_command(t_all *all);
 char	*better_strjoin(char *s1, char const *s2);
 int		ft_count_char(char *s, char c);
-void	ft_opendir(char *path, DIR **dir);
-void	ft_closedir(DIR **dir);
-int		ft_isdir(char *path);
-t_dir	*ft_create_dir(char *name, int type);
-void	ft_add_dir(t_dir **lst, t_dir *elem);
-void	ft_show_all_dirs(t_dir **dirs);
-t_dir	**ft_init_dirs(void);
 void	ft_replace_str(char **src, char *to);
-void	ft_show_match(t_dir **dirs);
 int		ft_count_wildcards(char *w);
-char	*ft_get_wildcard(t_dir **dirs, char *w);
 char	*ft_str_repl_copy(char *text, char *from, char *to);
 int		ft_count_splitted(char **splitted);
 char	*ft_is_in_env(t_all *all, char *var);
@@ -55,5 +46,8 @@ int		count_cmd(t_all *all);
 char	*get_env_value(t_env *env, char *key);
 char	*ft_strjoin_free(char *s1, char *s2);
 int		env_size(t_env *env);
+int		ft_is_separator(char c);
+int		ft_is_quotes(char c);
+void	ft_pass_separator(char const *s, int *i, int *count, int *is_in_a_str);
 
 #endif

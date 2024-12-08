@@ -6,7 +6,7 @@
 /*   By: ntodisoa <ntodisoa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/06 10:29:02 by ntodisoa          #+#    #+#             */
-/*   Updated: 2024/12/06 15:46:07 by ntodisoa         ###   ########.fr       */
+/*   Updated: 2024/12/08 14:45:48 by ntodisoa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,12 @@ static int	t_out(t_token *tokens, int i)
 {
 	if (tokens[i + 2].type == T_OUT)
 	{
-		print_error(NULL, NULL, "syntax error near unexpected token « > »");
+		print_error(NULL, NULL, "syntax error near « > »");
 		return (1);
 	}
 	else if (tokens[i + 2].type == T_OUT_APPEND)
 	{
-		print_error(NULL, NULL, "syntax error near unexpected token « >> »");
+		print_error(NULL, NULL, "syntax error near « >> »");
 		return (1);
 	}
 	else
@@ -31,11 +31,11 @@ static int	t_out(t_token *tokens, int i)
 static int	t_hd(t_token *tokens, int i)
 {
 	if (tokens[i + 2].type == T_HD)
-		print_error(NULL, NULL, "syntax error near unexpected token « <<< »");
+		print_error(NULL, NULL, "syntax error near « <<< »");
 	else if (tokens[i + 2].type == T_IN)
-		print_error(NULL, NULL, "syntax error near unexpected token « << »");
+		print_error(NULL, NULL, "syntax error near « << »");
 	else
-		print_error(NULL, NULL, "syntax error near unexpected token « < »");
+		print_error(NULL, NULL, "syntax error near « < »");
 	return (1);
 }
 
@@ -54,13 +54,13 @@ int	test_hd(t_token *tokens, int i)
 	else if (tokens[i + 1].type == T_PIPE)
 	{
 		print_error(NULL, NULL,
-			"syntax error near unexpected token « | » 7777");
+			"syntax error near « | » 7777");
 		return (1);
 	}
 	else if (tokens[i + 1].type != T_HD_ENDER)
 	{
 		print_error(NULL, NULL,
-			"syntax error near unexpected token « newline »");
+			"syntax error near « newline »");
 		return (1);
 	}
 	return (0);
@@ -70,12 +70,12 @@ int	test_in(t_token *tokens, int i)
 {
 	if (tokens[i + 1].type == T_PIPE)
 	{
-		print_error(NULL, NULL, "syntax error near unexpected token mamamia « | »");
+		print_error(NULL, NULL, "syntax error near  « | »");
 		return (1);
 	}
 	else if (tokens[i + 1].type == T_OR)
 	{
-		print_error(NULL, NULL, "syntax error near unexpected token « || »");
+		print_error(NULL, NULL, "syntax error near « || »");
 		return (1);
 	}
 	else if (tokens[i + 1].type == T_AND)
@@ -86,7 +86,7 @@ int	test_in(t_token *tokens, int i)
 	else if (tokens[i + 1].type != T_FILE_IN)
 	{
 		print_error(NULL, NULL,
-			"syntax error near unexpected token « newline »");
+			"syntax error near « newline »");
 		return (1);
 	}
 	return (0);

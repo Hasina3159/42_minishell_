@@ -6,7 +6,7 @@
 /*   By: ntodisoa <ntodisoa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/06 10:21:41 by ntodisoa          #+#    #+#             */
-/*   Updated: 2024/12/06 15:24:55 by ntodisoa         ###   ########.fr       */
+/*   Updated: 2024/12/08 15:47:32 by ntodisoa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,6 @@ int		ft_replace_all_vars(t_all *all);
 int		ft_replace_var(t_all *all, t_token *token);
 void	ft_finalize_token(t_all *all);
 int		ft_tokenize(t_all *all);
-int		ft_match_one(char *s, char next);
-int		ft_match(char *s, char *w);
-void	ft_dirmatch(char *path, char *w, int n);
-int		ft_count_dir(char *path);
-t_dir	**ft_copy_dir(t_dir **dirs, int len_cwd);
-t_dir	**ft_aaa(t_dir **dirs);
-t_dir	**ft_get_all_dirs(t_dir **dirs, int i, t_dir *tmp);
 int		ft_is_t_op(int type);
 void	ft_set_other_1(t_all *all);
 void	ft_set_other_2(t_all *all);
@@ -50,5 +43,10 @@ void	append_char(char **str, char c);
 void	append_char1(char **str, char c);
 void	append_char2(char **str, char c);
 void	append_char3(char **str, char c);
+void	ft_set_other_cond(t_token *prec, t_token *token, t_all *all, int i);
+void	ft_copy_token(t_token *src, t_token *dst);
+void	ft_create_copy_token_0(t_token	*tokens, t_all *all, int i, int j);
+void	ft_set_operator_0(t_token *token);
+void	ft_set_operator_1(t_token *token);
 
 #endif

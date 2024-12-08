@@ -6,7 +6,7 @@
 /*   By: ntodisoa <ntodisoa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/06 10:32:37 by ntodisoa          #+#    #+#             */
-/*   Updated: 2024/12/06 10:32:38 by ntodisoa         ###   ########.fr       */
+/*   Updated: 2024/12/08 16:01:06 by ntodisoa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,8 @@ void	update_underscore(t_all *all)
 	{
 		if (all->tokens[i].type == T_WORD || all->tokens[i].type == T_COMMAND)
 		{
-			if (all->tokens[i].value != NULL && ft_strlen(all->tokens[i].value) > 0)
+			if (all->tokens[i].value != NULL && \
+			ft_strlen(all->tokens[i].value) > 0)
 			{
 				value = ft_strdup(all->tokens[i].value);
 				break ;
