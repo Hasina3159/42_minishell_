@@ -3,14 +3,32 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ntodisoa <ntodisoa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: petera <petera@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/06 10:29:19 by ntodisoa          #+#    #+#             */
-/*   Updated: 2024/12/06 13:38:51 by ntodisoa         ###   ########.fr       */
+/*   Updated: 2024/12/19 22:36:10 by petera           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+
+void	ft_read_history(const char *filename)
+{
+    FILE *file = fopen(filename, "r");
+    char buffer[1024];
+
+    if (!file) {
+        return;
+    }
+
+    while (fgets(buffer, sizeof(buffer), file))
+	{
+		buffer[ft_strlen(buffer) - 1] = 0;
+		add_history(buffer);
+	}
+
+    fclose(file);
+}
 
 int	init_sh_env(t_all *all)
 {
@@ -41,6 +59,7 @@ void	init_shell(t_all *all)
 	int	i;
 
 	all->env = NULL;
+	ft_read_history(HISTORY);
 	if (init_sh_env(all))
 	{
 		print_error(NULL, NULL, "Error on creating environment variable");

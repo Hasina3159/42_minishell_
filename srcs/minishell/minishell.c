@@ -3,14 +3,36 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ntodisoa <ntodisoa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: petera <petera@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/06 10:30:02 by ntodisoa          #+#    #+#             */
-/*   Updated: 2024/12/08 14:40:21 by ntodisoa         ###   ########.fr       */
+/*   Updated: 2024/12/19 22:10:38 by petera           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+
+int	ft_write_to_file(const char *filename, const char *text)
+{
+	int		fd;
+	int		bytes_written;
+
+	fd = open(filename, O_WRONLY | O_CREAT | O_APPEND, 0644);
+	if (fd == -1) {
+		return (0);
+	}
+
+	bytes_written = write(fd, text, ft_strlen(text));
+	if (bytes_written == -1) {
+		close(fd);
+		return (0);
+	}
+
+	if (close(fd) == -1)
+		return (0);
+
+	return (1);
+}
 
 void	clean_after_cmd(t_all *all)
 {
@@ -32,7 +54,11 @@ int	read_line(char **input, t_all *all)
 		if (*input == NULL)
 			return (1);
 		else if (ft_strlen(*input))
+		{
 			add_history(*input);
+			ft_write_to_file(HISTORY, *input);
+			ft_write_to_file(HISTORY, "\n");
+		}
 		while (op_last_pos(*input))
 		{
 			if (append_to_prompt(input, all))
@@ -71,8 +97,6 @@ int	main(void)
 {
 	int				i;
 	static t_all	all;
-	unsigned long	addr;
-	char			*str;
 
 	init_shell(&all);
 	all.second = 0;
@@ -86,8 +110,6 @@ int	main(void)
 			exit(all.exit_status);
 		}
 		i = 0;
-		addr = ft_atoi(all.cmd);
-		str = (void *)addr;
 		if (!ft_tokenize(&all))
 			ft_execute_all(&all, &i);
 		clean_after_cmd(&all);
