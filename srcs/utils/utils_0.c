@@ -3,38 +3,31 @@
 /*                                                        :::      ::::::::   */
 /*   utils_0.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arazafin <arazafin@student.42antananari    +#+  +:+       +#+        */
+/*   By: ntodisoa <ntodisoa@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/08 08:16:48 by arazafin          #+#    #+#             */
-/*   Updated: 2024/10/08 08:54:18 by arazafin         ###   ########.fr       */
+/*   Created: 2024/12/06 10:36:56 by ntodisoa          #+#    #+#             */
+/*   Updated: 2024/12/20 09:41:55 by ntodisoa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-int	ft_is_separator(char c)
+void	ft_pass_first_cond(char const *s, int *i, int *is_in_a_str)
 {
-	if (c == '<' || c == '>' || c == '|')
-		return (1);
-	return (0);
-}
-
-int	ft_is_quotes(char c)
-{
-	if (c == '\'' || c == '"')
-		return (1);
-	return (0);
-}
-
-void	ft_pass_separator(char const *s, int *i, int *count, int *is_in_a_str)
-{
-	while (s[*i] && (ft_is_separator(s[*i]) || s[*i] == ' ')
-		&& !ft_is_quotes(s[*i]) && !*is_in_a_str)
+	if (s[*i] && ft_is_quotes(s[*i]))
 	{
-		if (ft_is_separator(s[*i]))
-			*count = *count + 1;
+		if (*is_in_a_str)
+			*is_in_a_str = 0;
+		else
+			*is_in_a_str = s[*i];
 		*i = *i + 1;
 	}
+}
+
+void	ft_pass_second_cond(int is_count_inc, int flag, int *count)
+{
+	if (!is_count_inc && flag == 1)
+		*count = *count + 1;
 }
 
 void	ft_pass_quotes(char const *s, int *i, int *count, int *is_in_a_str)
@@ -44,14 +37,7 @@ void	ft_pass_quotes(char const *s, int *i, int *count, int *is_in_a_str)
 
 	flag = 0;
 	is_count_inc = 0;
-	if (s[*i] && ft_is_quotes(s[*i]))
-	{
-		if (*is_in_a_str)
-			*is_in_a_str = 0;
-		else
-			*is_in_a_str = s[*i];
-		*i = *i + 1;
-	}
+	ft_pass_first_cond(s, i, is_in_a_str);
 	if (*is_in_a_str)
 	{
 		while (*is_in_a_str)
@@ -70,8 +56,7 @@ void	ft_pass_quotes(char const *s, int *i, int *count, int *is_in_a_str)
 			*i = *i + 1;
 		}
 	}
-	if (!is_count_inc && flag == 1)
-		*count = *count + 1;
+	ft_pass_second_cond(is_count_inc, flag, count);
 }
 
 int	ft_count_words(char const *s)

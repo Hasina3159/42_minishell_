@@ -3,29 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils1.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arazafin <arazafin@student.42antananari    +#+  +:+       +#+        */
+/*   By: ntodisoa <ntodisoa@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/29 11:33:32 by arazafin          #+#    #+#             */
-/*   Updated: 2024/09/29 13:31:37 by arazafin         ###   ########.fr       */
+/*   Created: 2024/12/06 10:23:38 by ntodisoa          #+#    #+#             */
+/*   Updated: 2024/12/20 09:40:34 by ntodisoa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-
-int	is_n_op(int type)
-{
-	if (type == T_PIPE)
-		return (1);
-	else if (type == T_OR)
-		return (1);
-	else if (type == T_AND)
-		return (1);
-	else if (type == T_END)
-		return (1);
-	else if (type == T_SPACE)
-		return (1);
-	return (0);
-}
 
 void	is_need_pipe(t_all *all, int *i)
 {
@@ -51,9 +36,7 @@ int	ft_has_op_before(t_all *all, int *i, int type)
 	int	j;
 
 	j = *i;
-	while (j > 0 && (all->tokens[j].type == T_FILE_IN
-			|| all->tokens[j].type == T_IN || all->tokens[j].type == T_COMMAND
-			|| all->tokens[j].type == T_WORD))
+	while (j > 0 && !i_n_op(all->tokens[j].type))
 		j--;
 	if (all->tokens[j].type == type)
 		return (1);
@@ -66,4 +49,16 @@ void	reset_redirection(t_all *all, int *x)
 	all->has_in = 0;
 	all->has_pipe = 0;
 	all->has_out = 0;
+}
+
+int	ft_has_op_after(t_all *all, int *i)
+{
+	int	j;
+
+	j = *i;
+	while (!is_n_op(all->tokens[j].type))
+		j++;
+	if (all->tokens[j].type == T_AND || all->tokens[j].type == T_OR)
+		return (1);
+	return (0);
 }

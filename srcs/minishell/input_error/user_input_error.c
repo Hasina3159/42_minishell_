@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   user_input_error.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arazafin <arazafin@student.42antananari    +#+  +:+       +#+        */
+/*   By: ntodisoa <ntodisoa@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/29 14:37:07 by arazafin          #+#    #+#             */
-/*   Updated: 2024/10/11 21:22:18 by arazafin         ###   ########.fr       */
+/*   Created: 2024/12/06 10:29:13 by ntodisoa          #+#    #+#             */
+/*   Updated: 2024/12/20 09:41:07 by ntodisoa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,17 +19,17 @@ int	test_t_pipe(t_token *tokens, int i)
 	type = tokens[i + 1].type;
 	if (type == T_AND)
 	{
-		print_error(NULL, NULL, "syntax error near unexpected token « |& »");
+		print_error(NULL, NULL, "syntax error near « |& »");
 		return (1);
 	}
-	// else if (type != T_WORD && type != T_COMMAND)
-	// {
-	// 	print_error(NULL, NULL, "syntax error near unexpected token « | »");
-	// 	return (1);
-	// }
+	else if (type != T_WORD && type != T_COMMAND && tokens[i + 1].type != T_IN)
+	{
+		print_error(NULL, NULL, "syntax error near « | » 10101010");
+		return (1);
+	}
 	else if (i == 0)
 	{
-		print_error(NULL, NULL, "syntax error near unexpected token « | »");
+		print_error(NULL, NULL, "syntax error near « | » 11 11 11 11");
 		return (1);
 	}
 	return (0);
@@ -39,12 +39,12 @@ int	test_t_or(t_token *tokens, int i)
 {
 	if (tokens[i + 1].type != T_WORD && tokens[i + 1].type != T_COMMAND)
 	{
-		print_error(NULL, NULL, "syntax error near unexpected token « || »");
+		print_error(NULL, NULL, "syntax error near « || »");
 		return (1);
 	}
 	else if (i == 0)
 	{
-		print_error(NULL, NULL, "syntax error near unexpected token « || »");
+		print_error(NULL, NULL, "syntax error near « || »");
 		return (1);
 	}
 	return (0);
@@ -54,12 +54,12 @@ int	test_and(t_token *tokens, int i)
 {
 	if (tokens[i + 1].type != T_WORD && tokens[i + 1].type != T_COMMAND)
 	{
-		print_error(NULL, NULL, "syntax error near unexpected token « && »");
+		print_error(NULL, NULL, "syntax error near « && »");
 		return (1);
 	}
 	else if (i == 0)
 	{
-		print_error(NULL, NULL, "syntax error near unexpected token « && »");
+		print_error(NULL, NULL, "syntax error near « && »");
 		return (1);
 	}
 	return (0);

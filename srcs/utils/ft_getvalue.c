@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_getvalue.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arazafin <arazafin@student.42antananari    +#+  +:+       +#+        */
+/*   By: ntodisoa <ntodisoa@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/08 08:14:18 by arazafin          #+#    #+#             */
-/*   Updated: 2024/10/08 08:14:20 by arazafin         ###   ########.fr       */
+/*   Created: 2024/12/06 10:33:40 by ntodisoa          #+#    #+#             */
+/*   Updated: 2024/12/20 09:41:34 by ntodisoa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char	*ft_getvarvalue(t_all *all, char *var)
 	tmp = all->env;
 	while (tmp)
 	{
-		if (!ft_strncmp(tmp->key, var, ft_strlen(var)))
+		if (!ft_strncmp(tmp->key, var, ft_strlen(var) + 1))
 			return (tmp->value);
 		tmp = tmp->next;
 	}
@@ -35,7 +35,7 @@ char	*ft_is_in_env(t_all *all, char *var)
 	tmp = all->env;
 	while (tmp)
 	{
-		if (!ft_strncmp(tmp->key, var, ft_strlen(var)))
+		if (!ft_strncmp(tmp->key, var, ft_strlen(var) + 1))
 			return (tmp->value);
 		tmp = tmp->next;
 	}

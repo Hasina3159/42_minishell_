@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   define.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arazafin <arazafin@student.42antananari    +#+  +:+       +#+        */
+/*   By: ntodisoa <ntodisoa@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/29 11:17:19 by arazafin          #+#    #+#             */
-/*   Updated: 2024/10/11 19:55:51 by arazafin         ###   ########.fr       */
+/*   Created: 2024/12/06 10:21:03 by ntodisoa          #+#    #+#             */
+/*   Updated: 2024/12/20 09:40:04 by ntodisoa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,17 @@
 # define FILE_DIR 0
 # define FILE_FILE 42
 # define FILE_ALL 2048
+# define HISTORY ".history"
 # define CMD_NOT_FOUND 127
 # define T_SPACE 128
-# define HISTORY ".history"
-# define SH "VeryBadBash> "
+# define SH "\001\e[31m\002BotError "
+# define PROMPT "\001\e[32m\002BotBash> \001\e[0m\002"
+
+typedef enum e_state
+{
+	DEFAULT = 0,
+	IGNORE,
+	CUSTOM,
+}	t_state;
 
 #endif

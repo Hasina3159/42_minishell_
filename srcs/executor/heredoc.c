@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arazafin <arazafin@student.42antananari    +#+  +:+       +#+        */
+/*   By: ntodisoa <ntodisoa@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/28 17:00:45 by arazafin          #+#    #+#             */
-/*   Updated: 2024/10/11 10:22:35 by arazafin         ###   ########.fr       */
+/*   Created: 2024/12/06 10:25:06 by ntodisoa          #+#    #+#             */
+/*   Updated: 2024/12/20 09:40:42 by ntodisoa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	hd_signal(char *line, char *limiter)
 
 int	is_limiter(char *limiter, char *line)
 {
-	if (ft_strncmp(line, limiter, ft_strlen(limiter)) == 0)
+	if (ft_strncmp(line, limiter, ft_strlen(line) + 1) == 0)
 	{
 		free(line);
 		return (1);
@@ -48,35 +48,7 @@ int	is_limiter(char *limiter, char *line)
 	return (0);
 }
 
-void	here_doc(t_token lim, int fd_out, t_all *all)
-{
-	char	*line;
-	char	*doc;
-	int		expand;
-
-	doc = NULL;
-	expand = 1;
-	if (lim.second_type == T_STRING_D || lim.second_type == T_STRING_S)
-		expand = 0;
-	while (1)
-	{
-		line = readline("heredoc> ");
-		if (hd_signal(line, lim.value))
-			break ;
-		if (is_limiter(lim.value, line))
-			break ;
-		if (expand)
-			hd_expand(all, line);
-		doc = get_heredoc(doc, line);
-		free(line);
-	}
-	if (!doc)
-		doc = ft_strdup("");
-	ft_putstr_fd(doc, fd_out);
-	free(doc);
-}
-
-void	heredoc(t_all *all, t_token lim)
+int	heredoc(t_all *all, t_token lim)
 {
 	int		tmp_fd;
 	char	*tmp;
@@ -85,7 +57,7 @@ void	heredoc(t_all *all, t_token lim)
 	if (tmp == NULL)
 	{
 		perror("getcwd");
-		return ;
+		return (1);
 	}
 	all->hd_file = ft_strjoin(tmp, "/.heredoc");
 	free(tmp);
@@ -93,8 +65,10 @@ void	heredoc(t_all *all, t_token lim)
 	if (tmp_fd == -1)
 	{
 		perror("open");
-		return ;
+		return (1);
 	}
-	here_doc(lim, tmp_fd, all);
+	if (here_doc(lim, tmp_fd, all))
+		return (2);
 	close(tmp_fd);
+	return (0);
 }

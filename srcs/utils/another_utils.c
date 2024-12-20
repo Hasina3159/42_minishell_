@@ -1,18 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.c                                           :+:      :+:    :+:   */
+/*   another_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arazafin <arazafin@student.42antananari    +#+  +:+       +#+        */
+/*   By: ntodisoa <ntodisoa@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/08 07:43:47 by arazafin          #+#    #+#             */
-/*   Updated: 2024/10/08 07:43:48 by arazafin         ###   ########.fr       */
+/*   Created: 2024/12/20 09:55:30 by ntodisoa          #+#    #+#             */
+/*   Updated: 2024/12/20 12:28:28 by ntodisoa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// # include "../minishell.h"
+#include "../../include/minishell.h"
 
-// char    *ft_compute_atom(char *s)
-// {
-//     return (s);
-// }
+int	another_condition(char *value, char **key, t_env **tmp)
+{
+	if (value && ft_strlen(value) != 0)
+	{
+		free(*key);
+		free((*tmp)->value);
+		(*tmp)->value = value;
+		return (0);
+	}
+	return (1);
+}

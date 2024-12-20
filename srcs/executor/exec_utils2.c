@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arazafin <arazafin@student.42antananari    +#+  +:+       +#+        */
+/*   By: ntodisoa <ntodisoa@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/29 13:23:32 by arazafin          #+#    #+#             */
-/*   Updated: 2024/10/11 10:03:34 by arazafin         ###   ########.fr       */
+/*   Created: 2024/12/06 10:23:45 by ntodisoa          #+#    #+#             */
+/*   Updated: 2024/12/20 09:40:35 by ntodisoa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,14 @@ int	get_cmd_len(t_all *all, int i)
 	while (!is_n_op(all->tokens[j].type))
 	{
 		if (all->tokens[j].type == T_COMMAND || all->tokens[j].type == T_WORD)
+		{
+			if (ft_strlen(all->tokens[j].value) < 1)
+			{
+				j++;
+				continue ;
+			}
 			len++;
+		}
 		j++;
 	}
 	return (len);
@@ -35,6 +42,8 @@ char	**ft_tokens_to_char(t_all *all, int *i)
 	int		j;
 
 	len = get_cmd_len(all, *i);
+	if (!len)
+		return (NULL);
 	token_str = (char **)ft_calloc(len + 1, sizeof(char *));
 	if (token_str == NULL)
 		return (NULL);
@@ -43,8 +52,12 @@ char	**ft_tokens_to_char(t_all *all, int *i)
 	{
 		if (all->tokens[*i].type == T_COMMAND || all->tokens[*i].type == T_WORD)
 		{
-			token_str[j] = ft_strdup(all->tokens[*i].value);
-			j++;
+			if (ft_strlen(all->tokens[*i].value) < 1)
+			{
+				*i = *i + 1;
+				continue ;
+			}
+			token_str[j++] = ft_strdup(all->tokens[*i].value);
 		}
 		*i = *i + 1;
 	}
@@ -74,9 +87,15 @@ int	use_built(t_all *all, int ch, char **cmd)
 {
 	int	ac;
 
+	if (all->sh == 0)
+	{
+		close(all->fd[0]);
+		close(all->fd[1]);
+		all->child_pid = -2;
+	}
 	ac = ft_count_splitted(cmd);
 	if (ch == 1)
-		return (ft_echo(ac, cmd));
+		return (ft_echo(ac, cmd, all));
 	else if (ch == 2)
 		return (ft_pwd(all));
 	else if (ch == 3)

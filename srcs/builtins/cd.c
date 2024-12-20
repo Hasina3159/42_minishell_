@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arazafin <arazafin@student.42antananari    +#+  +:+       +#+        */
+/*   By: ntodisoa <ntodisoa@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/29 14:33:41 by arazafin          #+#    #+#             */
-/*   Updated: 2024/10/08 07:42:34 by arazafin         ###   ########.fr       */
+/*   Created: 2024/12/06 10:22:31 by ntodisoa          #+#    #+#             */
+/*   Updated: 2024/12/20 09:40:26 by ntodisoa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ int	expand_cd_arg(char **av, t_all *all)
 			return (1);
 		}
 		free(av[1]);
+		av[1] = NULL;
 		while (tmp)
 		{
 			if (!ft_strncmp(tmp->key, "OLDPWD", 6))
@@ -48,14 +49,27 @@ int	expand_cd_arg(char **av, t_all *all)
 
 static int	cd_case_one(t_all *all, char *oldpwd)
 {
+	char	*dir;
+
+	dir = NULL;
 	if (ft_search_key("HOME", all))
 	{
-		chdir(ft_get_env("HOME", all));
+		dir = ft_get_env("HOME", all);
+		if (dir)
+			chdir(dir);
+		else
+		{
+			print_error("cd", NULL, "HOME not set");
+			free(oldpwd);
+			oldpwd = NULL;
+			return (1);
+		}
 	}
 	else
 	{
 		print_error("cd", NULL, "HOME not set");
 		free(oldpwd);
+		oldpwd = NULL;
 		return (1);
 	}
 	return (0);
@@ -72,12 +86,14 @@ static int	cd_case_two(char **av, t_all *all, char *oldpwd)
 			error = errno;
 			print_error("cd", av[1], strerror(error));
 			free(oldpwd);
+			oldpwd = NULL;
 			return (1);
 		}
 	}
 	else
 	{
 		free(oldpwd);
+		oldpwd = NULL;
 		return (1);
 	}
 	return (0);

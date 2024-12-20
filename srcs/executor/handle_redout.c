@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_redout.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arazafin <arazafin@student.42antananari    +#+  +:+       +#+        */
+/*   By: ntodisoa <ntodisoa@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/28 18:23:03 by arazafin          #+#    #+#             */
-/*   Updated: 2024/10/08 07:45:20 by arazafin         ###   ########.fr       */
+/*   Created: 2024/12/06 10:24:48 by ntodisoa          #+#    #+#             */
+/*   Updated: 2024/12/20 09:40:41 by ntodisoa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

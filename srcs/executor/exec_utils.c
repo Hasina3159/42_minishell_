@@ -3,29 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arazafin <arazafin@student.42antananari    +#+  +:+       +#+        */
+/*   By: ntodisoa <ntodisoa@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/28 18:02:24 by arazafin          #+#    #+#             */
-/*   Updated: 2024/10/08 07:33:29 by arazafin         ###   ########.fr       */
+/*   Created: 2024/12/06 10:23:32 by ntodisoa          #+#    #+#             */
+/*   Updated: 2024/12/20 14:45:39 by ntodisoa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-
-int	env_size(t_env *env)
-{
-	int		i;
-	t_env	*tmp;
-
-	i = 0;
-	tmp = env;
-	while (tmp)
-	{
-		i++;
-		tmp = tmp->next;
-	}
-	return (i);
-}
 
 char	**create_envp(t_all *all)
 {
@@ -35,14 +20,17 @@ char	**create_envp(t_all *all)
 	char	*join;
 
 	tmp = all->env;
-	if (!tmp)
-		return (NULL);
 	envp = malloc(sizeof(char *) * (env_size(all->env) + 1));
 	if (envp == NULL)
 		return (NULL);
 	i = 0;
 	while (tmp)
 	{
+		if (tmp->value == NULL)
+		{
+			tmp = tmp->next;
+			continue ;
+		}
 		join = ft_strjoin(tmp->key, "=");
 		envp[i] = ft_strjoin(join, tmp->value);
 		free(join);
@@ -106,15 +94,34 @@ static char	*get_path(char *cmd, char **env)
 	return (cmd);
 }
 
+void	execve_error(int error, char **cmd, char **envp)
+{
+	int	ret;
+
+	ret = ft_isdir(cmd[0]);
+	if (ret == -1)
+		print_error(cmd[0], NULL, strerror(2));
+	else if (ret == 1)
+		print_error(cmd[0], NULL, strerror(EISDIR));
+	else
+		print_error(cmd[0], NULL, strerror(error));
+	free_split(cmd);
+	free_split(envp);
+	exit(126);
+}
+
 void	execve_cmd(char **cmd, char **envp)
 {
 	char	*path;
 	int		error;
 
-	path = get_path(cmd[0], envp);
-	if (access(path, F_OK))
+	if (cmd[0][0] == '/' || (cmd[0][0] == '.' && cmd[0][1] == '/'))
+		path = cmd[0];
+	else
+		path = get_path(cmd[0], envp);
+	if (access(path, F_OK) == -1)
 	{
-		print_error(cmd[0], NULL, "command not found");
+		print_error(cmd[0], NULL, "404 command not found");
 		free_split(cmd);
 		free_split(envp);
 		exit(CMD_NOT_FOUND);
@@ -122,12 +129,6 @@ void	execve_cmd(char **cmd, char **envp)
 	if (execve(path, cmd, envp) < 0)
 	{
 		error = errno;
-		if (ft_isdir(path))
-			print_error(path, NULL, strerror(EISDIR));
-		else
-			print_error(cmd[0], NULL, strerror(error));
-		free_split(cmd);
-		free_split(envp);
-		exit(126);
+		execve_error(error, cmd, envp);
 	}
 }

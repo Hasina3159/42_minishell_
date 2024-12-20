@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_redin.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arazafin <arazafin@student.42antananari    +#+  +:+       +#+        */
+/*   By: ntodisoa <ntodisoa@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/28 18:22:59 by arazafin          #+#    #+#             */
-/*   Updated: 2024/10/11 10:15:49 by arazafin         ###   ########.fr       */
+/*   Created: 2024/12/06 10:24:42 by ntodisoa          #+#    #+#             */
+/*   Updated: 2024/12/20 09:40:40 by ntodisoa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,17 @@ static char	*checkin(t_all *all, int x, int *check)
 	return (in);
 }
 
-char	*get_infile(t_all *all, int i)
+static void	check_hd_file(t_all *all)
+{
+	if (all->hd_file)
+	{
+		unlink(all->hd_file);
+		free(all->hd_file);
+		all->hd_file = NULL;
+	}
+}
+
+char	*get_infile(t_all *all, int i, int *stat)
 {
 	char	*in;
 	int		check;
@@ -71,14 +81,11 @@ char	*get_infile(t_all *all, int i)
 	{
 		if (all->tokens[x].type == T_HD && !check)
 		{
-			if (all->hd_file)
-			{
-				unlink(all->hd_file);
-				free(all->hd_file);
-				all->hd_file = NULL;
-			}
-			heredoc(all, all->tokens[x + 1]);
+			check_hd_file(all);
+			*stat = heredoc(all, all->tokens[x + 1]);
 			in = all->hd_file;
+			if (*stat == 2)
+				break ;
 		}
 		else if (all->tokens[x].type == T_IN && !check)
 			in = checkin(all, x, &check);

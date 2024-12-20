@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_isspace.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arazafin <arazafin@student.42antananari    +#+  +:+       +#+        */
+/*   By: ntodisoa <ntodisoa@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/08 08:15:02 by arazafin          #+#    #+#             */
-/*   Updated: 2024/10/08 08:18:37 by arazafin         ###   ########.fr       */
+/*   Created: 2024/12/06 10:35:26 by ntodisoa          #+#    #+#             */
+/*   Updated: 2024/12/20 09:41:36 by ntodisoa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

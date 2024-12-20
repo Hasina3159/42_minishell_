@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_is_operator.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arazafin <arazafin@student.42antananari    +#+  +:+       +#+        */
+/*   By: ntodisoa <ntodisoa@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/08 08:14:33 by arazafin          #+#    #+#             */
-/*   Updated: 2024/10/08 08:14:34 by arazafin         ###   ########.fr       */
+/*   Created: 2024/12/06 10:33:45 by ntodisoa          #+#    #+#             */
+/*   Updated: 2024/12/20 09:41:34 by ntodisoa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

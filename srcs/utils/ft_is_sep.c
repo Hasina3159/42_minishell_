@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_is_sep.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arazafin <arazafin@student.42antananari    +#+  +:+       +#+        */
+/*   By: ntodisoa <ntodisoa@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/08 08:14:44 by arazafin          #+#    #+#             */
-/*   Updated: 2024/10/08 08:46:20 by arazafin         ###   ########.fr       */
+/*   Created: 2024/12/06 10:33:53 by ntodisoa          #+#    #+#             */
+/*   Updated: 2024/12/20 09:41:35 by ntodisoa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

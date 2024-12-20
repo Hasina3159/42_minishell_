@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arazafin <arazafin@student.42antananari    +#+  +:+       +#+        */
+/*   By: ntodisoa <ntodisoa@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/28 18:05:25 by arazafin          #+#    #+#             */
-/*   Updated: 2024/10/08 09:02:55 by arazafin         ###   ########.fr       */
+/*   Created: 2024/12/06 10:21:22 by ntodisoa          #+#    #+#             */
+/*   Updated: 2024/12/20 09:40:06 by ntodisoa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@
 # include "utils.h"
 # include "tokenizer.h"
 
-int			ft_expander(t_all *all);
 // ? init
 void		init_shell(t_all *all);
 // ? exit

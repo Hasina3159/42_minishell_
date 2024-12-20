@@ -3,14 +3,36 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arazafin <arazafin@student.42antananari    +#+  +:+       +#+        */
+/*   By: ntodisoa <ntodisoa@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/28 18:15:37 by arazafin          #+#    #+#             */
-/*   Updated: 2024/09/28 18:16:26 by arazafin         ###   ########.fr       */
+/*   Created: 2024/12/06 10:29:19 by ntodisoa          #+#    #+#             */
+/*   Updated: 2024/12/20 09:41:07 by ntodisoa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+
+void	ft_read_history(const char *filename)
+{
+	int		file;
+	char	*buffer;
+
+	file = open(filename, O_RDONLY);
+	if (!file)
+		return ;
+	buffer = get_next_line(file);
+	if (buffer && ft_strlen(buffer) > 0)
+		buffer[ft_strlen(buffer) - 1] = 0;
+	while (buffer != NULL)
+	{
+		add_history(buffer);
+		free(buffer);
+		buffer = get_next_line(file);
+		if (buffer && ft_strlen(buffer) > 0)
+			buffer[ft_strlen(buffer) - 1] = 0;
+	}
+	close(file);
+}
 
 int	init_sh_env(t_all *all)
 {
@@ -38,7 +60,10 @@ int	init_sh_env(t_all *all)
 
 void	init_shell(t_all *all)
 {
+	int	i;
+
 	all->env = NULL;
+	ft_read_history(HISTORY);
 	if (init_sh_env(all))
 	{
 		print_error(NULL, NULL, "Error on creating environment variable");
@@ -49,4 +74,13 @@ void	init_shell(t_all *all)
 	all->sh = 0;
 	all->cmd = NULL;
 	all->hd_file = NULL;
+	ft_sigint(0, NULL, all);
+	setup_signal(SIGINT, CUSTOM);
+	setup_signal(SIGQUIT, IGNORE);
+	i = 0;
+	while (i < TOKENS_MAX)
+	{
+		all->tokens[i].value = NULL;
+		i++;
+	}
 }

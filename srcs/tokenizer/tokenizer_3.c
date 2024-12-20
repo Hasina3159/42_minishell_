@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer_3.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arazafin <arazafin@student.42antananari    +#+  +:+       +#+        */
+/*   By: ntodisoa <ntodisoa@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/08 09:23:08 by arazafin          #+#    #+#             */
-/*   Updated: 2024/10/11 10:12:48 by arazafin         ###   ########.fr       */
+/*   Created: 2024/12/06 10:31:32 by ntodisoa          #+#    #+#             */
+/*   Updated: 2024/12/20 09:41:25 by ntodisoa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,10 @@ int	ft_replace_var(t_all *all, t_token *token)
 		token->value = ft_str_repl_copy(tmp, vars[i], value);
 		free(tmp);
 		if (token->value)
+		{
+			free_vars(vars);
 			return (0);
+		}
 		i++;
 	}
 	free_vars(vars);
@@ -73,7 +76,8 @@ int	ft_replace_all_vars(t_all *all)
 	while (i < all->token_count)
 	{
 		if (!is_hd_lim(token, i)
-			&& (token[i].type != T_STRING_S && token[i].second_type != T_STRING_S)
+			&& (token[i].type != T_STRING_S
+				&& token[i].second_type != T_STRING_S)
 			&& !ft_replace_var(all, &token[i]))
 			return (0);
 		i++;

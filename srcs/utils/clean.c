@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   clean.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arazafin <arazafin@student.42antananari    +#+  +:+       +#+        */
+/*   By: ntodisoa <ntodisoa@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/08 08:08:30 by arazafin          #+#    #+#             */
-/*   Updated: 2024/10/08 08:08:31 by arazafin         ###   ########.fr       */
+/*   Created: 2024/12/06 10:32:17 by ntodisoa          #+#    #+#             */
+/*   Updated: 2024/12/20 09:41:31 by ntodisoa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,11 @@ void	free_split(char **cmd)
 	i = 0;
 	while (cmd[i] != NULL)
 	{
-		free(cmd[i]);
+		if (cmd[i])
+		{
+			free(cmd[i]);
+			cmd[i] = NULL;
+		}
 		i++;
 	}
 	free(cmd);
@@ -34,12 +38,22 @@ void	del_env(t_env **env)
 	while (tmp)
 	{
 		next = tmp->next;
-		free(tmp->key);
-		free(tmp->value);
-		free(tmp);
+		if (tmp->key)
+		{
+			free(tmp->key);
+			tmp->key = NULL;
+		}
+		if (tmp->value)
+		{
+			free(tmp->value);
+			tmp->value = NULL;
+		}
+		if (tmp)
+		{
+			free(tmp);
+		}
 		tmp = next;
 	}
-	*env = NULL;
 }
 
 int	clean_child_b(t_all *all, char **token_str)
@@ -56,4 +70,5 @@ int	clean_child(t_all *all)
 	rl_clear_history();
 	del_env(&all->env);
 	return (0);
+	free(all->env);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arazafin <arazafin@student.42antananari    +#+  +:+       +#+        */
+/*   By: ntodisoa <ntodisoa@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/29 14:34:28 by arazafin          #+#    #+#             */
-/*   Updated: 2024/09/29 14:34:31 by arazafin         ###   ########.fr       */
+/*   Created: 2024/12/06 10:22:55 by ntodisoa          #+#    #+#             */
+/*   Updated: 2024/12/20 09:40:29 by ntodisoa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,13 @@ void	del_token(t_all *all)
 	int	i;
 
 	i = 0;
-	while (i < all->token_count)
+	while (i < TOKENS_MAX)
 	{
-		free(all->tokens[i].value);
-		all->tokens[i].value = NULL;
+		if (all->tokens[i].value)
+		{
+			free(all->tokens[i].value);
+			all->tokens[i].value = NULL;
+		}
 		i++;
 	}
 }
@@ -31,9 +34,7 @@ void	clean_all(t_all *all, char **cmd)
 	free(all->cmd);
 	free_split(cmd);
 	if (!all->sh)
-	{
 		del_env(&all->env);
-	}
 }
 
 int	free_all(t_all *all)
@@ -62,10 +63,15 @@ int	check_exit_arg(char *arg, t_all *all, char **cmd)
 	i = 0;
 	while (arg[i])
 	{
-		if (ft_isdigit(arg[i]) == 0)
+		if (i == 0)
 		{
-			free_split(cmd);
+			if (arg[0] == '+' || arg[0] == '-')
+				i++;
+		}
+		if (ft_isdigit((int)arg[i]) == 0)
+		{
 			print_error("exit", arg, "numeric argument required");
+			free_split(cmd);
 			free_all(all);
 			exit(2);
 		}

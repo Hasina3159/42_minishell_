@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_str_repl.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arazafin <arazafin@student.42antananari    +#+  +:+       +#+        */
+/*   By: ntodisoa <ntodisoa@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/08 08:16:10 by arazafin          #+#    #+#             */
-/*   Updated: 2024/10/08 08:52:45 by arazafin         ###   ########.fr       */
+/*   Created: 2024/12/06 10:36:00 by ntodisoa          #+#    #+#             */
+/*   Updated: 2024/12/20 09:41:41 by ntodisoa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,13 +59,8 @@ static void	ft_loop(char *final, char *to, size_t *j, size_t *k)
 
 static void	ft_free_and_assign(char **text, char **final)
 {
-	printf("1 text : %s, final : %s\n", *text, *final);
-	//ft_strlcpy(*text, *final, ft_strlen(*final) + 1);
-	printf("2 ===============================\n");
 	free(*text);
-	printf("3 ===============================\n");
 	*text = *final;
-	printf("4 text : %s, final : %s\n", *text, *final);
 }
 
 int	ft_str_repl(char *text, char *from, char *to)

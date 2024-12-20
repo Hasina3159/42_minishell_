@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arazafin <arazafin@student.42antananari    +#+  +:+       +#+        */
+/*   By: ntodisoa <ntodisoa@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/29 14:35:00 by arazafin          #+#    #+#             */
-/*   Updated: 2024/09/29 14:35:09 by arazafin         ###   ########.fr       */
+/*   Created: 2024/12/06 10:23:08 by ntodisoa          #+#    #+#             */
+/*   Updated: 2024/12/20 09:40:31 by ntodisoa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	ft_pwd(t_all *all)
 	if (getcwd(pwd, TOKENS_MAX) == NULL)
 	{
 		error = errno;
-		print_error("cd", NULL, strerror(error));
+		print_error("pwd", NULL, strerror(error));
 		return (ERROR);
 	}
 	printf("%s\n", pwd);

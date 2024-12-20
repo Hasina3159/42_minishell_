@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_pipe.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arazafin <arazafin@student.42antananari    +#+  +:+       +#+        */
+/*   By: ntodisoa <ntodisoa@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/29 11:16:23 by arazafin          #+#    #+#             */
-/*   Updated: 2024/09/29 14:03:23 by arazafin         ###   ########.fr       */
+/*   Created: 2024/12/06 10:24:20 by ntodisoa          #+#    #+#             */
+/*   Updated: 2024/12/20 09:40:37 by ntodisoa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

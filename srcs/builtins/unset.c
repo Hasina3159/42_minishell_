@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arazafin <arazafin@student.42antananari    +#+  +:+       +#+        */
+/*   By: ntodisoa <ntodisoa@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/29 14:35:34 by arazafin          #+#    #+#             */
-/*   Updated: 2024/10/11 10:06:21 by arazafin         ###   ########.fr       */
+/*   Created: 2024/12/06 10:23:16 by ntodisoa          #+#    #+#             */
+/*   Updated: 2024/12/20 09:40:32 by ntodisoa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,17 +23,12 @@ void	del_from_env(char *var, t_env **env)
 {
 	t_env	*tmp;
 	t_env	*prev;
-	int		len;
 
 	tmp = *env;
 	prev = NULL;
 	while (tmp)
 	{
-		if (ft_strlen(var) > ft_strlen(tmp->key))
-			len = ft_strlen(var);
-		else
-		 	len = ft_strlen(tmp->key);
-		if (!ft_strncmp(var, tmp->key, len))
+		if (!ft_strncmp(var, tmp->key, ft_strlen(var) + 1))
 		{
 			if (prev == NULL)
 				*env = tmp->next;
@@ -54,7 +49,10 @@ int	ft_unset(t_all *all, char **av)
 	i = 1;
 	while (av[i])
 	{
-		del_from_env(av[i], &all->env);
+		if (is_valid_arg(av[i]))
+			del_from_env(av[i], &all->env);
+		else
+			print_error(av[0], av[i], "is not a valid identifier");
 		i++;
 	}
 	return (SUCCESS);

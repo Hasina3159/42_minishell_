@@ -3,44 +3,71 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arazafin <arazafin@student.42antananari    +#+  +:+       +#+        */
+/*   By: ntodisoa <ntodisoa@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/28 18:16:35 by arazafin          #+#    #+#             */
-/*   Updated: 2024/10/11 22:22:26 by arazafin         ###   ########.fr       */
+/*   Created: 2024/12/06 10:30:02 by ntodisoa          #+#    #+#             */
+/*   Updated: 2024/12/20 09:41:08 by ntodisoa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
+int	ft_write_to_file(const char *filename, const char *text)
+{
+	int		fd;
+	int		bytes_written;
+
+	fd = open(filename, O_WRONLY | O_CREAT | O_APPEND, 0644);
+	if (fd == -1)
+		return (0);
+	bytes_written = write(fd, text, ft_strlen(text));
+	if (bytes_written == -1)
+	{
+		close(fd);
+		return (0);
+	}
+	if (close(fd) == -1)
+		return (0);
+	return (1);
+}
+
 void	clean_after_cmd(t_all *all)
 {
 	del_token(all);
 	free(all->cmd);
+	if (all->hd_file)
+	{
+		unlink(all->hd_file);
+		free(all->hd_file);
+		all->hd_file = NULL;
+	}
 }
 
 int	read_line(char **input, t_all *all)
 {
-	(void)all;
 	if (isatty(STDIN_FILENO))
 	{
-		*input = readline(SH);
+		*input = readline(PROMPT);
 		if (*input == NULL)
 			return (1);
-		else if ((*input)[0] == '\0')
-			return (1);
-		while (op_last_pos(*input))
-				append_to_prompt(input);
-		if (*input == NULL)
-			return (1);
-		else if ((*input)[0] == '\0')
-			return (1);
-		else
+		else if (ft_strlen(*input))
+		{
 			add_history(*input);
+			ft_write_to_file(HISTORY, *input);
+			ft_write_to_file(HISTORY, "\n");
+		}
+		while (op_last_pos(*input))
+		{
+			if (append_to_prompt(input, all))
+				return (0);
+		}
+		if (*input == NULL)
+			return (1);
 	}
 	else
 	{
 		*input = NULL;
-		return (1);
+		return (0);
 	}
 	return (1);
 }
@@ -48,6 +75,12 @@ int	read_line(char **input, t_all *all)
 void	clean_exit(t_all *all)
 {
 	del_env(&all->env);
+	if (all->hd_file)
+	{
+		unlink(all->hd_file);
+		free(all->hd_file);
+		all->hd_file = NULL;
+	}
 	rl_clear_history();
 	printf("exit\n");
 	if (all->tmp > 0)
@@ -59,15 +92,15 @@ void	clean_exit(t_all *all)
 
 int	main(void)
 {
-	int		i;
-	t_all	all;
+	int				i;
+	static t_all	all;
 
-	signal(SIGINT, ft_ctrl_c);
-	signal(SIGQUIT, SIG_IGN);
 	init_shell(&all);
+	all.second = 0;
 	while (1)
 	{
-		read_line(&all.cmd, &all);
+		if (!read_line(&all.cmd, &all))
+			continue ;
 		if (all.cmd == NULL)
 		{
 			clean_exit(&all);
@@ -75,10 +108,7 @@ int	main(void)
 		}
 		i = 0;
 		if (!ft_tokenize(&all))
-		{
 			ft_execute_all(&all, &i);
-			//ft_show_sanitized_command(&all);
-		}
 		clean_after_cmd(&all);
 	}
 	return (0);

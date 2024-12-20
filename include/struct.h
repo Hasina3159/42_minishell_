@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arazafin <arazafin@student.42antananari    +#+  +:+       +#+        */
+/*   By: ntodisoa <ntodisoa@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/29 11:17:40 by arazafin          #+#    #+#             */
-/*   Updated: 2024/10/12 11:44:44 by arazafin         ###   ########.fr       */
+/*   Created: 2024/12/06 10:21:29 by ntodisoa          #+#    #+#             */
+/*   Updated: 2024/12/20 09:40:06 by ntodisoa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,12 @@ typedef struct s_env
 	struct s_env	*next;
 }					t_env;
 
-// typedef struct s_lex
-// {
-// 	int				type;
-// 	int				second_type;
-// 	char			*value;
-// 	struct s_lex	*next;
-// }					t_lex;
+typedef struct s_expand
+{
+	char	*result;
+	int		i;
+	int		tok_i;
+}	t_expand;
 
 typedef struct s_all
 {
@@ -46,6 +45,8 @@ typedef struct s_all
 	t_token			tokens[TOKENS_MAX];
 	int				token_count;
 	t_env			*env;
+	int				pos;
+	int				nb_cmd;
 	int				statloc;
 	int				exit_status;
 	int				child_pid;
@@ -60,13 +61,8 @@ typedef struct s_all
 	int				out_type;
 	int				x;
 	char			*hd_file;
-	t_list			*lex;
+	int				hd_expand;
+	int				second;
 }					t_all;
 
-typedef struct s_dir
-{
-	char			*name;
-	int				type;
-	struct s_dir	*next;
-}					t_dir;
 #endif
