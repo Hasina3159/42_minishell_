@@ -14,20 +14,24 @@
 
 void	ft_read_history(const char *filename)
 {
-    FILE *file = fopen(filename, "r");
-    char buffer[1024];
+	int		file;
+	char	*buffer;
 
-    if (!file) {
-        return;
-    }
-
-    while (fgets(buffer, sizeof(buffer), file))
-	{
+	file = open(filename, O_RDONLY);
+	if (!file)
+		return ;
+	buffer = get_next_line(file);
+	if (buffer && ft_strlen(buffer) > 0)
 		buffer[ft_strlen(buffer) - 1] = 0;
+	while (buffer != NULL)
+	{
 		add_history(buffer);
+		free(buffer);
+		buffer = get_next_line(file);
+		if (buffer && ft_strlen(buffer) > 0)
+			buffer[ft_strlen(buffer) - 1] = 0;
 	}
-
-    fclose(file);
+	close(file);
 }
 
 int	init_sh_env(t_all *all)

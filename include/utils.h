@@ -49,5 +49,6 @@ int		env_size(t_env *env);
 int		ft_is_separator(char c);
 int		ft_is_quotes(char c);
 void	ft_pass_separator(char const *s, int *i, int *count, int *is_in_a_str);
+char	*get_next_line(int fd);
 
 #endif

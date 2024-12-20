@@ -18,19 +18,16 @@ int	ft_write_to_file(const char *filename, const char *text)
 	int		bytes_written;
 
 	fd = open(filename, O_WRONLY | O_CREAT | O_APPEND, 0644);
-	if (fd == -1) {
+	if (fd == -1)
 		return (0);
-	}
-
 	bytes_written = write(fd, text, ft_strlen(text));
-	if (bytes_written == -1) {
+	if (bytes_written == -1)
+	{
 		close(fd);
 		return (0);
 	}
-
 	if (close(fd) == -1)
 		return (0);
-
 	return (1);
 }
 
