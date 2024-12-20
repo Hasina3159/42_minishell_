@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_str_repl_copy.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ntodisoa <ntodisoa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ntodisoa <ntodisoa@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/06 10:35:52 by ntodisoa          #+#    #+#             */
-/*   Updated: 2024/12/08 16:01:30 by ntodisoa         ###   ########.fr       */
+/*   Updated: 2024/12/20 09:41:38 by ntodisoa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

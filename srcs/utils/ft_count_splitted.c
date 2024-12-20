@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_count_splitted.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ntodisoa <ntodisoa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ntodisoa <ntodisoa@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/06 10:33:28 by ntodisoa          #+#    #+#             */
-/*   Updated: 2024/12/06 10:33:29 by ntodisoa         ###   ########.fr       */
+/*   Updated: 2024/12/20 09:41:33 by ntodisoa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_show_sanitized_command.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ntodisoa <ntodisoa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ntodisoa <ntodisoa@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/06 10:35:47 by ntodisoa          #+#    #+#             */
-/*   Updated: 2024/12/06 10:35:48 by ntodisoa         ###   ########.fr       */
+/*   Updated: 2024/12/20 09:41:37 by ntodisoa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

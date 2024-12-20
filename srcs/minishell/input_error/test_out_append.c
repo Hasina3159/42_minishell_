@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   test_out_append.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ntodisoa <ntodisoa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ntodisoa <ntodisoa@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/06 10:29:07 by ntodisoa          #+#    #+#             */
-/*   Updated: 2024/12/08 14:46:28 by ntodisoa         ###   ########.fr       */
+/*   Updated: 2024/12/20 09:41:06 by ntodisoa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

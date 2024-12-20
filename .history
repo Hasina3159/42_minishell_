@@ -15,3 +15,48 @@ pwd
 ../../../../../../bin/ls
 ../../../../../../bin/ls 65465
 echo $?
+echo test
+asdsad
+sad
+asd
+asd
+asd
+sdf
+fg
+gh
+gh
+gh
+h
+h
+gh
+g
+ghj
+ghjghjghjghjghjg
+ghjghjghjghjghjgh
+adsad
+clear
+asdsadsa
+export a="sadasdsad asd asd asd sad sad asd sad a"
+$a
+sdfsd
+sadsa
+fgasdsad
+make
+clear
+make re
+clear
+sadsa
+clear
+make re
+clear
+asdsad
+rm minishell 
+mamamiaaaaaa
+echo test | test 
+echo $USER
+echo "$USER" | cat -e
+echo "$USER" | cat -e
+echo "$USER" | cat -e
+echo "$USER" | cat -e
+echo "$USER" | cat -e
+echo "$USER" | cat -e

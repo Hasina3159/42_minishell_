@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_predecence.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ntodisoa <ntodisoa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ntodisoa <ntodisoa@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/06 10:24:34 by ntodisoa          #+#    #+#             */
-/*   Updated: 2024/12/06 10:24:35 by ntodisoa         ###   ########.fr       */
+/*   Updated: 2024/12/20 09:40:39 by ntodisoa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

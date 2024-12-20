@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   define.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: petera <petera@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ntodisoa <ntodisoa@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/06 10:21:03 by ntodisoa          #+#    #+#             */
-/*   Updated: 2024/12/19 22:33:47 by petera           ###   ########.fr       */
+/*   Updated: 2024/12/20 09:40:04 by ntodisoa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@
 # define HISTORY ".history"
 # define CMD_NOT_FOUND 127
 # define T_SPACE 128
-# define SH "\001\e[32m\002BotError "
+# define SH "\001\e[31m\002BotError "
 # define PROMPT "\001\e[32m\002BotBash> \001\e[0m\002"
 
 typedef enum e_state

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_is_operator.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ntodisoa <ntodisoa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ntodisoa <ntodisoa@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/06 10:33:45 by ntodisoa          #+#    #+#             */
-/*   Updated: 2024/12/06 10:33:46 by ntodisoa         ###   ########.fr       */
+/*   Updated: 2024/12/20 09:41:34 by ntodisoa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
