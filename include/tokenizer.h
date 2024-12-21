@@ -6,7 +6,7 @@
 /*   By: ntodisoa <ntodisoa@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/06 10:21:41 by ntodisoa          #+#    #+#             */
-/*   Updated: 2024/12/20 09:40:07 by ntodisoa         ###   ########.fr       */
+/*   Updated: 2024/12/21 14:38:51 by ntodisoa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ void	ft_set_operator(t_token *token);
 void	ft_set_other(t_all *all);
 int		ft_is_sep(char c);
 void	ft_create_token(t_all *all);
-void	ft_print_tokens(t_all *all);
 void	ft_set_command(t_all *all);
 char	**ft_get_all_var(char *s);
 void	ft_show_all_var(char **var);

@@ -6,7 +6,7 @@
 /*   By: ntodisoa <ntodisoa@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/06 10:31:07 by ntodisoa          #+#    #+#             */
-/*   Updated: 2024/12/21 14:26:58 by ntodisoa         ###   ########.fr       */
+/*   Updated: 2024/12/21 14:39:31 by ntodisoa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,12 +73,10 @@ int	ft_start_quotes(t_all *all)
 		}
 		all->quote_char = all->cmd[all->i];
 		all->current_token[all->token_index] = all->quote_char;
-
-		printf("i+1 : [%c] [%c] [%c]\n", all->cmd[all->i], all->cmd[all->i + 1], all->quote_char);
-		if (!(all->cmd[all->i] == all->cmd[all->i + 1] && all->cmd[all->i] == all->quote_char))
+		if (!(all->cmd[all->i] == all->cmd[all->i + 1] && \
+		all->cmd[all->i] == all->quote_char))
 			all->i++;
 		all->token_index++;
-		printf("START : all->current_token : [%s] [%d] [%ld] [%c]\n", all->current_token, all->token_index, all->i, all->cmd[all->i]);
 		return (1);
 	}
 	return (0);
