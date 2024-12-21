@@ -6,21 +6,11 @@
 /*   By: ntodisoa <ntodisoa@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/06 10:31:40 by ntodisoa          #+#    #+#             */
-/*   Updated: 2024/12/20 17:00:22 by ntodisoa         ###   ########.fr       */
+/*   Updated: 2024/12/21 13:49:36 by ntodisoa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-
-void	ft_finalize(t_all *all)
-{
-	if (!ft_strncmp(all->current_token, "\"\"", 2) && \
-	all->quote_char == '"')
-		all->current_token[0] = 0;
-	else if (!ft_strncmp(all->current_token, "''", 2) && \
-	all->quote_char == '\'')
-		all->current_token[0] = 0;
-}
 
 void	ft_end_token(t_all *all)
 {
@@ -34,9 +24,12 @@ void	ft_end_token(t_all *all)
 
 void	ft_create_token(t_all *all)
 {
+	int	in_quotes;
+
 	while (all->i < ft_strlen(all->cmd))
 	{
-		if (!ft_in_quotes_operation(all))
+		in_quotes = ft_in_quotes_operation(all);
+		if (in_quotes == 0)
 		{
 			if (ft_isspace(all->cmd[all->i]))
 			{
@@ -53,9 +46,7 @@ void	ft_create_token(t_all *all)
 			else
 				all->current_token[all->token_index++] = all->cmd[all->i];
 		}
-		//ft_finalize(all);
 		all->i = all->i + 1;
-
 	}
 	ft_end_token(all);
 }

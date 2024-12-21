@@ -6,7 +6,7 @@
 /*   By: ntodisoa <ntodisoa@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/08 15:41:47 by ntodisoa          #+#    #+#             */
-/*   Updated: 2024/12/20 09:41:27 by ntodisoa         ###   ########.fr       */
+/*   Updated: 2024/12/21 13:27:21 by ntodisoa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,8 @@ void	ft_set_operator_0(t_token *token)
 	int	len;
 
 	len = ft_strlen(token->value);
-	if (len == 0)
-	{
-		token->type = T_END;
+	if (token->type == T_END)
 		return ;
-	}
 	if (token->second_type != T_STRING_S || token->second_type != T_STRING_D)
 	{
 		if (!ft_strncmp(token->value, "|", len))
@@ -40,11 +37,8 @@ void	ft_set_operator_1(t_token *token)
 	int	len;
 
 	len = ft_strlen(token->value);
-	if (len == 0)
-	{
-		token->type = T_END;
+	if (token->type == T_END)
 		return ;
-	}
 	if (token->second_type != T_STRING_S || token->second_type != T_STRING_D)
 	{
 		if (!ft_strncmp(token->value, ")", len))

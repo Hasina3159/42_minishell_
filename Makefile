@@ -27,7 +27,7 @@ clean:
 	make -C $(LIBFT_PATH) clean
 
 fclean: clean
-	$(RM) $(NAME) .fake_clone
+	$(RM) $(NAME) .history
 	make -C $(LIBFT_PATH) fclean
 
 re: fclean all

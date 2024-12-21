@@ -6,7 +6,7 @@
 /*   By: ntodisoa <ntodisoa@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/06 10:22:55 by ntodisoa          #+#    #+#             */
-/*   Updated: 2024/12/20 09:40:29 by ntodisoa         ###   ########.fr       */
+/*   Updated: 2024/12/21 10:28:54 by ntodisoa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,9 +58,13 @@ int	free_all(t_all *all)
 
 int	check_exit_arg(char *arg, t_all *all, char **cmd)
 {
-	int	i;
+	int		i;
+	char	*tmp;
 
 	i = 0;
+	tmp = ft_strtrim(arg, " \t");
+	ft_strlcpy(arg, tmp, ft_strlen(tmp) + 1);
+	free(tmp);
 	while (arg[i])
 	{
 		if (i == 0)
